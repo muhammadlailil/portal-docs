@@ -1,0 +1,1422 @@
+
+<!doctype html>
+<html>
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Portal UI : Input</title>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"/>
+     <link href="assets/portal-ui.css" rel="stylesheet"/>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/anchor@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs-okaidia-theme@0.0.1/prism-okaidia.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
+     <style>
+          pre *,
+          code * {
+              font-family: 'Fira Code' !important;
+              font-size: 14px !important;
+          }
+     
+          .language-markup .namespace {
+               opacity: 1;
+          }
+     </style>
+     <script>
+          document.documentElement.classList.toggle(
+               "dark",
+               localStorage.theme === "dark" ||
+               (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+          );
+     </script>
+ </head>
+
+
+<body class="px-6" x-data="{
+    showTooltip(){
+         
+    }
+}">
+    <div class="container flex flex-col h-screen">
+        <header
+    class="flex h-16 shrink-0 items-center gap-2 transition-[height,padding] ease-linear group-has-[[data-state=collapsed]]/sidebar-wrapper:h-12 sticky top-0 bg-background z-10">
+    <div class="flex items-center gap-2 px-4 w-full">
+        <h3 class="font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight mb-5">
+                Portal UI
+            </h3>
+
+            <div class="ml-auto flex items-center space-x-4">
+                <div x-data="{
+    theme: localStorage.theme,
+    toggleTheme() {
+        var val = this.theme == 'dark' ? 'light' : 'dark'
+        this.theme = val
+        localStorage.theme = val;
+        document.documentElement.classList.toggle('dark');
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 !rounded-full w-10 !px-2" type="button" x-on:click="toggleTheme"
+    >
+        <svg x-show="theme!='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-sun"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+  <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+</svg>        <svg x-show="theme=='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-moon"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+</svg>
+    </button>
+</div>
+            </div>
+    </div>
+</header>
+        <div class="flex py-7 flex-1 h-full overflow-hidden">
+            <nav class="border-r w-[250px] px-3 overflow-auto">
+                <ul>
+                    <li>
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Getting Started
+                        </span>
+                        <ol>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="index.html">
+        Introduction
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="installation.html">
+        Installation
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="theming.html">
+        Theming
+    </a>
+</li>
+                        </ol>
+                    </li>
+                    <li class="mt-4">
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Components
+                        </span>
+                        <ol>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="accordion.html">
+        Accordion
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert.html">
+        Alert
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert-dialog.html">
+        Alert Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="avatar.html">
+        Avatar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="badge.html">
+        Badge
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="breadcrumb.html">
+        Breadcrumb
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="button.html">
+        Button
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="ckeditor.html">
+        CK Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="card.html">
+        Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="checkbox.html">
+        Checkbox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="combobox.html">
+        Combobox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="command.html">
+        Command
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="datepicker.html">
+        Date Picker
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dialog.html">
+        Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dropdown.html">
+        Dropdown
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="fileupload.html">
+        File Upload
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="form.html">
+        Form
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="heading.html">
+        Heading
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="hovercard.html">
+        Hover Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="input.html" active="active">
+        Input
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="label.html">
+        Label
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="link.html">
+        Link
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="otp.html">
+        OTP / PIN
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="pagination.html">
+        Pagination
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="popover.html">
+        Popover
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="progress.html">
+        Progress
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="quilleditor.html">
+        Quill Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="radio.html">
+        Radio
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="select.html">
+        Select
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="separator.html">
+        Separator
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sheet.html">
+        Sheet
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sidebar.html">
+        Sidebar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="switch.html">
+        Switch
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="table.html">
+        Table
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tabs.html">
+        Tabs
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="textarea.html">
+        Textarea
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="toast.html">
+        Toast
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tooltip.html">
+        Tooltip
+    </a>
+</li>
+                                                    </ol>
+                    </li>
+                </ul>
+            </nav>
+            <div class="px-8 flex-1 overflow-auto">
+                <div>
+        <h3 class="font-heading text-2xl font-semibold">
+            Input
+        </h3>
+        <p class="text-md text-zinc-500">
+            Displays a form input field or a component that looks like an input field.
+        </p>
+
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px]">
+                    <div x-data="{ inputValue: '', inputType: 'email', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Email" name="email"
+        placeholder="Email" name="email"         x-model="inputValue" />
+    
+</div>
+
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::input type="email" placeholder="Email" name="email"/&gt;</code></pre>
+</div>
+</div>
+</div>
+
+<h3 class="font-heading text-xl font-semibold mt-5">
+    Publishing Component
+</h3>
+<p class="text-sm text-zinc-500">
+    If you want to customize the components, you can publish them by running the following command :
+</p>
+<pre class=" rounded-lg whitespace-nowrap"><code class="language-sh">php artisan vendor:publish --tag=portal-ui:input --force</code></pre>
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Type
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px] flex flex-col gap-4">
+                    <div x-data="{ inputValue: '', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Name" name="Name"
+        placeholder="Name" name="Name"         x-model="inputValue" />
+    
+</div>
+
+                    <div x-data="{ inputValue: '', inputType: 'email', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Email" name="Email"
+        placeholder="Email" name="Email"         x-model="inputValue" />
+    
+</div>
+
+                    <div x-data="{ inputValue: '', inputType: 'number', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Quantity" name="Quantity"
+        placeholder="Quantity" name="Quantity"         x-model="inputValue" />
+    
+</div>
+
+                    <div x-data="{ inputValue: '', inputType: 'password', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Password" name="Password"
+        placeholder="Password" name="Password"         x-model="inputValue" />
+    
+</div>
+
+                    <div x-data="{ inputValue: '', inputType: 'file', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Document" name="Document"
+        placeholder="Document" name="Document"         x-model="inputValue" />
+    
+</div>
+
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::input type="text" placeholder="Name" name="Name" /&gt;
+&lt;x-portal::input type="email" placeholder="Email" name="Email" /&gt;
+&lt;x-portal::input type="number" placeholder="Quantity" name="Quantity" /&gt;
+&lt;x-portal::input type="password" placeholder="Password" name="Password" /&gt;
+&lt;x-portal::input type="file" placeholder="Document" name="Document" /&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Invalid
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px]">
+                    <div x-data="{ inputValue: '', inputType: 'email', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input border-red-600 text-primary h-10 px-4 py-2" placeholder="Email" name="email" invalid="invalid"
+        placeholder="Email" name="email" invalid="invalid"         x-model="inputValue" />
+    
+</div>
+
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::input type="email" placeholder="Email" name="email" invalid/&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Disabled
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px]">
+                    <div x-data="{ inputValue: '', inputType: 'email', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input disabled:!cursor-not-allowed disabled:opacity-50 disabled:border disabled:shadow-sm disabled:border-input text-primary h-10 px-4 py-2" placeholder="Email" name="email" disabled="disabled"
+        placeholder="Email" name="email" disabled="disabled"         x-model="inputValue" />
+    
+</div>
+
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::input type="email" placeholder="Email" name="email" disabled /&gt;</code></pre>
+</div>
+</div>
+</div>
+
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Read Only
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px]">
+                    <div x-data="{ inputValue: 'BA7K7QZ511S8Z2K', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input read-only:border-none read-only:bg-zinc-800/5 read-only:shadow-none text-primary h-10 px-4 py-2" placeholder="Secret Key" name="secret_key" readonly="readonly" value="BA7K7QZ511S8Z2K"
+        placeholder="Secret Key" name="secret_key" readonly="readonly" value="BA7K7QZ511S8Z2K"         x-model="inputValue" />
+    
+</div>
+
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::input type="text" placeholder="Secret Key" name="secret_key" readonly value="BA7K7QZ511S8Z2K"/&gt;</code></pre>
+</div>
+</div>
+</div>
+
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Mask
+        </h3>
+        <p class="text-sm text-zinc-500">
+            Restrict the formatting of text content for unique cases by using <a class="font-medium underline underline-offset-4" href="https://alpinejs.dev/plugins/mask" target="_blank">Alpine's mask plugin</a>
+        </p>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px]">
+                    <div x-data="{ inputValue: '7161234567', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Phone Number" name="phone_number" value="7161234567"
+        placeholder="Phone Number" name="phone_number" value="7161234567"  x-mask="(999) 999-9999"         x-model="inputValue" />
+    
+</div>
+
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::input type="text" placeholder="Phone Number" name="phone_number" mask="(999) 999-9999" value="7161234567"/&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Size
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px] flex flex-col gap-4">
+                    <div x-data="{ inputValue: '', inputType: 'email', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-8 px-3 text-xs" placeholder="Email"
+        placeholder="Email"         x-model="inputValue" />
+    
+</div>
+
+                    <div x-data="{ inputValue: '', inputType: 'email', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Email"
+        placeholder="Email"         x-model="inputValue" />
+    
+</div>
+
+                    <div x-data="{ inputValue: '', inputType: 'email', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-12 px-5" placeholder="Email"
+        placeholder="Email"         x-model="inputValue" />
+    
+</div>
+
+                    <div x-data="{ inputValue: '', inputType: 'email', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-13 px-6 text-xl" placeholder="Email"
+        placeholder="Email"         x-model="inputValue" />
+    
+</div>
+
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::input type="email" placeholder="Email" size="sm"/&gt;
+&lt;x-portal::input type="email" placeholder="Email"/&gt;
+&lt;x-portal::input type="email" placeholder="Email" size="lg"/&gt;
+&lt;x-portal::input type="email" placeholder="Email" size="xl"/&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            With Label
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px] flex flex-col gap-4">
+                    <div class="grid w-full max-w-sm items-center gap-1.5">
+                        <label  for="file"     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+    Email
+</label>
+                        <div x-data="{ inputValue: '', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Email" name="email"
+        placeholder="Email" name="email"         x-model="inputValue" />
+    
+</div>
+
+                    </div>
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;div class="grid w-full max-w-sm items-center gap-1.5"&gt;
+    &lt;x-portal::label htmlFor="file"&gt;Email&lt;/x-portal::label&gt;
+    &lt;x-portal::input type="text" placeholder="Email" name="email" /&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            With Button
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px] flex flex-col gap-4">
+                    <div class="flex w-full max-w-sm items-center space-x-2">
+                        <div x-data="{ inputValue: '', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Email" name="email"
+        placeholder="Email" name="email"         x-model="inputValue" />
+    
+</div>
+
+                        <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 px-4 py-2"
+    >
+        Subscribe
+    </button>
+                    </div>
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;div class="flex w-full max-w-sm items-center space-x-2"&gt;
+    &lt;x-portal::input type="text" placeholder="Email" name="email" /&gt;
+    &lt;x-portal::button&gt;Subscribe&lt;/x-portal::button&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            With Icon
+        </h3>
+        <p class="text-sm text-zinc-500">
+            Append or prepend an icon to the inside of a form input by using <a class="font-medium underline underline-offset-4" href="https://tabler.io/icons" target="_blank">table icon</a>
+        </p>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px] flex flex-col gap-4">
+                    <div x-data="{ inputValue: '', inputType: 'email', copied: false,viewed:false }" class="relative w-full block group-input">
+            <div class="absolute hover:bg-accent m-1 h-[85%] text-zinc-400 flex items-center justify-center rounded-sm w-10 p-2.5 left-0">
+            <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-mail"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" />
+  <path d="M3 7l9 6l9 -6" />
+</svg>        </div>
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2 ps-12" placeholder="Email" name="email"
+        placeholder="Email" name="email"         x-model="inputValue" />
+    
+</div>
+
+                    <div x-data="{ inputValue: '', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+                <div class="absolute hover:bg-accent m-1 h-[85%] text-zinc-400 flex items-center justify-center rounded-sm w-10 p-2.5 right-0">
+            <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" />
+  <path d="M3 10l18 0" />
+  <path d="M7 15l.01 0" />
+  <path d="M11 15l2 0" />
+</svg>        </div>
+        
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2 pr-10" placeholder="Credit Card" name="credit_card"
+        placeholder="Credit Card" name="credit_card"         x-model="inputValue" />
+    
+</div>
+
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::input type="email" placeholder="Email" name="email" icon="mail" /&gt;
+&lt;x-portal::input type="text" placeholder="Credit Card" name="credit_card" icon-right="credit-card"/&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Clearable, copyable, and viewable inputs
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px] flex flex-col gap-4">
+                    <div x-data="{ inputValue: 'Jack Skellington', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <button type="button" class="absolute hover:bg-accent m-1 h-[85%] text-zinc-400 flex items-center justify-center rounded-sm w-10 p-2.5 right-0"
+            x-on:click="inputValue='';$el.parentNode.querySelector('input').value=''">
+            <svg x-cloak="1" x-show="inputValue!=''"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" />
+</svg>        </button>
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2 pr-10" placeholder="Search orders" value="Jack Skellington"
+        placeholder="Search orders" value="Jack Skellington"         x-model="inputValue" />
+    
+</div>
+
+                    <div x-data="{ inputValue: 'password', inputType: 'password', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+                <button type="button" class="absolute hover:bg-accent m-1 h-[85%] text-zinc-400 flex items-center justify-center rounded-sm w-10 p-2.5 right-0"
+            x-on:click="viewed ? inputType='text' : inputType = 'password';viewed=!viewed">
+            <svg x-cloak="1" x-show="!viewed"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-eye-off"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M10.585 10.587a2 2 0 0 0 2.829 2.828" />
+  <path d="M16.681 16.673a8.717 8.717 0 0 1 -4.681 1.327c-3.6 0 -6.6 -2 -9 -6c1.272 -2.12 2.712 -3.678 4.32 -4.674m2.86 -1.146a9.055 9.055 0 0 1 1.82 -.18c3.6 0 6.6 2 9 6c-.666 1.11 -1.379 2.067 -2.138 2.87" />
+  <path d="M3 3l18 18" />
+</svg>            <svg x-cloak="1" x-show="viewed"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-eye"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+  <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+</svg>        </button>
+        <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2 pr-10" value="password"
+        value="password"         x-model="inputValue" />
+    
+</div>
+
+                    <div x-data="{ inputValue: 'FLUX-1234-5678-ABCD-EFGH', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+                    <button type="button" class="absolute hover:bg-accent m-1 h-[85%] text-zinc-400 flex items-center justify-center rounded-sm w-10 p-2.5 right-0"
+            x-on:click="copied = ! copied; navigator.clipboard && navigator.clipboard.writeText($el.parentNode.querySelector('input').value); ;setTimeout(() => copied = false, 2000)">
+            <svg x-cloak="1" x-show="!copied"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-copy"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" />
+  <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+</svg>            <svg x-cloak="1" x-show="copied"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  class="icon icon-tabler icons-tabler-filled icon-tabler-copy-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M18.333 6a3.667 3.667 0 0 1 3.667 3.667v8.666a3.667 3.667 0 0 1 -3.667 3.667h-8.666a3.667 3.667 0 0 1 -3.667 -3.667v-8.666a3.667 3.667 0 0 1 3.667 -3.667zm-3.333 -4c1.094 0 1.828 .533 2.374 1.514a1 1 0 1 1 -1.748 .972c-.221 -.398 -.342 -.486 -.626 -.486h-10c-.548 0 -1 .452 -1 1v9.998c0 .32 .154 .618 .407 .805l.1 .065a1 1 0 1 1 -.99 1.738a3 3 0 0 1 -1.517 -2.606v-10c0 -1.652 1.348 -3 3 -3zm1.293 9.293l-3.293 3.292l-1.293 -1.292a1 1 0 0 0 -1.414 1.414l2 2a1 1 0 0 0 1.414 0l4 -4a1 1 0 0 0 -1.414 -1.414" />
+</svg>        </button>
+    
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input read-only:border-none read-only:bg-zinc-800/5 read-only:shadow-none text-primary h-10 px-4 py-2 pr-10" value="FLUX-1234-5678-ABCD-EFGH" readonly="readonly"
+        value="FLUX-1234-5678-ABCD-EFGH" readonly="readonly"         x-model="inputValue" />
+    
+</div>
+
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::input placeholder="Search orders" value="Jack Skellington" clearable/&gt;
+&lt;x-portal::input type="password" value="password" viewable/&gt;
+&lt;x-portal::input value="FLUX-1234-5678-ABCD-EFGH" readonly copyable/&gt;</code></pre>
+</div>
+</div>
+</div>
+
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Input Group
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px] flex flex-col gap-4">
+                    <div class="flex [&>.group-input:first-child>input]:border-r-0 [&>.group-input:first-child>input]:rounded-r-none  [&>.prefix:last-child]:rounded-l-none [&>.prefix:first-child]:border-r-0 [&>.prefix:first-child]:rounded-r-none [&>button:first-child]:border-r-0 [&>button:first-child]:rounded-r-none [&>button:last-child]:rounded-l-none  [&>div:last-child>input]:rounded-l-none group">
+    <div x-data="{ inputValue: '', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Post title" name="post_title"
+        placeholder="Post title" name="post_title"         x-model="inputValue" />
+    
+</div>
+
+                        <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 !shadow-none"
+    >
+        <svg class="h-4.5"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 5l0 14" />
+  <path d="M5 12l14 0" />
+</svg>                            New Post
+    </button>
+</div>                    
+                    <div class="flex [&>.group-input:first-child>input]:border-r-0 [&>.group-input:first-child>input]:rounded-r-none  [&>.prefix:last-child]:rounded-l-none [&>.prefix:first-child]:border-r-0 [&>.prefix:first-child]:rounded-r-none [&>button:first-child]:border-r-0 [&>button:first-child]:rounded-r-none [&>button:last-child]:rounded-l-none  [&>div:last-child>input]:rounded-l-none group">
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 !shadow-none"
+    >
+        <svg class="h-4.5"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 5l0 14" />
+  <path d="M5 12l14 0" />
+</svg>                            New Post
+    </button>
+                        <div x-data="{ inputValue: '', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="Post title" name="post_title"
+        placeholder="Post title" name="post_title"         x-model="inputValue" />
+    
+</div>
+</div>                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::input.group&gt;
+    &lt;x-portal::input type="text" placeholder="Post title" name="post_title" /&gt;
+    &lt;x-portal::button variant="outline" class="!shadow-none"&gt;
+        &lt;x-tabler-plus class="h-4.5" /&gt;
+        New Post
+    &lt;/x-portal::button&gt;
+&lt;/x-portal::input.group&gt;
+
+&lt;x-portal::input.group&gt;
+    &lt;x-portal::button variant="outline" class="!shadow-none"&gt;
+        &lt;x-tabler-plus class="h-4.5" /&gt;
+        New Post
+    &lt;/x-portal::button&gt;
+    &lt;x-portal::input type="text" placeholder="Post title" name="post_title" /&gt;
+&lt;/x-portal::input.group&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Text prefixes and suffixes
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[350px] flex flex-col gap-4">
+                    <div class="flex [&>.group-input:first-child>input]:border-r-0 [&>.group-input:first-child>input]:rounded-r-none  [&>.prefix:last-child]:rounded-l-none [&>.prefix:first-child]:border-r-0 [&>.prefix:first-child]:rounded-r-none [&>button:first-child]:border-r-0 [&>button:first-child]:rounded-r-none [&>button:last-child]:rounded-l-none  [&>div:last-child>input]:rounded-l-none group">
+    <div class="flex items-center px-3 rounded-sm border border-input bg-zinc-800/5 text-zinc-800 prefix text-sm">
+    https://
+</div>
+                        <div x-data="{ inputValue: '', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="example.com" name="domain"
+        placeholder="example.com" name="domain"         x-model="inputValue" />
+    
+</div>
+</div>                    <br>
+                    <div class="flex [&>.group-input:first-child>input]:border-r-0 [&>.group-input:first-child>input]:rounded-r-none  [&>.prefix:last-child]:rounded-l-none [&>.prefix:first-child]:border-r-0 [&>.prefix:first-child]:rounded-r-none [&>button:first-child]:border-r-0 [&>button:first-child]:rounded-r-none [&>button:last-child]:rounded-l-none  [&>div:last-child>input]:rounded-l-none group">
+    <div x-data="{ inputValue: '', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" placeholder="chunky-spaceship" name="domain"
+        placeholder="chunky-spaceship" name="domain"         x-model="inputValue" />
+    
+</div>
+
+                        <div class="flex items-center px-3 rounded-sm border border-input bg-zinc-800/5 text-zinc-800 prefix text-sm">
+    .brand.com
+</div>
+</div>                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::input.group&gt;
+    &lt;x-portal::input.group-prefix&gt;
+        https://
+    &lt;/x-portal::input.group-prefix&gt;
+    &lt;x-portal::input type="text" placeholder="example.com" name="domain" /&gt;
+&lt;/x-portal::input.group&gt;
+&lt;br&gt;
+&lt;x-portal::input.group&gt;
+    &lt;x-portal::input type="text" placeholder="chunky-spaceship" name="domain" /&gt;
+    &lt;x-portal::input.group-prefix&gt;
+        .brand.com
+    &lt;/x-portal::input.group-prefix&gt;
+&lt;/x-portal::input.group&gt;</code></pre>
+</div>
+</div>
+</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

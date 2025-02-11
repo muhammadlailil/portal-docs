@@ -1,0 +1,869 @@
+
+<!doctype html>
+<html>
+     <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Portal UI : Sheet</title>
+          <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"/>
+          <link href="assets/portal-ui.css" rel="stylesheet"/>
+          <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/anchor@3.x.x/dist/cdn.min.js"></script>
+          <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs-okaidia-theme@0.0.1/prism-okaidia.min.css">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
+          <style>
+               pre *,
+               code * {
+                   font-family: 'Fira Code' !important;
+                   font-size: 14px !important;
+               }
+          
+               .language-markup .namespace {
+                    opacity: 1;
+               }
+          </style>
+          <script>
+               document.documentElement.classList.toggle(
+                    "dark",
+                    localStorage.theme === "dark" ||
+                    (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+               );
+          </script>
+      </head>
+
+
+<body class="px-6" x-data="{
+    showTooltip(){
+         
+    }
+}">
+    <div class="container flex flex-col h-screen">
+        <header
+    class="flex h-16 shrink-0 items-center gap-2 transition-[height,padding] ease-linear group-has-[[data-state=collapsed]]/sidebar-wrapper:h-12 sticky top-0 bg-background z-10">
+    <div class="flex items-center gap-2 px-4 w-full">
+        <h3 class="font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight mb-5">
+                Portal UI
+            </h3>
+
+            <div class="ml-auto flex items-center space-x-4">
+                <div x-data="{
+    theme: localStorage.theme,
+    toggleTheme() {
+        var val = this.theme == 'dark' ? 'light' : 'dark'
+        this.theme = val
+        localStorage.theme = val;
+        document.documentElement.classList.toggle('dark');
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 !rounded-full w-10 !px-2" type="button" x-on:click="toggleTheme"
+    >
+        <svg x-show="theme!='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-sun"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+  <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+</svg>        <svg x-show="theme=='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-moon"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+</svg>
+    </button>
+</div>
+            </div>
+    </div>
+</header>
+        <div class="flex py-7 flex-1 h-full overflow-hidden">
+            <nav class="border-r w-[250px] px-3 overflow-auto">
+                <ul>
+                    <li>
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Getting Started
+                        </span>
+                        <ol>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="index.html">
+        Introduction
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="installation.html">
+        Installation
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="theming.html">
+        Theming
+    </a>
+</li>
+                        </ol>
+                    </li>
+                    <li class="mt-4">
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Components
+                        </span>
+                        <ol>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="accordion.html">
+        Accordion
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert.html">
+        Alert
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert-dialog.html">
+        Alert Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="avatar.html">
+        Avatar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="badge.html">
+        Badge
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="breadcrumb.html">
+        Breadcrumb
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="button.html">
+        Button
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="ckeditor.html">
+        CK Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="card.html">
+        Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="checkbox.html">
+        Checkbox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="combobox.html">
+        Combobox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="command.html">
+        Command
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="datepicker.html">
+        Date Picker
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dialog.html">
+        Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dropdown.html">
+        Dropdown
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="fileupload.html">
+        File Upload
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="form.html">
+        Form
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="heading.html">
+        Heading
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="hovercard.html">
+        Hover Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="input.html">
+        Input
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="label.html">
+        Label
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="link.html">
+        Link
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="otp.html">
+        OTP / PIN
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="pagination.html">
+        Pagination
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="popover.html">
+        Popover
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="progress.html">
+        Progress
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="quilleditor.html">
+        Quill Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="radio.html">
+        Radio
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="select.html">
+        Select
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="separator.html">
+        Separator
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sheet.html" active="active">
+        Sheet
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sidebar.html">
+        Sidebar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="switch.html">
+        Switch
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="table.html">
+        Table
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tabs.html">
+        Tabs
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="textarea.html">
+        Textarea
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="toast.html">
+        Toast
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tooltip.html">
+        Tooltip
+    </a>
+</li>
+                                                    </ol>
+                    </li>
+                </ul>
+            </nav>
+            <div class="px-8 flex-1 overflow-auto">
+                <div x-data="{openSheet : ''}">
+        <h3 class="font-heading text-2xl font-semibold">
+            Sheet
+        </h3>
+        <p class="text-md text-zinc-500">
+            Displays a callout for user attention. <br>
+            Quick note on browser compatibility. <br>
+            <br>
+            Unfortunately both are not (yet) supported in Firefox. The component will still work as expected but it will be missing the enter & exit animations.
+        </p>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" x-on:click="openSheet='default'"
+    >
+        Open Sheet
+    </button>
+                <dialog x-data="{
+    closeDialog($el, $event) {
+        const rect = $el.getBoundingClientRect();
+        if (
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom
+        ) {
+            this.openSheet = ''
+        }
+    }
+}" x-on:cancel="openSheet = ''" x-on:click="closeDialog($el,$event)"
+    x-effect="openSheet=='default' ? $el.showModal() : $el.close()"
+    class="bg-background [transition-behavior:allow-discrete] gap-4 p-6 px-0 shadow-lg transition-all outline-none backdrop:bg-black/80 backdrop:duration-300 backdrop:opacity-0 backdrop:transition-[opacity,display,overlay] backdrop:[transition-behavior:allow-discrete] open:backdrop:opacity-100  open:grid grid-rows-[auto_1fr_auto] :starting::open:backdrop:opacity-0 ease-in-out duration-500 max-h-dvh min-h-dvh overflow-y-auto !ml-auto w-3/4 border-l sm:max-w-md translate-x-full open:translate-x-0 starting:open:translate-x-full open:grid grid-rows-[auto_1fr_auto] m-0 gap-4 bg-background p-6 shadow-lg transition-[display,overlay,transform] ease-in-out duration-500 w-[500px] sm:!max-w-[540px]">
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background  transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none" x-on:click="openSheet = ''"
+    >
+        <svg class="size-4 text-primary"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" />
+</svg>
+    <span class="sr-only">Close</span>
+    </button>
+    <div class="flex flex-col space-y-2 text-center sm:text-left px-6">
+    <div class="text-lg font-semibold text-foreground">
+     Edit profile
+ </div>
+                         <div class="text-sm text-muted-foreground">
+    Make changes to your profile here. Click save when you're done.
+</div>
+</div>
+                    <div class="row-start-2 overflow-auto px-6">
+    <div class="grid gap-4 py-4">
+                            <div class="flex items-center gap-4">
+                                <label  for="name"     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-right w-[100px]">
+    Name
+</label>
+                                <div x-data="{ inputValue: 'pedro duarte', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2 col-span-3" id="name" value="pedro duarte"
+        id="name" value="pedro duarte"         x-model="inputValue" />
+    
+</div>
+
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <label  for="username"     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-right w-[100px]">
+    Username
+</label>
+                                <div x-data="{ inputValue: '@peduarte', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2 col-span-3" id="username" value="@peduarte"
+        id="username" value="@peduarte"         x-model="inputValue" />
+    
+</div>
+
+                            </div>
+                        </div>
+</div>
+                    <div class="row-start-3 flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 px-6">
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 px-4 py-2" x-on:click="openSheet = ''" type="submit"
+     x-data="{ loading: '' ? true : false }" x-on:click="setTimeout(()=>{loading = Boolean($el.getAttribute('loading'))},1)" x-bind:disabled="loading" >
+            <svg x-cloak="1" x-show="loading" class="h-4 w-4 animate-spin"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-loader-2"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 3a9 9 0 1 0 9 9" />
+</svg>        Save changes
+    <span class="sr-only">Close</span>
+    </button>
+</div>
+</dialog>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;div x-data="{openSheet : ''}"&gt;
+    &lt;x-portal::button variant="outline" x-on:click="openSheet='default'">Open Sheet&lt;/x-portal::button&gt;
+    &lt;x-portal::sheet id="default" class="w-[500px] sm:!max-w-[540px]"&gt;
+        &lt;x-portal::sheet.header&gt;
+            &lt;x-portal::sheet.title&gt;Edit profile&lt;/x-portal::sheet.title&gt;
+            &lt;x-portal::sheet.description&gt;
+                Make changes to your profile here. Click save when you're done.
+            &lt;/x-portal::sheet.description&gt;
+        &lt;/x-portal::sheet.header&gt;
+        &lt;x-portal::sheet.main&gt;
+            &lt;div class="grid gap-4 py-4"&gt;
+                &lt;div class="flex items-center gap-4"&gt;
+                    &lt;x-portal::label htmlFor="name" class="text-right w-[100px]"&gt;
+                        Name
+                    &lt;/x-portal::label&gt;
+                    &lt;x-portal::input id="name" value="pedro duarte" class="col-span-3" /&gt;
+                &lt;/div&gt;
+                &lt;div class="flex items-center gap-4"&gt;
+                    &lt;x-portal::label htmlFor="username" class="text-right w-[100px]"&gt;
+                        Username
+                    &lt;/x-portal::label&gt;
+                    &lt;x-portal::input id="username" value="@peduarte" class="col-span-3" /&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/x-portal::sheet.main&gt;
+        &lt;x-portal::sheet.footer&gt;
+            &lt;x-portal::sheet.close type="submit"&gt;
+                Save changes
+            &lt;/x-portal::sheet.close&gt;
+        &lt;/x-portal::sheet.footer&gt;
+    &lt;/x-portal::sheet&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</div>
+</div>
+
+<h3 class="font-heading text-xl font-semibold mt-5">
+    Publishing Component
+</h3>
+<p class="text-sm text-zinc-500">
+    If you want to customize the components, you can publish them by running the following command :
+</p>
+<pre class=" rounded-lg whitespace-nowrap"><code class="language-sh">php artisan vendor:publish --tag=portal-ui:sheet --force</code></pre>
+
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Side
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" x-on:click="openSheet='sheet_top'"
+    >
+        top
+    </button>
+                    <dialog x-data="{
+    closeDialog($el, $event) {
+        const rect = $el.getBoundingClientRect();
+        if (
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom
+        ) {
+            this.openSheet = ''
+        }
+    }
+}" x-on:cancel="openSheet = ''" x-on:click="closeDialog($el,$event)"
+    x-effect="openSheet=='sheet_top' ? $el.showModal() : $el.close()"
+    class="bg-background [transition-behavior:allow-discrete] gap-4 p-6 px-0 shadow-lg transition-all outline-none backdrop:bg-black/80 backdrop:duration-300 backdrop:opacity-0 backdrop:transition-[opacity,display,overlay] backdrop:[transition-behavior:allow-discrete] open:backdrop:opacity-100  open:grid grid-rows-[auto_1fr_auto] :starting::open:backdrop:opacity-0 ease-in-out duration-500 max-w-full min-w-full overflow-x-auto !mb-auto border-b -translate-y-full open:translate-y-0 starting:open:-translate-y-full open:grid grid-rows-[auto_1fr_auto] m-0 gap-4 bg-background p-6 shadow-lg transition-[display,overlay,transform] ease-in-out duration-500">
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background  transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none" x-on:click="openSheet = ''"
+    >
+        <svg class="size-4 text-primary"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" />
+</svg>
+    <span class="sr-only">Close</span>
+    </button>
+    <div class="flex flex-col space-y-2 text-center sm:text-left px-6">
+    <div class="text-lg font-semibold text-foreground">
+     top sheet
+ </div>
+</div>
+</dialog>
+                                    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" x-on:click="openSheet='sheet_right'"
+    >
+        right
+    </button>
+                    <dialog x-data="{
+    closeDialog($el, $event) {
+        const rect = $el.getBoundingClientRect();
+        if (
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom
+        ) {
+            this.openSheet = ''
+        }
+    }
+}" x-on:cancel="openSheet = ''" x-on:click="closeDialog($el,$event)"
+    x-effect="openSheet=='sheet_right' ? $el.showModal() : $el.close()"
+    class="bg-background [transition-behavior:allow-discrete] gap-4 p-6 px-0 shadow-lg transition-all outline-none backdrop:bg-black/80 backdrop:duration-300 backdrop:opacity-0 backdrop:transition-[opacity,display,overlay] backdrop:[transition-behavior:allow-discrete] open:backdrop:opacity-100  open:grid grid-rows-[auto_1fr_auto] :starting::open:backdrop:opacity-0 ease-in-out duration-500 max-h-dvh min-h-dvh overflow-y-auto !ml-auto w-3/4 border-l sm:max-w-md translate-x-full open:translate-x-0 starting:open:translate-x-full open:grid grid-rows-[auto_1fr_auto] m-0 gap-4 bg-background p-6 shadow-lg transition-[display,overlay,transform] ease-in-out duration-500">
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background  transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none" x-on:click="openSheet = ''"
+    >
+        <svg class="size-4 text-primary"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" />
+</svg>
+    <span class="sr-only">Close</span>
+    </button>
+    <div class="flex flex-col space-y-2 text-center sm:text-left px-6">
+    <div class="text-lg font-semibold text-foreground">
+     right sheet
+ </div>
+</div>
+</dialog>
+                                    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" x-on:click="openSheet='sheet_bottom'"
+    >
+        bottom
+    </button>
+                    <dialog x-data="{
+    closeDialog($el, $event) {
+        const rect = $el.getBoundingClientRect();
+        if (
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom
+        ) {
+            this.openSheet = ''
+        }
+    }
+}" x-on:cancel="openSheet = ''" x-on:click="closeDialog($el,$event)"
+    x-effect="openSheet=='sheet_bottom' ? $el.showModal() : $el.close()"
+    class="bg-background [transition-behavior:allow-discrete] gap-4 p-6 px-0 shadow-lg transition-all outline-none backdrop:bg-black/80 backdrop:duration-300 backdrop:opacity-0 backdrop:transition-[opacity,display,overlay] backdrop:[transition-behavior:allow-discrete] open:backdrop:opacity-100  open:grid grid-rows-[auto_1fr_auto] :starting::open:backdrop:opacity-0 ease-in-out duration-500 max-w-full min-w-full overflow-x-auto !mt-auto border-t translate-y-full open:translate-y-0 starting:open:translate-y-full open:grid grid-rows-[auto_1fr_auto] m-0 gap-4 bg-background p-6 shadow-lg transition-[display,overlay,transform] ease-in-out duration-500">
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background  transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none" x-on:click="openSheet = ''"
+    >
+        <svg class="size-4 text-primary"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" />
+</svg>
+    <span class="sr-only">Close</span>
+    </button>
+    <div class="flex flex-col space-y-2 text-center sm:text-left px-6">
+    <div class="text-lg font-semibold text-foreground">
+     bottom sheet
+ </div>
+</div>
+</dialog>
+                                    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" x-on:click="openSheet='sheet_left'"
+    >
+        left
+    </button>
+                    <dialog x-data="{
+    closeDialog($el, $event) {
+        const rect = $el.getBoundingClientRect();
+        if (
+            event.clientX < rect.left ||
+            event.clientX > rect.right ||
+            event.clientY < rect.top ||
+            event.clientY > rect.bottom
+        ) {
+            this.openSheet = ''
+        }
+    }
+}" x-on:cancel="openSheet = ''" x-on:click="closeDialog($el,$event)"
+    x-effect="openSheet=='sheet_left' ? $el.showModal() : $el.close()"
+    class="bg-background [transition-behavior:allow-discrete] gap-4 p-6 px-0 shadow-lg transition-all outline-none backdrop:bg-black/80 backdrop:duration-300 backdrop:opacity-0 backdrop:transition-[opacity,display,overlay] backdrop:[transition-behavior:allow-discrete] open:backdrop:opacity-100  open:grid grid-rows-[auto_1fr_auto] :starting::open:backdrop:opacity-0 ease-in-out duration-500 max-h-dvh min-h-dvh overflow-y-auto !mr-auto w-3/4 border-r sm:max-w-md -translate-x-full open:translate-x-0 starting:open:-translate-x-full open:grid grid-rows-[auto_1fr_auto] m-0 gap-4 bg-background p-6 shadow-lg transition-[display,overlay,transform] ease-in-out duration-500">
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background  transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none" x-on:click="openSheet = ''"
+    >
+        <svg class="size-4 text-primary"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M18 6l-12 12" />
+  <path d="M6 6l12 12" />
+</svg>
+    <span class="sr-only">Close</span>
+    </button>
+    <div class="flex flex-col space-y-2 text-center sm:text-left px-6">
+    <div class="text-lg font-semibold text-foreground">
+     left sheet
+ </div>
+</div>
+</dialog>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;div x-data="{openSheet : ''}"&gt;
+    @php
+        $sides = ['top', 'right', 'bottom', 'left'];
+    @endphp
+    @foreach($sides as $side)
+        &lt;x-portal::button variant="outline" x-on:click="openSheet='sheet_{{$side}}'"&gt;{{$side}}&lt;/x-portal::button&gt;
+        &lt;x-portal::sheet id="sheet_{{$side}}" side="{{$side}}"&gt;
+            &lt;x-portal::sheet.header&gt;
+                &lt;x-portal::sheet.title&gt;{{$side}} sheet&lt;/x-portal::sheet.title&gt;
+            &lt;/x-portal::sheet.header&gt;
+        &lt;/x-portal::sheet&gt;
+    @endforeach
+&lt;/div&gt;</code></pre>
+</div>
+</div>
+</div>
+
+        
+    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

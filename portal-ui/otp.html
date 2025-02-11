@@ -1,0 +1,1677 @@
+
+<!doctype html>
+<html>
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Portal UI : Input OTP / PIN</title>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"/>
+     <link href="assets/portal-ui.css" rel="stylesheet"/>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/anchor@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs-okaidia-theme@0.0.1/prism-okaidia.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
+     <style>
+          pre *,
+          code * {
+              font-family: 'Fira Code' !important;
+              font-size: 14px !important;
+          }
+     
+          .language-markup .namespace {
+               opacity: 1;
+          }
+     </style>
+     <script>
+          document.documentElement.classList.toggle(
+               "dark",
+               localStorage.theme === "dark" ||
+               (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+          );
+     </script>
+ </head>
+
+
+<body class="px-6" x-data="{
+    showTooltip(){
+         
+    }
+}">
+    <div class="container flex flex-col h-screen">
+        <header
+    class="flex h-16 shrink-0 items-center gap-2 transition-[height,padding] ease-linear group-has-[[data-state=collapsed]]/sidebar-wrapper:h-12 sticky top-0 bg-background z-10">
+    <div class="flex items-center gap-2 px-4 w-full">
+        <h3 class="font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight mb-5">
+                Portal UI
+            </h3>
+
+            <div class="ml-auto flex items-center space-x-4">
+                <div x-data="{
+    theme: localStorage.theme,
+    toggleTheme() {
+        var val = this.theme == 'dark' ? 'light' : 'dark'
+        this.theme = val
+        localStorage.theme = val;
+        document.documentElement.classList.toggle('dark');
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 !rounded-full w-10 !px-2" type="button" x-on:click="toggleTheme"
+    >
+        <svg x-show="theme!='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-sun"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+  <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+</svg>        <svg x-show="theme=='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-moon"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+</svg>
+    </button>
+</div>
+            </div>
+    </div>
+</header>
+        <div class="flex py-7 flex-1 h-full overflow-hidden">
+            <nav class="border-r w-[250px] px-3 overflow-auto">
+                <ul>
+                    <li>
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Getting Started
+                        </span>
+                        <ol>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="index.html">
+        Introduction
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="installation.html">
+        Installation
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="theming.html">
+        Theming
+    </a>
+</li>
+                        </ol>
+                    </li>
+                    <li class="mt-4">
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Components
+                        </span>
+                        <ol>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="accordion.html">
+        Accordion
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert.html">
+        Alert
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert-dialog.html">
+        Alert Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="avatar.html">
+        Avatar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="badge.html">
+        Badge
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="breadcrumb.html">
+        Breadcrumb
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="button.html">
+        Button
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="ckeditor.html">
+        CK Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="card.html">
+        Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="checkbox.html">
+        Checkbox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="combobox.html">
+        Combobox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="command.html">
+        Command
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="datepicker.html">
+        Date Picker
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dialog.html">
+        Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dropdown.html">
+        Dropdown
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="fileupload.html">
+        File Upload
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="form.html">
+        Form
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="heading.html">
+        Heading
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="hovercard.html">
+        Hover Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="input.html">
+        Input
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="label.html">
+        Label
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="link.html">
+        Link
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="otp.html" active="active">
+        OTP / PIN
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="pagination.html">
+        Pagination
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="popover.html">
+        Popover
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="progress.html">
+        Progress
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="quilleditor.html">
+        Quill Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="radio.html">
+        Radio
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="select.html">
+        Select
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="separator.html">
+        Separator
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sheet.html">
+        Sheet
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sidebar.html">
+        Sidebar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="switch.html">
+        Switch
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="table.html">
+        Table
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tabs.html">
+        Tabs
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="textarea.html">
+        Textarea
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="toast.html">
+        Toast
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tooltip.html">
+        Tooltip
+    </a>
+</li>
+                                                    </ol>
+                    </li>
+                </ul>
+            </nav>
+            <div class="px-8 flex-1 overflow-auto">
+                <div>
+        <h3 class="font-heading text-2xl font-semibold">
+            Input OTP / PIN
+        </h3>
+        <p class="text-md text-zinc-500">
+            Accessible one-time password component with copy paste functionality.
+        </p>
+
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    type: 'number',
+    inputName : 'otp[]',
+    handleInput($el) {
+        const value = $el.value
+        if (value) {
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                $el.value = ''
+                return
+            }
+            const nextRef = this.findRefInput(Number($el.getAttribute('data-index')) + 1)
+            if (nextRef) {
+                nextRef.focus()
+            }
+        }
+    },
+    handlePaste(event) {
+        const text = event.clipboardData.getData('Text')
+        var index = Number($el.getAttribute('data-index'))
+        for (let i = 0; i < text.length; i++) {
+            const value = text.charAt(i)
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                continue
+            }
+            const nextRef = this.findRefInput(index)
+            if (nextRef) {
+                nextRef.value = value
+                nextRef.focus()
+            } else {
+                break;
+            }
+            index++
+        }
+    },
+    handleDelete($el) {
+        if ($el.value) {
+            $el.value = ''
+        } else {
+            const prevRef = this.findRefInput(Number($el.getAttribute('data-index')) - 1)
+            if (prevRef) {
+                prevRef.value = ''
+                prevRef.focus()
+            }
+        }
+    },
+    findRefInput(index) {
+        const nextInputRefName = `otp-${index}`
+        return $refs[nextInputRefName]
+    }
+}" class="flex items-center" >
+    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="0" x-ref="otp-0" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="1" x-ref="otp-1" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="2" x-ref="otp-2" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="3" x-ref="otp-3" />
+</div>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::otp&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="0" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="1" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="2" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="3" /&gt;
+    &lt;/x-portal::otp.group&gt;
+&lt;/x-portal::otp&gt;</code></pre>
+</div>
+</div>
+</div>
+
+<h3 class="font-heading text-xl font-semibold mt-5">
+    Publishing Component
+</h3>
+<p class="text-sm text-zinc-500">
+    If you want to customize the components, you can publish them by running the following command :
+</p>
+<pre class=" rounded-lg whitespace-nowrap"><code class="language-sh">php artisan vendor:publish --tag=portal-ui:otp --force</code></pre>
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Allow Text
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    type: 'text',
+    inputName : 'otp[]',
+    handleInput($el) {
+        const value = $el.value
+        if (value) {
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                $el.value = ''
+                return
+            }
+            const nextRef = this.findRefInput(Number($el.getAttribute('data-index')) + 1)
+            if (nextRef) {
+                nextRef.focus()
+            }
+        }
+    },
+    handlePaste(event) {
+        const text = event.clipboardData.getData('Text')
+        var index = Number($el.getAttribute('data-index'))
+        for (let i = 0; i < text.length; i++) {
+            const value = text.charAt(i)
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                continue
+            }
+            const nextRef = this.findRefInput(index)
+            if (nextRef) {
+                nextRef.value = value
+                nextRef.focus()
+            } else {
+                break;
+            }
+            index++
+        }
+    },
+    handleDelete($el) {
+        if ($el.value) {
+            $el.value = ''
+        } else {
+            const prevRef = this.findRefInput(Number($el.getAttribute('data-index')) - 1)
+            if (prevRef) {
+                prevRef.value = ''
+                prevRef.focus()
+            }
+        }
+    },
+    findRefInput(index) {
+        const nextInputRefName = `otp-${index}`
+        return $refs[nextInputRefName]
+    }
+}" class="flex items-center" >
+    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="0" x-ref="otp-0" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="1" x-ref="otp-1" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="2" x-ref="otp-2" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="3" x-ref="otp-3" />
+</div>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::otp type="text"&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="0" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="1" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="2" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="3" /&gt;
+    &lt;/x-portal::otp.group&gt;
+&lt;/x-portal::otp&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Size
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center flex-col">
+
+          <div x-data="{
+    type: 'number',
+    inputName : 'otp[]',
+    handleInput($el) {
+        const value = $el.value
+        if (value) {
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                $el.value = ''
+                return
+            }
+            const nextRef = this.findRefInput(Number($el.getAttribute('data-index')) + 1)
+            if (nextRef) {
+                nextRef.focus()
+            }
+        }
+    },
+    handlePaste(event) {
+        const text = event.clipboardData.getData('Text')
+        var index = Number($el.getAttribute('data-index'))
+        for (let i = 0; i < text.length; i++) {
+            const value = text.charAt(i)
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                continue
+            }
+            const nextRef = this.findRefInput(index)
+            if (nextRef) {
+                nextRef.value = value
+                nextRef.focus()
+            } else {
+                break;
+            }
+            index++
+        }
+    },
+    handleDelete($el) {
+        if ($el.value) {
+            $el.value = ''
+        } else {
+            const prevRef = this.findRefInput(Number($el.getAttribute('data-index')) - 1)
+            if (prevRef) {
+                prevRef.value = ''
+                prevRef.focus()
+            }
+        }
+    },
+    findRefInput(index) {
+        const nextInputRefName = `otp-${index}`
+        return $refs[nextInputRefName]
+    }
+}" class="flex items-center" >
+    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-8 w-8 px-3 text-xs" placeholder="."
+    x-bind:name="inputName" required
+    placeholder="."  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="0" x-ref="otp-0" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-8 w-8 px-3 text-xs" placeholder="."
+    x-bind:name="inputName" required
+    placeholder="."  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="1" x-ref="otp-1" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-8 w-8 px-3 text-xs" placeholder="."
+    x-bind:name="inputName" required
+    placeholder="."  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="2" x-ref="otp-2" />
+</div>
+</div>
+                <br>
+                <div x-data="{
+    type: 'number',
+    inputName : 'otp[]',
+    handleInput($el) {
+        const value = $el.value
+        if (value) {
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                $el.value = ''
+                return
+            }
+            const nextRef = this.findRefInput(Number($el.getAttribute('data-index')) + 1)
+            if (nextRef) {
+                nextRef.focus()
+            }
+        }
+    },
+    handlePaste(event) {
+        const text = event.clipboardData.getData('Text')
+        var index = Number($el.getAttribute('data-index'))
+        for (let i = 0; i < text.length; i++) {
+            const value = text.charAt(i)
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                continue
+            }
+            const nextRef = this.findRefInput(index)
+            if (nextRef) {
+                nextRef.value = value
+                nextRef.focus()
+            } else {
+                break;
+            }
+            index++
+        }
+    },
+    handleDelete($el) {
+        if ($el.value) {
+            $el.value = ''
+        } else {
+            const prevRef = this.findRefInput(Number($el.getAttribute('data-index')) - 1)
+            if (prevRef) {
+                prevRef.value = ''
+                prevRef.focus()
+            }
+        }
+    },
+    findRefInput(index) {
+        const nextInputRefName = `otp-${index}`
+        return $refs[nextInputRefName]
+    }
+}" class="flex items-center" >
+    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="0" x-ref="otp-0" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="1" x-ref="otp-1" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="2" x-ref="otp-2" />
+</div>
+</div>
+                <br>
+                <div x-data="{
+    type: 'number',
+    inputName : 'otp[]',
+    handleInput($el) {
+        const value = $el.value
+        if (value) {
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                $el.value = ''
+                return
+            }
+            const nextRef = this.findRefInput(Number($el.getAttribute('data-index')) + 1)
+            if (nextRef) {
+                nextRef.focus()
+            }
+        }
+    },
+    handlePaste(event) {
+        const text = event.clipboardData.getData('Text')
+        var index = Number($el.getAttribute('data-index'))
+        for (let i = 0; i < text.length; i++) {
+            const value = text.charAt(i)
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                continue
+            }
+            const nextRef = this.findRefInput(index)
+            if (nextRef) {
+                nextRef.value = value
+                nextRef.focus()
+            } else {
+                break;
+            }
+            index++
+        }
+    },
+    handleDelete($el) {
+        if ($el.value) {
+            $el.value = ''
+        } else {
+            const prevRef = this.findRefInput(Number($el.getAttribute('data-index')) - 1)
+            if (prevRef) {
+                prevRef.value = ''
+                prevRef.focus()
+            }
+        }
+    },
+    findRefInput(index) {
+        const nextInputRefName = `otp-${index}`
+        return $refs[nextInputRefName]
+    }
+}" class="flex items-center" >
+    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-12 w-12" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="0" x-ref="otp-0" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-12 w-12" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="1" x-ref="otp-1" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-12 w-12" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="2" x-ref="otp-2" />
+</div>
+</div>
+                <br>
+                <div x-data="{
+    type: 'number',
+    inputName : 'otp[]',
+    handleInput($el) {
+        const value = $el.value
+        if (value) {
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                $el.value = ''
+                return
+            }
+            const nextRef = this.findRefInput(Number($el.getAttribute('data-index')) + 1)
+            if (nextRef) {
+                nextRef.focus()
+            }
+        }
+    },
+    handlePaste(event) {
+        const text = event.clipboardData.getData('Text')
+        var index = Number($el.getAttribute('data-index'))
+        for (let i = 0; i < text.length; i++) {
+            const value = text.charAt(i)
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                continue
+            }
+            const nextRef = this.findRefInput(index)
+            if (nextRef) {
+                nextRef.value = value
+                nextRef.focus()
+            } else {
+                break;
+            }
+            index++
+        }
+    },
+    handleDelete($el) {
+        if ($el.value) {
+            $el.value = ''
+        } else {
+            const prevRef = this.findRefInput(Number($el.getAttribute('data-index')) - 1)
+            if (prevRef) {
+                prevRef.value = ''
+                prevRef.focus()
+            }
+        }
+    },
+    findRefInput(index) {
+        const nextInputRefName = `otp-${index}`
+        return $refs[nextInputRefName]
+    }
+}" class="flex items-center" >
+    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-13 w-13 text-xl" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="0" x-ref="otp-0" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-13 w-13 text-xl" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="1" x-ref="otp-1" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-13 w-13 text-xl" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="2" x-ref="otp-2" />
+</div>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::otp&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="." index="0" size="sm"/&gt;
+        &lt;x-portal::otp.input placeholder="." index="1" size="sm"/&gt;
+        &lt;x-portal::otp.input placeholder="." index="2" size="sm"/&gt;
+    &lt;/x-portal::otp.group&gt;
+&lt;/x-portal::otp&gt;
+
+&lt;x-portal::otp&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="0"/&gt;
+        &lt;x-portal::otp.input placeholder="○" index="1"/&gt;
+        &lt;x-portal::otp.input placeholder="○" index="2"/&gt;
+    &lt;/x-portal::otp.group&gt;
+&lt;/x-portal::otp&gt;
+
+&lt;x-portal::otp&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="0" size="lg"/&gt;
+        &lt;x-portal::otp.input placeholder="○" index="1" size="lg"/&gt;
+        &lt;x-portal::otp.input placeholder="○" index="2" size="lg"/&gt;
+    &lt;/x-portal::otp.group&gt;
+&lt;/x-portal::otp&gt;
+
+&lt;x-portal::otp&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="0" size="xl"/&gt;
+        &lt;x-portal::otp.input placeholder="○" index="1" size="xl"/&gt;
+        &lt;x-portal::otp.input placeholder="○" index="2" size="xl"/&gt;
+    &lt;/x-portal::otp.group&gt;
+&lt;/x-portal::otp&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Disabled
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    type: 'number',
+    inputName : 'otp[]',
+    handleInput($el) {
+        const value = $el.value
+        if (value) {
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                $el.value = ''
+                return
+            }
+            const nextRef = this.findRefInput(Number($el.getAttribute('data-index')) + 1)
+            if (nextRef) {
+                nextRef.focus()
+            }
+        }
+    },
+    handlePaste(event) {
+        const text = event.clipboardData.getData('Text')
+        var index = Number($el.getAttribute('data-index'))
+        for (let i = 0; i < text.length; i++) {
+            const value = text.charAt(i)
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                continue
+            }
+            const nextRef = this.findRefInput(index)
+            if (nextRef) {
+                nextRef.value = value
+                nextRef.focus()
+            } else {
+                break;
+            }
+            index++
+        }
+    },
+    handleDelete($el) {
+        if ($el.value) {
+            $el.value = ''
+        } else {
+            const prevRef = this.findRefInput(Number($el.getAttribute('data-index')) - 1)
+            if (prevRef) {
+                prevRef.value = ''
+                prevRef.focus()
+            }
+        }
+    },
+    findRefInput(index) {
+        const nextInputRefName = `otp-${index}`
+        return $refs[nextInputRefName]
+    }
+}" class="flex items-center pointer-events-none select-none opacity-50" disabled="disabled" disabled="disabled">
+    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="0" x-ref="otp-0" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="1" x-ref="otp-1" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="2" x-ref="otp-2" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="3" x-ref="otp-3" />
+</div>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::otp disabled&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="0" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="1" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="2" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="3" /&gt;
+    &lt;/x-portal::otp.group&gt;
+&lt;/x-portal::otp&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Separator
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    type: 'number',
+    inputName : 'otp[]',
+    handleInput($el) {
+        const value = $el.value
+        if (value) {
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                $el.value = ''
+                return
+            }
+            const nextRef = this.findRefInput(Number($el.getAttribute('data-index')) + 1)
+            if (nextRef) {
+                nextRef.focus()
+            }
+        }
+    },
+    handlePaste(event) {
+        const text = event.clipboardData.getData('Text')
+        var index = Number($el.getAttribute('data-index'))
+        for (let i = 0; i < text.length; i++) {
+            const value = text.charAt(i)
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                continue
+            }
+            const nextRef = this.findRefInput(index)
+            if (nextRef) {
+                nextRef.value = value
+                nextRef.focus()
+            } else {
+                break;
+            }
+            index++
+        }
+    },
+    handleDelete($el) {
+        if ($el.value) {
+            $el.value = ''
+        } else {
+            const prevRef = this.findRefInput(Number($el.getAttribute('data-index')) - 1)
+            if (prevRef) {
+                prevRef.value = ''
+                prevRef.focus()
+            }
+        }
+    },
+    findRefInput(index) {
+        const nextInputRefName = `otp-${index}`
+        return $refs[nextInputRefName]
+    }
+}" class="flex items-center" >
+    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="0" x-ref="otp-0" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="1" x-ref="otp-1" />
+</div>                    <div class="px-2">
+    <svg class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-minus"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l14 0" />
+</svg></div>
+                    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="2" x-ref="otp-2" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="3" x-ref="otp-3" />
+</div>                    <div class="px-2">
+    <svg class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-minus"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l14 0" />
+</svg></div>
+                    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="4" x-ref="otp-4" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="5" x-ref="otp-5" />
+</div>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::otp&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="0" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="1" /&gt;
+    &lt;/x-portal::otp.group&gt;
+    &lt;x-portal::otp.separator /&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="2" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="3" /&gt;
+    &lt;/x-portal::otp.group&gt;
+    &lt;x-portal::otp.separator /&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="4" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="5" /&gt;
+    &lt;/x-portal::otp.group&gt;
+&lt;/x-portal::otp&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Icon Separator
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    type: 'number',
+    inputName : 'otp[]',
+    handleInput($el) {
+        const value = $el.value
+        if (value) {
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                $el.value = ''
+                return
+            }
+            const nextRef = this.findRefInput(Number($el.getAttribute('data-index')) + 1)
+            if (nextRef) {
+                nextRef.focus()
+            }
+        }
+    },
+    handlePaste(event) {
+        const text = event.clipboardData.getData('Text')
+        var index = Number($el.getAttribute('data-index'))
+        for (let i = 0; i < text.length; i++) {
+            const value = text.charAt(i)
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                continue
+            }
+            const nextRef = this.findRefInput(index)
+            if (nextRef) {
+                nextRef.value = value
+                nextRef.focus()
+            } else {
+                break;
+            }
+            index++
+        }
+    },
+    handleDelete($el) {
+        if ($el.value) {
+            $el.value = ''
+        } else {
+            const prevRef = this.findRefInput(Number($el.getAttribute('data-index')) - 1)
+            if (prevRef) {
+                prevRef.value = ''
+                prevRef.focus()
+            }
+        }
+    },
+    findRefInput(index) {
+        const nextInputRefName = `otp-${index}`
+        return $refs[nextInputRefName]
+    }
+}" class="flex items-center" >
+    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="0" x-ref="otp-0" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="1" x-ref="otp-1" />
+</div>                    <div class="px-2">
+    <svg class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  class="icon icon-tabler icons-tabler-filled icon-tabler-point"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
+</svg></div>
+                    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="2" x-ref="otp-2" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="3" x-ref="otp-3" />
+</div>                    <div class="px-2">
+    <svg class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  class="icon icon-tabler icons-tabler-filled icon-tabler-point"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
+</svg></div>
+                    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="4" x-ref="otp-4" />
+                        <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" placeholder="○"
+    x-bind:name="inputName" required
+    placeholder="○"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="5" x-ref="otp-5" />
+</div>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::otp&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="0" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="1" /&gt;
+    &lt;/x-portal::otp.group&gt;
+    &lt;x-portal::otp.separator icon="point-f"/&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="2" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="3" /&gt;
+    &lt;/x-portal::otp.group&gt;
+    &lt;x-portal::otp.separator icon="point-f"/&gt;
+    &lt;x-portal::otp.group&gt;
+        &lt;x-portal::otp.input placeholder="○" index="4" /&gt;
+        &lt;x-portal::otp.input placeholder="○" index="5" /&gt;
+    &lt;/x-portal::otp.group&gt;
+&lt;/x-portal::otp&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Form
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <form x-data="{ submited: false }" x-on:submit="submited=true" class="space-y-5" action="http://dev.test/laravel/public/form" method="POST">
+    <input type="hidden" name="_token" value="UcgWbCM1jCGopvVgAiS9JOn8z6W9QbIqe7T6AlFu" autocomplete="off">                    <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    One-Time Password
+</label>
+
+        <div x-data="{
+    type: 'number',
+    inputName : 'otp[]',
+    handleInput($el) {
+        const value = $el.value
+        if (value) {
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                $el.value = ''
+                return
+            }
+            const nextRef = this.findRefInput(Number($el.getAttribute('data-index')) + 1)
+            if (nextRef) {
+                nextRef.focus()
+            }
+        }
+    },
+    handlePaste(event) {
+        const text = event.clipboardData.getData('Text')
+        var index = Number($el.getAttribute('data-index'))
+        for (let i = 0; i < text.length; i++) {
+            const value = text.charAt(i)
+            if (isNaN(parseInt(value)) && this.type == 'number') {
+                continue
+            }
+            const nextRef = this.findRefInput(index)
+            if (nextRef) {
+                nextRef.value = value
+                nextRef.focus()
+            } else {
+                break;
+            }
+            index++
+        }
+    },
+    handleDelete($el) {
+        if ($el.value) {
+            $el.value = ''
+        } else {
+            const prevRef = this.findRefInput(Number($el.getAttribute('data-index')) - 1)
+            if (prevRef) {
+                prevRef.value = ''
+                prevRef.focus()
+            }
+        }
+    },
+    findRefInput(index) {
+        const nextInputRefName = `otp-${index}`
+        return $refs[nextInputRefName]
+    }
+}" class="flex items-center" >
+    <div class="flex items-center [&>:first-child]:rounded-l-sm [&>:first-child]:border-r-0 [&>:last-child]:rounded-r-sm [&>:not(:first-child):not(:last-child)]:border-r-0">
+    <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" value="1"
+    x-bind:name="inputName" required
+    value="1"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="0" x-ref="otp-0" />
+                                <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" value="1"
+    x-bind:name="inputName" required
+    value="1"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="1" x-ref="otp-1" />
+                                <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" value="1"
+    x-bind:name="inputName" required
+    value="1"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="2" x-ref="otp-2" />
+                                <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" value="1"
+    x-bind:name="inputName" required
+    value="1"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="3" x-ref="otp-3" />
+                                <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" value="1"
+    x-bind:name="inputName" required
+    value="1"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="4" x-ref="otp-4" />
+                                <input type="text"
+    class="bg-transparent text-sm input-otp focus:z-[1] flex items-center text-center placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input shadow-sm h-10 w-10" value="1"
+    x-bind:name="inputName" required
+    value="1"  maxlength="1" x-on:input.prevent="handleInput($el)" x-on:keydown.backspace="handleDelete($el)" x-on:paste.prevent="handlePaste($event)"
+    data-index="5" x-ref="otp-5" />
+</div>
+</div>
+
+            <p class="text-[0.8rem] text-muted-foreground">
+    Please enter the one-time password sent to your phone.
+</p>
+    </div>
+                    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 px-4 py-2" x-bind:loading="submited" type="submit"
+     x-data="{ loading: '' ? true : false }" x-on:click="setTimeout(()=>{loading = Boolean($el.getAttribute('loading'))},1)" x-bind:disabled="loading" >
+            <svg x-cloak="1" x-show="loading" class="h-4 w-4 animate-spin"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-loader-2"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 3a9 9 0 1 0 9 9" />
+</svg>        Submit
+    </button>
+</form>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form action="{{ route('form') }}" method="POST"&gt;
+    @csrf
+    &lt;x-portal::form.group 
+        label="One-Time Password" 
+        name="otp"
+        description-trailing=" Please enter the one-time password sent to your phone."
+    &gt;
+        &lt;x-portal::otp name="otp"&gt;
+            &lt;x-portal::otp.group&gt;
+                &lt;x-portal::otp.input value="1" index="0" /&gt;
+                &lt;x-portal::otp.input value="1" index="1" /&gt;
+                &lt;x-portal::otp.input value="1" index="2" /&gt;
+                &lt;x-portal::otp.input value="1" index="3" /&gt;
+                &lt;x-portal::otp.input value="1" index="4" /&gt;
+                &lt;x-portal::otp.input value="1" index="5" /&gt;
+            &lt;/x-portal::otp.group&gt;
+        &lt;/x-portal::otp&gt;
+    &lt;/x-portal::form.group&gt;
+    &lt;x-portal::button x-bind:loading="submited" type="submit"&gt;Submit&lt;/x-portal::button&gt;
+&lt;/x-portal::form&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        
+
+    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

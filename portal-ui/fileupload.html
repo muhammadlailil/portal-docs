@@ -1,0 +1,706 @@
+
+<!doctype html>
+<html>
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Portal UI : Dropdown</title>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"/>
+     <link href="assets/portal-ui.css" rel="stylesheet"/>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/anchor@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs-okaidia-theme@0.0.1/prism-okaidia.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
+     <style>
+          pre *,
+          code * {
+              font-family: 'Fira Code' !important;
+              font-size: 14px !important;
+          }
+     
+          .language-markup .namespace {
+               opacity: 1;
+          }
+     </style>
+     <script>
+          document.documentElement.classList.toggle(
+               "dark",
+               localStorage.theme === "dark" ||
+               (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+          );
+     </script>
+ </head>
+
+
+<body class="px-6" x-data="{
+    showTooltip(){
+         
+    }
+}">
+    <div class="container flex flex-col h-screen">
+        <header
+    class="flex h-16 shrink-0 items-center gap-2 transition-[height,padding] ease-linear group-has-[[data-state=collapsed]]/sidebar-wrapper:h-12 sticky top-0 bg-background z-10">
+    <div class="flex items-center gap-2 px-4 w-full">
+        <h3 class="font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight mb-5">
+                Portal UI
+            </h3>
+
+            <div class="ml-auto flex items-center space-x-4">
+                <div x-data="{
+    theme: localStorage.theme,
+    toggleTheme() {
+        var val = this.theme == 'dark' ? 'light' : 'dark'
+        this.theme = val
+        localStorage.theme = val;
+        document.documentElement.classList.toggle('dark');
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 !rounded-full w-10 !px-2" type="button" x-on:click="toggleTheme"
+    >
+        <svg x-show="theme!='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-sun"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+  <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+</svg>        <svg x-show="theme=='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-moon"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+</svg>
+    </button>
+</div>
+            </div>
+    </div>
+</header>
+        <div class="flex py-7 flex-1 h-full overflow-hidden">
+            <nav class="border-r w-[250px] px-3 overflow-auto">
+                <ul>
+                    <li>
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Getting Started
+                        </span>
+                        <ol>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="index.html">
+        Introduction
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="installation.html">
+        Installation
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="theming.html">
+        Theming
+    </a>
+</li>
+                        </ol>
+                    </li>
+                    <li class="mt-4">
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Components
+                        </span>
+                        <ol>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="accordion.html">
+        Accordion
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert.html">
+        Alert
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert-dialog.html">
+        Alert Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="avatar.html">
+        Avatar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="badge.html">
+        Badge
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="breadcrumb.html">
+        Breadcrumb
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="button.html">
+        Button
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="ckeditor.html">
+        CK Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="card.html">
+        Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="checkbox.html">
+        Checkbox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="combobox.html">
+        Combobox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="command.html">
+        Command
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="datepicker.html">
+        Date Picker
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dialog.html">
+        Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dropdown.html">
+        Dropdown
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="fileupload.html" active="active">
+        File Upload
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="form.html">
+        Form
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="heading.html">
+        Heading
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="hovercard.html">
+        Hover Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="input.html">
+        Input
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="label.html">
+        Label
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="link.html">
+        Link
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="otp.html">
+        OTP / PIN
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="pagination.html">
+        Pagination
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="popover.html">
+        Popover
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="progress.html">
+        Progress
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="quilleditor.html">
+        Quill Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="radio.html">
+        Radio
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="select.html">
+        Select
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="separator.html">
+        Separator
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sheet.html">
+        Sheet
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sidebar.html">
+        Sidebar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="switch.html">
+        Switch
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="table.html">
+        Table
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tabs.html">
+        Tabs
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="textarea.html">
+        Textarea
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="toast.html">
+        Toast
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tooltip.html">
+        Tooltip
+    </a>
+</li>
+                                                    </ol>
+                    </li>
+                </ul>
+            </nav>
+            <div class="px-8 flex-1 overflow-auto">
+                <div>
+        <h3 class="font-heading text-2xl font-semibold">
+            File Upload
+        </h3>
+        <p class="text-md text-zinc-500">
+            A input to upload file or image
+        </p>
+
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    filename: '',
+    filesize: '',
+    maxFileSize: Number('2'),
+    listenerFileChange($el, $event) {
+        const files = $el.files
+        const file = files[0]
+        if (file) {
+            const fileType = file.type
+            if (this.maxFileSize > 0 && file.size / 1000000 > Number(this.maxFileSize)) {
+                alert(`File size cannot be more than ${this.maxFileSize}MB`)
+                $el.value = '';
+                this.filename = ''
+                this.filesize = ''
+                return
+            }
+            const acceptedTypes = $el.getAttribute('accept').split(',');
+            const fileTypeValid = acceptedTypes.some(type => {
+                if (type.includes('*')) {
+                    return file.type.startsWith(type.split('/')[0]);
+                }
+                return file.type === type;
+            });
+            if (!fileTypeValid) {
+                alert('File format is invalid')
+                $el.value = '';
+                this.filename = ''
+                this.filesize = ''
+                return
+            }
+
+            this.filename = file.name
+            this.filesize = this.formatFileSize(file.size);
+        } else {
+            this.filename = ''
+            this.filesize = ''
+        }
+    },
+    dropListener($el, $event) {
+        $el.classList.remove('border-primary', 'border-solid')
+    },
+    formatFileSize(size) {
+        const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        let i = 0;
+        while (size >= 1024 && i < units.length - 1) {
+            size /= 1024;
+            i++;
+        }
+        return size.toFixed(2) + ' ' + units[i];
+    }
+}">
+    <div class="relative w-[400px] h-[100px] border-2 border-dashed rounded-md border-input flex cursor-pointer" required="required"
+        x-on:dragover="$el.classList.add('border-primary','border-solid')"
+        x-on:dragleave="$el.classList.remove('border-primary','border-solid')" x-on:drop="dropListener($el,$event)">
+        <div class="w-[25%] h-full border-r-2 border-dashed flex items-center justify-center shrink-0">
+            <svg class="h-12 w-12 text-primary"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-file-type-pdf"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+  <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" />
+  <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6" />
+  <path d="M17 18h2" />
+  <path d="M20 15h-3v6" />
+  <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" />
+</svg>        </div>
+        <div class="grid items-center  p-3">
+            <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-500 truncate pb-[3px]">
+    <span x-show="!filename" x-cloak>
+                    Drag and drop a file or click to browse
+                </span>
+                <span x-show="filename" x-cloak x-html="filename"></span>
+</label>
+            <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-xs text-gray-500">
+    <span x-show="!filesize" x-cloak>
+                    Only PDF file are accepted
+                </span>
+                <span x-show="filesize" x-cloak x-html="filesize"></span>
+</label>
+        </div>
+
+        <input type="file" x-ref="inputFile" name="pdf" accept="application/pdf"
+            class="absolute h-full w-full opacity-0 cursor-pointer" x-on:change="listenerFileChange($el,$event)"
+            required />
+    </div>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::file-upload icon="file-type-pdf" required maxsize="2" name="pdf"  accept="application/pdf" description="Only PDF file are accepted"/&gt;</code></pre>
+</div>
+</div>
+</div>
+
+<h3 class="font-heading text-xl font-semibold mt-5">
+    Publishing Component
+</h3>
+<p class="text-sm text-zinc-500">
+    If you want to customize the components, you can publish them by running the following command :
+</p>
+<pre class=" rounded-lg whitespace-nowrap"><code class="language-sh">php artisan vendor:publish --tag=portal-ui:file-upload --force</code></pre>
+
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Image
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    preview: '',
+    maxFileSize: Number('2'),
+    listenerFileChange($el, $event) {
+        const files = $el.files
+        const file = files[0]
+        if (file) {
+            const fileType = file.type
+            if (this.maxFileSize >0 && file.size / 1000000 > Number(this.maxFileSize)) {
+                alert(`File size cannot be more than ${this.maxFileSize}MB`)
+                $el.value = '';
+                this.preview = ''
+                return
+            }
+            if (!fileType.includes('image/')) {
+                alert('File is not falid image file')
+                $el.value = '';
+                this.preview = ''
+                return
+            }
+            let output = 'jpeg'
+            if (fileType.includes('/png')) {
+                output = fileType
+            }
+            this.preview = URL.createObjectURL(file)
+        } else {
+            this.preview = ''
+        }
+    },
+    dropListener($el, $event) {
+        $el.classList.remove('border-primary', 'border-solid')
+    }
+}">
+    <div class="border-2 border-dashed bg-center bg-contain bg-no-repeat border-gray-200 relative rounded-lg flex flex-col gap-1 p-6 items-center text-center justify-center cursor-pointer w-[400px] h-[150px]" required="required"
+       x-on:dragover="$el.classList.add('border-primary','border-solid')"
+        x-on:dragleave="$el.classList.remove('border-primary','border-solid')" x-on:drop="dropListener($el,$event)"
+        x-bind:style="{ backgroundImage: `url(${preview})` }">
+        <svg x-bind:class="{ 'opacity-50': preview }" class="mb-2 h-8 w-8"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-photo"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M15 8h.01" />
+  <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z" />
+  <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+  <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+</svg>        <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-500" x-bind:class="{ 'opacity-50': preview }">
+    Drag and drop a file or click to browse
+</label>
+        <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-xs text-gray-500" x-bind:class="{ 'opacity-50': preview }">
+    Only image format are accepted, up to 2MB
+</label>
+        <input type="file" x-ref="inputFile" name="image" accept="image/*"
+            class="absolute h-full w-full opacity-0 cursor-pointer" x-on:change="listenerFileChange($el,$event)"
+            required />
+    </div>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::file-upload.image required maxsize="2" name="image"/&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,3481 @@
+
+<!doctype html>
+<html>
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Portal UI : Combobox</title>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"/>
+     <link href="assets/portal-ui.css" rel="stylesheet"/>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/anchor@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs-okaidia-theme@0.0.1/prism-okaidia.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
+     <style>
+          pre *,
+          code * {
+              font-family: 'Fira Code' !important;
+              font-size: 14px !important;
+          }
+     
+          .language-markup .namespace {
+               opacity: 1;
+          }
+     </style>
+     <script>
+          document.documentElement.classList.toggle(
+               "dark",
+               localStorage.theme === "dark" ||
+               (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+          );
+     </script>
+ </head>
+
+
+<body class="px-6" x-data="{
+    showTooltip(){
+         
+    }
+}">
+    <div class="container flex flex-col h-screen">
+        <header
+    class="flex h-16 shrink-0 items-center gap-2 transition-[height,padding] ease-linear group-has-[[data-state=collapsed]]/sidebar-wrapper:h-12 sticky top-0 bg-background z-10">
+    <div class="flex items-center gap-2 px-4 w-full">
+        <h3 class="font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight mb-5">
+                Portal UI
+            </h3>
+
+            <div class="ml-auto flex items-center space-x-4">
+                <div x-data="{
+    theme: localStorage.theme,
+    toggleTheme() {
+        var val = this.theme == 'dark' ? 'light' : 'dark'
+        this.theme = val
+        localStorage.theme = val;
+        document.documentElement.classList.toggle('dark');
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 !rounded-full w-10 !px-2" type="button" x-on:click="toggleTheme"
+    >
+        <svg x-show="theme!='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-sun"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+  <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+</svg>        <svg x-show="theme=='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-moon"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+</svg>
+    </button>
+</div>
+            </div>
+    </div>
+</header>
+        <div class="flex py-7 flex-1 h-full overflow-hidden">
+            <nav class="border-r w-[250px] px-3 overflow-auto">
+                <ul>
+                    <li>
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Getting Started
+                        </span>
+                        <ol>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="index.html">
+        Introduction
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="installation.html">
+        Installation
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="theming.html">
+        Theming
+    </a>
+</li>
+                        </ol>
+                    </li>
+                    <li class="mt-4">
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Components
+                        </span>
+                        <ol>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="accordion.html">
+        Accordion
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert.html">
+        Alert
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert-dialog.html">
+        Alert Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="avatar.html">
+        Avatar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="badge.html">
+        Badge
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="breadcrumb.html">
+        Breadcrumb
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="button.html">
+        Button
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="ckeditor.html">
+        CK Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="card.html">
+        Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="checkbox.html">
+        Checkbox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="combobox.html" active="active">
+        Combobox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="command.html">
+        Command
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="datepicker.html">
+        Date Picker
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dialog.html">
+        Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dropdown.html">
+        Dropdown
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="fileupload.html">
+        File Upload
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="form.html">
+        Form
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="heading.html">
+        Heading
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="hovercard.html">
+        Hover Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="input.html">
+        Input
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="label.html">
+        Label
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="link.html">
+        Link
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="otp.html">
+        OTP / PIN
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="pagination.html">
+        Pagination
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="popover.html">
+        Popover
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="progress.html">
+        Progress
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="quilleditor.html">
+        Quill Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="radio.html">
+        Radio
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="select.html">
+        Select
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="separator.html">
+        Separator
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sheet.html">
+        Sheet
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sidebar.html">
+        Sidebar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="switch.html">
+        Switch
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="table.html">
+        Table
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tabs.html">
+        Tabs
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="textarea.html">
+        Textarea
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="toast.html">
+        Toast
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tooltip.html">
+        Tooltip
+    </a>
+</li>
+                                                    </ol>
+                    </li>
+                </ul>
+            </nav>
+            <div class="px-8 flex-1 overflow-auto">
+                <div>
+        <h3 class="font-heading text-2xl font-semibold">
+            Combobox
+        </h3>
+        <p class="text-md text-zinc-500">
+            Autocomplete input and command palette with a list of suggestions.
+        </p>
+
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    open: false,
+    search: '',
+    value: '',
+    label: '',
+    items: [],
+    filtered: [],
+    addItem(el) {
+        const selected = el.getAttribute('selected')
+        this.items.push(this.getElementContent(el))
+        this.filtered = this.items
+        if (selected) {
+            this.value = el.getAttribute('data-value')
+            this.label = el.innerHTML
+        }
+    },
+    filter() {
+        this.filtered = this.items.filter((row) => row.toLowerCase().includes(this.search.toLowerCase()))
+    },
+    getElementContent(el) {
+        return el.innerText.replace(/(^\s*)|(\s*$)/gi, '').replace(/[ ]{2,}/gi, ' ').replace(/\n +/, '\n')
+    },
+    selectItem(el) {
+        const value = el.getAttribute('data-value')
+        const content = el.innerHTML
+        this.open = false
+        this.value = value
+        this.label = content
+        this.search = ''
+        this.filtered = this.items
+    }
+}" class="relative">
+    <input type="hidden" name="framework" x-model="value">
+    <button type="button" class="w-full border rounded-md border-input flex items-center file:bg-transparent file:text-sm file:font-medium cursor-pointer h-10 px-4 text-sm !w-[300px]" x-on:click="open=!open"
+        x-ref="combobox">
+        <div class="flex items-center justify-between w-full">
+            <span class="text-muted-foreground select-none" x-show="label==''">
+                Select framework...
+            </span>
+            <span x-html="label" x-show="label!=''" class="flex gap-2"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"  class="lucide lucide-chevrons-up-down ml-auto opacity-50 h-4 mr-[-5px]">
+    <path d="m7 15 5 5 5-5"></path>
+    <path d="m7 9 5-5 5 5"></path>
+</svg>
+        </div>
+    </button>
+    <div class="sm:hidden fixed inset-0 bg-black/80 transition-opacity" aria-hidden="true" x-cloak x-show="open"
+        x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-300"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+    <div class="sm:relative fixed inset-0 z-10 sm:w-full w-screen flex items-end" x-show="open" x-cloak >
+        <div x-show="open" x-cloak x-anchor.bottom-start="$refs.combobox" x-on:click.away="open=false"
+            x-transition:enter-end="translate-y-0"
+            class="absolute bg-background border rounded-md text-left right-0 w-full z-10 mt-2 mb-2 shadow-md max-h-[50vh] overflow-auto combobox-content">
+            <div class="flex items-center border-b px-3" cmdk-input-wrapper="">
+    <svg class="mr-2 h-4 w-4 shrink-0 opacity-50"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-search"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+  <path d="M21 21l-6 -6" />
+</svg>    <input
+        class="flex w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 h-9"
+        placeholder="Search framework..." autocomplete="off" autocorrect="off" spellcheck="false"
+        aria-autocomplete="list" role="combobox" type="text" x-model="search" x-on:keyup="filter">
+</div>
+                    <div class="max-h-[300px] overflow-auto py-1 px-1">
+    <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md" selected="selected"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="indonesia">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  class="icon icon-tabler icons-tabler-filled icon-tabler-bed"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 6a1 1 0 0 1 .993 .883l.007 .117v6h6v-5a1 1 0 0 1 .883 -.993l.117 -.007h8a3 3 0 0 1 2.995 2.824l.005 .176v8a1 1 0 0 1 -1.993 .117l-.007 -.117v-3h-16v3a1 1 0 0 1 -1.993 .117l-.007 -.117v-11a1 1 0 0 1 1 -1z" />
+  <path d="M7 8a2 2 0 1 1 -1.995 2.15l-.005 -.15l.005 -.15a2 2 0 0 1 1.995 -1.85z" />
+</svg>                            Indonesia
+    </button>
+    <svg x-cloak="1" x-show="value=='indonesia'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                        <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="next">
+        Next.js
+    </button>
+    <svg x-cloak="1" x-show="value=='next'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Marjory Weimann">
+        Marjory Weimann
+    </button>
+    <svg x-cloak="1" x-show="value=='Marjory Weimann'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Alvina Roberts">
+        Alvina Roberts
+    </button>
+    <svg x-cloak="1" x-show="value=='Alvina Roberts'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Hailee Leffler">
+        Hailee Leffler
+    </button>
+    <svg x-cloak="1" x-show="value=='Hailee Leffler'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Raymond Bailey">
+        Prof. Raymond Bailey
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Raymond Bailey'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mr. Jake Cartwright">
+        Mr. Jake Cartwright
+    </button>
+    <svg x-cloak="1" x-show="value=='Mr. Jake Cartwright'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mr. Amari Feeney">
+        Mr. Amari Feeney
+    </button>
+    <svg x-cloak="1" x-show="value=='Mr. Amari Feeney'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Palma Yundt">
+        Palma Yundt
+    </button>
+    <svg x-cloak="1" x-show="value=='Palma Yundt'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Letitia Baumbach V">
+        Letitia Baumbach V
+    </button>
+    <svg x-cloak="1" x-show="value=='Letitia Baumbach V'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Hayden Reilly">
+        Hayden Reilly
+    </button>
+    <svg x-cloak="1" x-show="value=='Hayden Reilly'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Gussie Kertzmann">
+        Prof. Gussie Kertzmann
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Gussie Kertzmann'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ms. Jadyn Rice I">
+        Ms. Jadyn Rice I
+    </button>
+    <svg x-cloak="1" x-show="value=='Ms. Jadyn Rice I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Ansley Hills I">
+        Prof. Ansley Hills I
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Ansley Hills I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Veda Fritsch">
+        Veda Fritsch
+    </button>
+    <svg x-cloak="1" x-show="value=='Veda Fritsch'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Anderson Nienow">
+        Anderson Nienow
+    </button>
+    <svg x-cloak="1" x-show="value=='Anderson Nienow'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Hudson Hahn PhD">
+        Prof. Hudson Hahn PhD
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Hudson Hahn PhD'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Constance Nienow">
+        Constance Nienow
+    </button>
+    <svg x-cloak="1" x-show="value=='Constance Nienow'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Sallie Baumbach">
+        Sallie Baumbach
+    </button>
+    <svg x-cloak="1" x-show="value=='Sallie Baumbach'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Zoe Schimmel">
+        Zoe Schimmel
+    </button>
+    <svg x-cloak="1" x-show="value=='Zoe Schimmel'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Raleigh Dicki I">
+        Raleigh Dicki I
+    </button>
+    <svg x-cloak="1" x-show="value=='Raleigh Dicki I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Cecile Willms">
+        Cecile Willms
+    </button>
+    <svg x-cloak="1" x-show="value=='Cecile Willms'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dylan Willms">
+        Dylan Willms
+    </button>
+    <svg x-cloak="1" x-show="value=='Dylan Willms'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Theron Fritsch">
+        Theron Fritsch
+    </button>
+    <svg x-cloak="1" x-show="value=='Theron Fritsch'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mr. General Dooley Jr.">
+        Mr. General Dooley Jr.
+    </button>
+    <svg x-cloak="1" x-show="value=='Mr. General Dooley Jr.'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Nellie King">
+        Nellie King
+    </button>
+    <svg x-cloak="1" x-show="value=='Nellie King'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Onie Ritchie">
+        Onie Ritchie
+    </button>
+    <svg x-cloak="1" x-show="value=='Onie Ritchie'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Eve Roberts">
+        Eve Roberts
+    </button>
+    <svg x-cloak="1" x-show="value=='Eve Roberts'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Shania Padberg">
+        Shania Padberg
+    </button>
+    <svg x-cloak="1" x-show="value=='Shania Padberg'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Destany Boyer IV">
+        Dr. Destany Boyer IV
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Destany Boyer IV'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mckayla Leffler I">
+        Mckayla Leffler I
+    </button>
+    <svg x-cloak="1" x-show="value=='Mckayla Leffler I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mr. Tavares Hintz">
+        Mr. Tavares Hintz
+    </button>
+    <svg x-cloak="1" x-show="value=='Mr. Tavares Hintz'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Godfrey Kshlerin">
+        Godfrey Kshlerin
+    </button>
+    <svg x-cloak="1" x-show="value=='Godfrey Kshlerin'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Morgan Goldner">
+        Morgan Goldner
+    </button>
+    <svg x-cloak="1" x-show="value=='Morgan Goldner'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Ezekiel Kulas Jr.">
+        Dr. Ezekiel Kulas Jr.
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Ezekiel Kulas Jr.'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ms. Helen Cole">
+        Ms. Helen Cole
+    </button>
+    <svg x-cloak="1" x-show="value=='Ms. Helen Cole'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Nichole Volkman">
+        Nichole Volkman
+    </button>
+    <svg x-cloak="1" x-show="value=='Nichole Volkman'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Nettie Hagenes III">
+        Nettie Hagenes III
+    </button>
+    <svg x-cloak="1" x-show="value=='Nettie Hagenes III'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ella Berge">
+        Ella Berge
+    </button>
+    <svg x-cloak="1" x-show="value=='Ella Berge'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mrs. Leatha Hand Sr.">
+        Mrs. Leatha Hand Sr.
+    </button>
+    <svg x-cloak="1" x-show="value=='Mrs. Leatha Hand Sr.'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Modesta Okuneva">
+        Modesta Okuneva
+    </button>
+    <svg x-cloak="1" x-show="value=='Modesta Okuneva'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Aimee Koss MD">
+        Aimee Koss MD
+    </button>
+    <svg x-cloak="1" x-show="value=='Aimee Koss MD'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mrs. Berniece Pacocha">
+        Mrs. Berniece Pacocha
+    </button>
+    <svg x-cloak="1" x-show="value=='Mrs. Berniece Pacocha'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Alexanne Feeney">
+        Alexanne Feeney
+    </button>
+    <svg x-cloak="1" x-show="value=='Alexanne Feeney'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Norene Harber">
+        Norene Harber
+    </button>
+    <svg x-cloak="1" x-show="value=='Norene Harber'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Randy Dach II">
+        Randy Dach II
+    </button>
+    <svg x-cloak="1" x-show="value=='Randy Dach II'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Lora Kuhn">
+        Lora Kuhn
+    </button>
+    <svg x-cloak="1" x-show="value=='Lora Kuhn'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Odell Mayert">
+        Odell Mayert
+    </button>
+    <svg x-cloak="1" x-show="value=='Odell Mayert'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ms. Alyson O&amp;#039;Keefe">
+        Ms. Alyson O&#039;Keefe
+    </button>
+    <svg x-cloak="1" x-show="value=='Ms. Alyson O&amp;#039;Keefe'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Chyna Bauch">
+        Chyna Bauch
+    </button>
+    <svg x-cloak="1" x-show="value=='Chyna Bauch'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Elwyn Berge">
+        Dr. Elwyn Berge
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Elwyn Berge'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Laila Bergnaum II">
+        Laila Bergnaum II
+    </button>
+    <svg x-cloak="1" x-show="value=='Laila Bergnaum II'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Krista Waelchi">
+        Dr. Krista Waelchi
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Krista Waelchi'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Alvina Hayes MD">
+        Alvina Hayes MD
+    </button>
+    <svg x-cloak="1" x-show="value=='Alvina Hayes MD'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Russel Kemmer">
+        Russel Kemmer
+    </button>
+    <svg x-cloak="1" x-show="value=='Russel Kemmer'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ms. Amina Purdy PhD">
+        Ms. Amina Purdy PhD
+    </button>
+    <svg x-cloak="1" x-show="value=='Ms. Amina Purdy PhD'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Jacey Ondricka">
+        Jacey Ondricka
+    </button>
+    <svg x-cloak="1" x-show="value=='Jacey Ondricka'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Edgar Weber">
+        Edgar Weber
+    </button>
+    <svg x-cloak="1" x-show="value=='Edgar Weber'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Idell Weber II">
+        Idell Weber II
+    </button>
+    <svg x-cloak="1" x-show="value=='Idell Weber II'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Florencio Zulauf II">
+        Florencio Zulauf II
+    </button>
+    <svg x-cloak="1" x-show="value=='Florencio Zulauf II'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Celestine O&amp;#039;Kon">
+        Dr. Celestine O&#039;Kon
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Celestine O&amp;#039;Kon'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ms. Ciara Leannon II">
+        Ms. Ciara Leannon II
+    </button>
+    <svg x-cloak="1" x-show="value=='Ms. Ciara Leannon II'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+</div>
+            <div class="py-6 text-center text-sm" cmdk-empty="" role="presentation" x-show="!filtered.length" x-cloak>
+                No  items found.
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::combobox placeholder="Select framework..." name="framework" class="w-[300px]"&gt;
+    &lt;x-portal::combobox.search placeholder="Search framework..." /&gt;
+    &lt;x-portal::combobox.content&gt;
+        &lt;x-portal::combobox.option value="indonesia" selected&gt;
+            &lt;x-tabler-bed-filled /&gt;
+            Indonesia
+        &lt;/x-portal::combobox.option&gt;
+        &lt;x-portal::combobox.option value="next"&gt;Next.js&lt;/x-portal::combobox.option&gt;
+        @for($i = 0; $i &lt; 60; $i++)
+            @php 
+                $name=  fake()-&gt;name;
+            @endphp
+            &lt;x-portal::combobox.option
+                value="{{ $name }}"
+            &gt;
+                {{ $name }}
+            &lt;/x-portal::combobox.option&gt;
+        @endfor
+    &lt;/x-portal::combobox.content&gt;
+&lt;/x-portal::combobox&gt;</code></pre>
+</div>
+</div>
+</div>
+
+<h3 class="font-heading text-xl font-semibold mt-5">
+    Publishing Component
+</h3>
+<p class="text-sm text-zinc-500">
+    If you want to customize the components, you can publish them by running the following command :
+</p>
+<pre class=" rounded-lg whitespace-nowrap"><code class="language-sh">php artisan vendor:publish --tag=portal-ui:combobox --force</code></pre>
+
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Without Search
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    open: false,
+    search: '',
+    value: '',
+    label: '',
+    items: [],
+    filtered: [],
+    addItem(el) {
+        const selected = el.getAttribute('selected')
+        this.items.push(this.getElementContent(el))
+        this.filtered = this.items
+        if (selected) {
+            this.value = el.getAttribute('data-value')
+            this.label = el.innerHTML
+        }
+    },
+    filter() {
+        this.filtered = this.items.filter((row) => row.toLowerCase().includes(this.search.toLowerCase()))
+    },
+    getElementContent(el) {
+        return el.innerText.replace(/(^\s*)|(\s*$)/gi, '').replace(/[ ]{2,}/gi, ' ').replace(/\n +/, '\n')
+    },
+    selectItem(el) {
+        const value = el.getAttribute('data-value')
+        const content = el.innerHTML
+        this.open = false
+        this.value = value
+        this.label = content
+        this.search = ''
+        this.filtered = this.items
+    }
+}" class="relative">
+    <input type="hidden" name="framework" x-model="value">
+    <button type="button" class="w-full border rounded-md border-input flex items-center  file:bg-transparent file:text-sm file:font-medium cursor-pointer  h-10 px-4 text-sm !w-[300px]" x-on:click="open=!open"
+        x-ref="combobox">
+        <div class="flex items-center justify-between w-full">
+            <span class="text-muted-foreground select-none" x-show="label==''">
+                Select framework...
+            </span>
+            <span x-html="label" x-show="label!=''" class="flex gap-2"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"  class="lucide lucide-chevrons-up-down ml-auto opacity-50 h-4 mr-[-5px]">
+    <path d="m7 15 5 5 5-5"></path>
+    <path d="m7 9 5-5 5 5"></path>
+</svg>
+        </div>
+    </button>
+    <div class="sm:hidden fixed inset-0 bg-black/80 transition-opacity" aria-hidden="true" x-cloak x-show="open"
+        x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-300"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+    <div class="sm:relative fixed inset-0 z-10 sm:w-full w-screen flex items-end" x-show="open" x-cloak >
+        <div x-show="open" x-cloak x-anchor.bottom-start="$refs.combobox" x-on:click.away="open=false"
+            x-transition:enter-end="translate-y-0"
+            class="absolute bg-background border rounded-md text-left right-0 w-full z-10 mt-2 mb-2 shadow-md max-h-[50vh] overflow-auto combobox-content">
+            <div class="max-h-[300px] overflow-auto py-1 px-1">
+    <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="indonesia">
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  class="icon icon-tabler icons-tabler-filled icon-tabler-bed"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 6a1 1 0 0 1 .993 .883l.007 .117v6h6v-5a1 1 0 0 1 .883 -.993l.117 -.007h8a3 3 0 0 1 2.995 2.824l.005 .176v8a1 1 0 0 1 -1.993 .117l-.007 -.117v-3h-16v3a1 1 0 0 1 -1.993 .117l-.007 -.117v-11a1 1 0 0 1 1 -1z" />
+  <path d="M7 8a2 2 0 1 1 -1.995 2.15l-.005 -.15l.005 -.15a2 2 0 0 1 1.995 -1.85z" />
+</svg>                            Indonesia
+    </button>
+    <svg x-cloak="1" x-show="value=='indonesia'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                        <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="next">
+        Next.js
+    </button>
+    <svg x-cloak="1" x-show="value=='next'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Cierra Herman">
+        Cierra Herman
+    </button>
+    <svg x-cloak="1" x-show="value=='Cierra Herman'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Abe Braun">
+        Abe Braun
+    </button>
+    <svg x-cloak="1" x-show="value=='Abe Braun'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Isai Fadel">
+        Isai Fadel
+    </button>
+    <svg x-cloak="1" x-show="value=='Isai Fadel'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Claud Murphy">
+        Claud Murphy
+    </button>
+    <svg x-cloak="1" x-show="value=='Claud Murphy'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ms. Hillary Ankunding">
+        Ms. Hillary Ankunding
+    </button>
+    <svg x-cloak="1" x-show="value=='Ms. Hillary Ankunding'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Kieran Green I">
+        Dr. Kieran Green I
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Kieran Green I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Miss Iliana Parker I">
+        Miss Iliana Parker I
+    </button>
+    <svg x-cloak="1" x-show="value=='Miss Iliana Parker I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Miss Amely Pacocha V">
+        Miss Amely Pacocha V
+    </button>
+    <svg x-cloak="1" x-show="value=='Miss Amely Pacocha V'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Aron Frami IV">
+        Aron Frami IV
+    </button>
+    <svg x-cloak="1" x-show="value=='Aron Frami IV'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Stefanie Walker IV">
+        Stefanie Walker IV
+    </button>
+    <svg x-cloak="1" x-show="value=='Stefanie Walker IV'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Wyman Raynor">
+        Wyman Raynor
+    </button>
+    <svg x-cloak="1" x-show="value=='Wyman Raynor'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Willow Daniel DVM">
+        Willow Daniel DVM
+    </button>
+    <svg x-cloak="1" x-show="value=='Willow Daniel DVM'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Catherine Brekke">
+        Catherine Brekke
+    </button>
+    <svg x-cloak="1" x-show="value=='Catherine Brekke'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Domenic Koss">
+        Domenic Koss
+    </button>
+    <svg x-cloak="1" x-show="value=='Domenic Koss'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Lonny Monahan DVM">
+        Lonny Monahan DVM
+    </button>
+    <svg x-cloak="1" x-show="value=='Lonny Monahan DVM'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ms. Anastasia Hills">
+        Ms. Anastasia Hills
+    </button>
+    <svg x-cloak="1" x-show="value=='Ms. Anastasia Hills'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mustafa Kub">
+        Mustafa Kub
+    </button>
+    <svg x-cloak="1" x-show="value=='Mustafa Kub'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Sydney Rodriguez">
+        Sydney Rodriguez
+    </button>
+    <svg x-cloak="1" x-show="value=='Sydney Rodriguez'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ottilie Brakus">
+        Ottilie Brakus
+    </button>
+    <svg x-cloak="1" x-show="value=='Ottilie Brakus'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Sven Fadel">
+        Sven Fadel
+    </button>
+    <svg x-cloak="1" x-show="value=='Sven Fadel'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ms. Jayne Krajcik">
+        Ms. Jayne Krajcik
+    </button>
+    <svg x-cloak="1" x-show="value=='Ms. Jayne Krajcik'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Keira Bauch">
+        Keira Bauch
+    </button>
+    <svg x-cloak="1" x-show="value=='Keira Bauch'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mrs. Alyce Emmerich IV">
+        Mrs. Alyce Emmerich IV
+    </button>
+    <svg x-cloak="1" x-show="value=='Mrs. Alyce Emmerich IV'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ms. Lauriane Williamson DVM">
+        Ms. Lauriane Williamson DVM
+    </button>
+    <svg x-cloak="1" x-show="value=='Ms. Lauriane Williamson DVM'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Bernardo Cronin DVM">
+        Dr. Bernardo Cronin DVM
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Bernardo Cronin DVM'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Osbaldo Rodriguez I">
+        Osbaldo Rodriguez I
+    </button>
+    <svg x-cloak="1" x-show="value=='Osbaldo Rodriguez I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ellen O&amp;#039;Connell Jr.">
+        Ellen O&#039;Connell Jr.
+    </button>
+    <svg x-cloak="1" x-show="value=='Ellen O&amp;#039;Connell Jr.'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mossie Ebert">
+        Mossie Ebert
+    </button>
+    <svg x-cloak="1" x-show="value=='Mossie Ebert'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Elyse Kling">
+        Elyse Kling
+    </button>
+    <svg x-cloak="1" x-show="value=='Elyse Kling'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Jo Dooley">
+        Jo Dooley
+    </button>
+    <svg x-cloak="1" x-show="value=='Jo Dooley'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Forest Lesch">
+        Prof. Forest Lesch
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Forest Lesch'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Issac Sawayn PhD">
+        Issac Sawayn PhD
+    </button>
+    <svg x-cloak="1" x-show="value=='Issac Sawayn PhD'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mr. Federico Gerlach">
+        Mr. Federico Gerlach
+    </button>
+    <svg x-cloak="1" x-show="value=='Mr. Federico Gerlach'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Ms. Winona Turner">
+        Ms. Winona Turner
+    </button>
+    <svg x-cloak="1" x-show="value=='Ms. Winona Turner'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Margarett Muller">
+        Margarett Muller
+    </button>
+    <svg x-cloak="1" x-show="value=='Margarett Muller'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Tyrese Lebsack">
+        Tyrese Lebsack
+    </button>
+    <svg x-cloak="1" x-show="value=='Tyrese Lebsack'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Travis McCullough">
+        Travis McCullough
+    </button>
+    <svg x-cloak="1" x-show="value=='Travis McCullough'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Nicklaus Swaniawski">
+        Dr. Nicklaus Swaniawski
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Nicklaus Swaniawski'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Oliver Conn">
+        Prof. Oliver Conn
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Oliver Conn'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Reyna Ritchie">
+        Reyna Ritchie
+    </button>
+    <svg x-cloak="1" x-show="value=='Reyna Ritchie'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Beaulah Hegmann Sr.">
+        Dr. Beaulah Hegmann Sr.
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Beaulah Hegmann Sr.'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Gregoria Sawayn">
+        Gregoria Sawayn
+    </button>
+    <svg x-cloak="1" x-show="value=='Gregoria Sawayn'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Rosie Johnson">
+        Rosie Johnson
+    </button>
+    <svg x-cloak="1" x-show="value=='Rosie Johnson'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Stanley Ruecker">
+        Stanley Ruecker
+    </button>
+    <svg x-cloak="1" x-show="value=='Stanley Ruecker'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Emilie Hermann">
+        Emilie Hermann
+    </button>
+    <svg x-cloak="1" x-show="value=='Emilie Hermann'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Astrid Bradtke II">
+        Astrid Bradtke II
+    </button>
+    <svg x-cloak="1" x-show="value=='Astrid Bradtke II'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Miss Fannie Bednar Sr.">
+        Miss Fannie Bednar Sr.
+    </button>
+    <svg x-cloak="1" x-show="value=='Miss Fannie Bednar Sr.'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Hulda Gottlieb">
+        Hulda Gottlieb
+    </button>
+    <svg x-cloak="1" x-show="value=='Hulda Gottlieb'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Muhammad Feest">
+        Muhammad Feest
+    </button>
+    <svg x-cloak="1" x-show="value=='Muhammad Feest'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Lowell Olson">
+        Lowell Olson
+    </button>
+    <svg x-cloak="1" x-show="value=='Lowell Olson'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Brigitte Lesch">
+        Brigitte Lesch
+    </button>
+    <svg x-cloak="1" x-show="value=='Brigitte Lesch'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Arely Towne DVM">
+        Arely Towne DVM
+    </button>
+    <svg x-cloak="1" x-show="value=='Arely Towne DVM'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Trystan Wilderman">
+        Trystan Wilderman
+    </button>
+    <svg x-cloak="1" x-show="value=='Trystan Wilderman'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Merlin Grant">
+        Merlin Grant
+    </button>
+    <svg x-cloak="1" x-show="value=='Merlin Grant'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Coby Hill">
+        Coby Hill
+    </button>
+    <svg x-cloak="1" x-show="value=='Coby Hill'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Jettie Hartmann">
+        Prof. Jettie Hartmann
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Jettie Hartmann'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Jaylan Reilly">
+        Jaylan Reilly
+    </button>
+    <svg x-cloak="1" x-show="value=='Jaylan Reilly'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Ilene Gaylord I">
+        Dr. Ilene Gaylord I
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Ilene Gaylord I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Elfrieda Welch I">
+        Prof. Elfrieda Welch I
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Elfrieda Welch I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Elsa Oberbrunner">
+        Elsa Oberbrunner
+    </button>
+    <svg x-cloak="1" x-show="value=='Elsa Oberbrunner'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+</div>
+            <div class="py-6 text-center text-sm" cmdk-empty="" role="presentation" x-show="!filtered.length" x-cloak>
+                No  items found.
+            </div>
+        </div>
+    </div>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::combobox placeholder="Select framework..." name="framework" class="w-[300px]"&gt;
+    &lt;x-portal::combobox.content&gt;
+        &lt;x-portal::combobox.option value="indonesia"&gt;
+            &lt;x-tabler-bed-filled /&gt;
+            Indonesia
+        &lt;/x-portal::combobox.option&gt;
+        &lt;x-portal::combobox.option value="next"&gt;Next.js&lt;/x-portal::combobox.option&gt;
+        @for($i = 0; $i &lt; 60; $i++)
+            @php 
+                $name=  fake()-&gt;name;
+            @endphp
+            &lt;x-portal::combobox.option
+                value="{{ $name }}"
+            &gt;
+                {{ $name }}
+            &lt;/x-portal::combobox.option&gt;
+        @endfor
+    &lt;/x-portal::combobox.content&gt;
+&lt;/x-portal::combobox&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+       
+    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

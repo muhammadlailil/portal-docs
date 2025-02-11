@@ -1,0 +1,1528 @@
+
+<!doctype html>
+<html>
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Portal UI : Dropdown</title>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"/>
+     <link href="assets/portal-ui.css" rel="stylesheet"/>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/anchor@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs-okaidia-theme@0.0.1/prism-okaidia.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
+     <style>
+          pre *,
+          code * {
+              font-family: 'Fira Code' !important;
+              font-size: 14px !important;
+          }
+     
+          .language-markup .namespace {
+               opacity: 1;
+          }
+     </style>
+     <script>
+          document.documentElement.classList.toggle(
+               "dark",
+               localStorage.theme === "dark" ||
+               (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+          );
+     </script>
+ </head>
+
+
+<body class="px-6" x-data="{
+    showTooltip(){
+         
+    }
+}">
+    <div class="container flex flex-col h-screen">
+        <header
+    class="flex h-16 shrink-0 items-center gap-2 transition-[height,padding] ease-linear group-has-[[data-state=collapsed]]/sidebar-wrapper:h-12 sticky top-0 bg-background z-10">
+    <div class="flex items-center gap-2 px-4 w-full">
+        <h3 class="font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight mb-5">
+                Portal UI
+            </h3>
+
+            <div class="ml-auto flex items-center space-x-4">
+                <div x-data="{
+    theme: localStorage.theme,
+    toggleTheme() {
+        var val = this.theme == 'dark' ? 'light' : 'dark'
+        this.theme = val
+        localStorage.theme = val;
+        document.documentElement.classList.toggle('dark');
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 !rounded-full w-10 !px-2" type="button" x-on:click="toggleTheme"
+    >
+        <svg x-show="theme!='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-sun"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+  <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+</svg>        <svg x-show="theme=='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-moon"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+</svg>
+    </button>
+</div>
+            </div>
+    </div>
+</header>
+        <div class="flex py-7 flex-1 h-full overflow-hidden">
+            <nav class="border-r w-[250px] px-3 overflow-auto">
+                <ul>
+                    <li>
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Getting Started
+                        </span>
+                        <ol>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="index.html">
+        Introduction
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="installation.html">
+        Installation
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="theming.html">
+        Theming
+    </a>
+</li>
+                        </ol>
+                    </li>
+                    <li class="mt-4">
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Components
+                        </span>
+                        <ol>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="accordion.html">
+        Accordion
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert.html">
+        Alert
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert-dialog.html">
+        Alert Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="avatar.html">
+        Avatar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="badge.html">
+        Badge
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="breadcrumb.html">
+        Breadcrumb
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="button.html">
+        Button
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="ckeditor.html">
+        CK Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="card.html">
+        Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="checkbox.html">
+        Checkbox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="combobox.html">
+        Combobox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="command.html">
+        Command
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="datepicker.html">
+        Date Picker
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dialog.html">
+        Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dropdown.html" active="active">
+        Dropdown
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="fileupload.html">
+        File Upload
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="form.html">
+        Form
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="heading.html">
+        Heading
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="hovercard.html">
+        Hover Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="input.html">
+        Input
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="label.html">
+        Label
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="link.html">
+        Link
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="otp.html">
+        OTP / PIN
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="pagination.html">
+        Pagination
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="popover.html">
+        Popover
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="progress.html">
+        Progress
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="quilleditor.html">
+        Quill Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="radio.html">
+        Radio
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="select.html">
+        Select
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="separator.html">
+        Separator
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sheet.html">
+        Sheet
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sidebar.html">
+        Sidebar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="switch.html">
+        Switch
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="table.html">
+        Table
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tabs.html">
+        Tabs
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="textarea.html">
+        Textarea
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="toast.html">
+        Toast
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tooltip.html">
+        Tooltip
+    </a>
+</li>
+                                                    </ol>
+                    </li>
+                </ul>
+            </nav>
+            <div class="px-8 flex-1 overflow-auto">
+                <div>
+        <h3 class="font-heading text-2xl font-semibold">
+            Dropdown
+        </h3>
+        <p class="text-md text-zinc-500">
+            Displays a menu to the user — such as a set of actions or functions — triggered by a button.
+        </p>
+
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    menuOpen: false,
+    checked: [],
+    selected: '',
+    setChecked(value) {
+        this.checked = value
+    },
+    setSelected(value) {
+        this.selected = value
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" x-ref="dropdownTrigger" x-on:click="menuOpen=!menuOpen"
+    >
+        Open
+    </button>
+                    <ul  x-transition:enter.origin.top.right x-cloak x-show="menuOpen"
+    x-anchor.bottom-start.offset.6="$refs.dropdownTrigger" x-on:click.away="menuOpen=false"
+    class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md absolute w-56">
+    <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                            <span class="relative flex shrink-0 overflow-hidden h-8 w-8 rounded-lg">
+                                <span
+                                    class="flex h-full w-full items-center justify-center bg-muted rounded-lg">SN</span>
+                            </span>
+                            <div class="grid flex-1 text-left text-sm leading-tight">
+                                <span class="truncate font-semibold">satnaing</span>
+                                <span class="truncate text-xs">satnaingdev@gmail.com</span>
+                            </div>
+                        </div>
+                        <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-sparkles"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z" />
+</svg>                            Upgrade to Pro
+    </a>
+</li>
+<span class="space-x-2"></span>                        <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-rosette-discount-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 7.2a2.2 2.2 0 0 1 2.2 -2.2h1a2.2 2.2 0 0 0 1.55 -.64l.7 -.7a2.2 2.2 0 0 1 3.12 0l.7 .7c.412 .41 .97 .64 1.55 .64h1a2.2 2.2 0 0 1 2.2 2.2v1c0 .58 .23 1.138 .64 1.55l.7 .7a2.2 2.2 0 0 1 0 3.12l-.7 .7a2.2 2.2 0 0 0 -.64 1.55v1a2.2 2.2 0 0 1 -2.2 2.2h-1a2.2 2.2 0 0 0 -1.55 .64l-.7 .7a2.2 2.2 0 0 1 -3.12 0l-.7 -.7a2.2 2.2 0 0 0 -1.55 -.64h-1a2.2 2.2 0 0 1 -2.2 -2.2v-1a2.2 2.2 0 0 0 -.64 -1.55l-.7 -.7a2.2 2.2 0 0 1 0 -3.12l.7 -.7a2.2 2.2 0 0 0 .64 -1.55v-1" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>                            Account
+    </a>
+</li>
+<span class="space-x-2"></span>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" />
+  <path d="M3 10l18 0" />
+  <path d="M7 15l.01 0" />
+  <path d="M11 15l2 0" />
+</svg>                            Billing
+    </a>
+</li>
+<span class="space-x-2"></span>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-bell"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
+  <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+</svg>                            Notification
+    </a>
+</li>
+<span class="space-x-2"></span>                        <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <button class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" type="button"
+        type="button">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-logout"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+  <path d="M9 12h12l-3 -3" />
+  <path d="M18 15l3 -3" />
+</svg>                            Logout
+    </button>
+</li>
+<span class="space-x-2"></span>
+</ul>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::dropdown-menu&gt;
+    &lt;x-portal::dropdown-menu.trigger variant="outline"&gt;Open&lt;/x-portal::dropdown-menu.trigger&gt;
+    &lt;x-portal::dropdown-menu.content class="w-56"&gt;
+        &lt;div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm"&gt;
+            &lt;span class="relative flex shrink-0 overflow-hidden h-8 w-8 rounded-lg"&gt;
+                &lt;span class="flex h-full w-full items-center justify-center bg-muted rounded-lg"&gt;SN&lt;/span&gt;
+            &lt;/span&gt;
+            &lt;div class="grid flex-1 text-left text-sm leading-tight"&gt;
+                &lt;span class="truncate font-semibold"&gt;satnaing&lt;/span&gt;
+                &lt;span class="truncate text-xs"&gt;satnaingdev@gmail.com&lt;/span&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;x-portal::dropdown-menu.separator /&gt;
+        &lt;x-portal::dropdown-menu.item as="a" href="/"&gt;
+            &lt;x-tabler-sparkles class="h-4 w-4" /&gt;
+            Upgrade to Pro
+        &lt;/x-portal::dropdown-menu.item&gt;
+        &lt;x-portal::dropdown-menu.separator /&gt;
+        &lt;x-portal::dropdown-menu.item as="a" href="/"&gt;
+            &lt;x-tabler-rosette-discount-check class="h-4 w-4" /&gt;
+            Account
+        &lt;/x-portal::dropdown-menu.item&gt;
+        &lt;x-portal::dropdown-menu.item as="a" href="/"&gt;
+            &lt;x-tabler-credit-card class="h-4 w-4" /&gt;
+            Billing
+        &lt;/x-portal::dropdown-menu.item&gt;
+        &lt;x-portal::dropdown-menu.item as="a" href="/"&gt;
+            &lt;x-tabler-bell class="h-4 w-4" /&gt;
+            Notification
+        &lt;/x-portal::dropdown-menu.item&gt;
+        &lt;x-portal::dropdown-menu.separator /&gt;
+        &lt;x-portal::dropdown-menu.item as="button" type="button"&gt;
+            &lt;x-tabler-logout class="h-4 w-4" /&gt;
+            Logout
+        &lt;/x-portal::dropdown-menu.item&gt;
+    &lt;/x-portal::dropdown-menu.content&gt;
+&lt;/x-portal::dropdown-menu&gt;</code></pre>
+</div>
+</div>
+</div>
+
+<h3 class="font-heading text-xl font-semibold mt-5">
+    Publishing Component
+</h3>
+<p class="text-sm text-zinc-500">
+    If you want to customize the components, you can publish them by running the following command :
+</p>
+<pre class=" rounded-lg whitespace-nowrap"><code class="language-sh">php artisan vendor:publish --tag=portal-ui:dropdown-menu --force</code></pre>
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Positioning
+        </h3>
+        <p class="text-sm text-zinc-500">
+            Customize the position of the dropdown menu via the position and align props <br>
+            You can first pass the base side: 
+            <span
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-zinc-700 bg-zinc-200 border-zinc-400">
+    bottom
+</span>
+            <span
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-zinc-700 bg-zinc-200 border-zinc-400">
+    top
+</span>
+            <span
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-zinc-700 bg-zinc-200 border-zinc-400">
+    left
+</span>
+            <span
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-zinc-700 bg-zinc-200 border-zinc-400">
+    right
+</span>
+            <br>
+            Then an alignment modifier like 
+            <span
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-zinc-700 bg-zinc-200 border-zinc-400">
+    center
+</span>
+            <span
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-zinc-700 bg-zinc-200 border-zinc-400">
+    end
+</span>
+            <span
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-zinc-700 bg-zinc-200 border-zinc-400">
+    start
+</span>
+        </p>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    menuOpen: false,
+    checked: [],
+    selected: '',
+    setChecked(value) {
+        this.checked = value
+    },
+    setSelected(value) {
+        this.selected = value
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" x-ref="dropdownTrigger" x-on:click="menuOpen=!menuOpen"
+    >
+        Open
+    </button>
+                    <ul  x-transition:enter.origin.top.right x-cloak x-show="menuOpen"
+    x-anchor.top-end.offset.6="$refs.dropdownTrigger" x-on:click.away="menuOpen=false"
+    class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md absolute w-56">
+    <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Team
+    </div>
+</li>
+<span class="space-x-2"></span>                        <li role="menuitem" aria-disabled="true" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors opacity-50 !cursor-not-allowed select-none"
+        >
+        Billing
+    </div>
+</li>
+<span class="space-x-2"></span>                        <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                        <li class="px-2 py-1.5 text-xs font-medium text-zinc-500" >
+    Setting
+</li>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Team
+    </div>
+</li>
+<span class="space-x-2"></span>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center hover:text-red-600 hover:bg-red-50 focus:text-red-600 focus:bg-red-50 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Subscription
+    </div>
+</li>
+<span class="space-x-2"></span>
+</ul>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::dropdown-menu&gt;
+    &lt;x-portal::dropdown-menu.trigger variant="outline"&gt;Open&lt;/x-portal::dropdown-menu.trigger&gt;
+    &lt;x-portal::dropdown-menu.content class="w-56" align="end" side="top"&gt;
+        &lt;x-portal::dropdown-menu.item&gt;Team&lt;/x-portal::dropdown-menu.item&gt;
+        &lt;x-portal::dropdown-menu.item disabled&gt;Billing&lt;/x-portal::dropdown-menu.item&gt;
+        &lt;x-portal::dropdown-menu.separator /&gt;
+        &lt;x-portal::dropdown-menu.heading&gt;Setting&lt;/x-portal::dropdown-menu.heading&gt;
+        &lt;x-portal::dropdown-menu.item&gt;Team&lt;/x-portal::dropdown-menu.item&gt;
+        &lt;x-portal::dropdown-menu.item variant="danger"&gt;Subscription&lt;/x-portal::dropdown-menu.item&gt;
+    &lt;/x-portal::dropdown-menu.content&gt;
+&lt;/x-portal::dropdown-menu&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Checkboxes
+        </h3>
+
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    menuOpen: false,
+    checked: [],
+    selected: '',
+    setChecked(value) {
+        this.checked = value
+    },
+    setSelected(value) {
+        this.selected = value
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" x-ref="dropdownTrigger" x-on:click="menuOpen=!menuOpen"
+    >
+        Open
+    </button>
+                    <ul  x-transition:enter.origin.top.right x-cloak x-show="menuOpen"
+    x-anchor.bottom-start.offset.6="$refs.dropdownTrigger" x-on:click.away="menuOpen=false"
+    class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md absolute w-56" x-init="setChecked(['team'])">
+    <li class="px-2 py-1.5 text-sm font-semibold" >
+    My Account
+</li>                        <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                        <li role="menuitemcheckbox" aria-disabled="false" aria-label="Profile"
+    tabindex="-1"
+    class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer relative flex w-full cursor-default items-center rounded-sm py-1.5 text-sm outline-none transition-colors pl-8"
+    
+    x-data="{
+        value: 'profile',
+        triggerClick() {
+          if($el.getAttribute('aria-disabled')=='false'){
+               if (this.checked.includes(this.value)) {
+                    this.checked = this.checked.filter((row) => row != this.value)
+               } else {
+                    this.checked.push(this.value)
+               }
+          }
+        }
+    }" x-on:click="triggerClick()">
+
+    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center" x-show="checked.includes(value)" x-cloak>
+        <svg class="w-4 h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg>    </span>
+    <template x-if="checked.includes(value)">
+        <input type="hidden" name="setting[]" value="profile">
+    </template>
+    Profile
+</li>
+                        <li role="menuitemcheckbox" aria-disabled="true" aria-label="Billing"
+    tabindex="-1"
+    class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer relative flex w-full cursor-default items-center rounded-sm py-1.5 text-sm outline-none transition-colors opacity-50 !cursor-not-allowed select-none pl-8"
+    
+    x-data="{
+        value: 'billing',
+        triggerClick() {
+          if($el.getAttribute('aria-disabled')=='false'){
+               if (this.checked.includes(this.value)) {
+                    this.checked = this.checked.filter((row) => row != this.value)
+               } else {
+                    this.checked.push(this.value)
+               }
+          }
+        }
+    }" x-on:click="triggerClick()">
+
+    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center" x-show="checked.includes(value)" x-cloak>
+        <svg class="w-4 h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg>    </span>
+    <template x-if="checked.includes(value)">
+        <input type="hidden" name="setting[]" value="billing">
+    </template>
+    Billing
+</li>
+                        <li role="menuitemcheckbox" aria-disabled="false" aria-label="Team"
+    tabindex="-1"
+    class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer relative flex w-full cursor-default items-center rounded-sm py-1.5 text-sm outline-none transition-colors pl-8"
+    
+    x-data="{
+        value: 'team',
+        triggerClick() {
+          if($el.getAttribute('aria-disabled')=='false'){
+               if (this.checked.includes(this.value)) {
+                    this.checked = this.checked.filter((row) => row != this.value)
+               } else {
+                    this.checked.push(this.value)
+               }
+          }
+        }
+    }" x-on:click="triggerClick()">
+
+    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center" x-show="checked.includes(value)" x-cloak>
+        <svg class="w-4 h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg>    </span>
+    <template x-if="checked.includes(value)">
+        <input type="hidden" name="setting[]" value="team">
+    </template>
+    Team
+</li>
+                        <li role="menuitemcheckbox" aria-disabled="false" aria-label="Subscription"
+    tabindex="-1"
+    class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer relative flex w-full cursor-default items-center rounded-sm py-1.5 text-sm outline-none transition-colors pl-8"
+    
+    x-data="{
+        value: 'subscription',
+        triggerClick() {
+          if($el.getAttribute('aria-disabled')=='false'){
+               if (this.checked.includes(this.value)) {
+                    this.checked = this.checked.filter((row) => row != this.value)
+               } else {
+                    this.checked.push(this.value)
+               }
+          }
+        }
+    }" x-on:click="triggerClick()">
+
+    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center" x-show="checked.includes(value)" x-cloak>
+        <svg class="w-4 h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg>    </span>
+    <template x-if="checked.includes(value)">
+        <input type="hidden" name="setting[]" value="subscription">
+    </template>
+    Subscription
+</li>
+</ul>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::dropdown-menu&gt;
+    &lt;x-portal::dropdown-menu.trigger variant="outline"&gt;Open&lt;/x-portal::dropdown-menu.trigger&gt;
+    &lt;x-portal::dropdown-menu.content class="w-56" x-init="setChecked(['team'])"&gt;
+        &lt;x-portal::dropdown-menu.label&gt;My Account&lt;/x-portal::dropdown-menu.label&gt;
+        &lt;x-portal::dropdown-menu.separator /&gt;
+        &lt;x-portal::dropdown-menu.checkboxitem name="setting[]" value="profile"&gt;
+            Profile
+        &lt;/x-portal::dropdown-menu.checkboxitem&gt;
+        &lt;x-portal::dropdown-menu.checkboxitem name="setting[]" value="billing" disabled&gt;
+            Billing
+        &lt;/x-portal::dropdown-menu.checkboxitem&gt;
+        &lt;x-portal::dropdown-menu.checkboxitem name="setting[]" value="team"&gt;
+            Team
+        &lt;/x-portal::dropdown-menu.checkboxitem&gt;
+        &lt;x-portal::dropdown-menu.checkboxitem name="setting[]" value="subscription"&gt;
+            Subscription
+        &lt;/x-portal::dropdown-menu.checkboxitem&gt;
+    &lt;/x-portal::dropdown-menu.content&gt;
+&lt;/x-portal::dropdown-menu&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Radio Group
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    menuOpen: false,
+    checked: [],
+    selected: '',
+    setChecked(value) {
+        this.checked = value
+    },
+    setSelected(value) {
+        this.selected = value
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" x-ref="dropdownTrigger" x-on:click="menuOpen=!menuOpen"
+    >
+        Open
+    </button>
+                    <ul  x-transition:enter.origin.top.right x-cloak x-show="menuOpen"
+    x-anchor.bottom-start.offset.6="$refs.dropdownTrigger" x-on:click.away="menuOpen=false"
+    class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md absolute w-56" x-init="setSelected('team')">
+    <li class="px-2 py-1.5 text-sm font-semibold" >
+    My Account
+</li>                        <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                        <li role="menuitemcheckbox" aria-disabled="false" aria-label="Profile"
+    tabindex="-1"
+    class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer relative flex w-full cursor-default items-center rounded-sm py-1.5 text-sm outline-none transition-colors pl-8"
+    
+    x-data="{
+        value: 'profile',
+        triggerClick() {
+               if($el.getAttribute('aria-disabled')=='false'){
+                   this.selected = this.value
+               }
+               this.menuOpen = false
+        }
+    }" x-on:click="triggerClick()">
+
+    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center" x-show="selected==value" x-cloak>
+        <svg class="w-4 h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg>    </span>
+    <template x-if="selected==value">
+        <input type="hidden" name="setting_radio" value="profile">
+    </template>
+    Profile
+</li>
+                        <li role="menuitemcheckbox" aria-disabled="true" aria-label="Billing"
+    tabindex="-1"
+    class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer relative flex w-full cursor-default items-center rounded-sm py-1.5 text-sm outline-none transition-colors opacity-50 !cursor-not-allowed select-none pl-8"
+    
+    x-data="{
+        value: 'billing',
+        triggerClick() {
+               if($el.getAttribute('aria-disabled')=='false'){
+                   this.selected = this.value
+               }
+               this.menuOpen = false
+        }
+    }" x-on:click="triggerClick()">
+
+    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center" x-show="selected==value" x-cloak>
+        <svg class="w-4 h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg>    </span>
+    <template x-if="selected==value">
+        <input type="hidden" name="setting_radio" value="billing">
+    </template>
+    Billing
+</li>
+                        <li role="menuitemcheckbox" aria-disabled="false" aria-label="Team"
+    tabindex="-1"
+    class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer relative flex w-full cursor-default items-center rounded-sm py-1.5 text-sm outline-none transition-colors pl-8"
+    
+    x-data="{
+        value: 'team',
+        triggerClick() {
+               if($el.getAttribute('aria-disabled')=='false'){
+                   this.selected = this.value
+               }
+               this.menuOpen = false
+        }
+    }" x-on:click="triggerClick()">
+
+    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center" x-show="selected==value" x-cloak>
+        <svg class="w-4 h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg>    </span>
+    <template x-if="selected==value">
+        <input type="hidden" name="setting_radio" value="team">
+    </template>
+    Team
+</li>
+                        <li role="menuitemcheckbox" aria-disabled="false" aria-label="Subscription"
+    tabindex="-1"
+    class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground cursor-pointer relative flex w-full cursor-default items-center rounded-sm py-1.5 text-sm outline-none transition-colors pl-8"
+    
+    x-data="{
+        value: 'subscription',
+        triggerClick() {
+               if($el.getAttribute('aria-disabled')=='false'){
+                   this.selected = this.value
+               }
+               this.menuOpen = false
+        }
+    }" x-on:click="triggerClick()">
+
+    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center" x-show="selected==value" x-cloak>
+        <svg class="w-4 h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg>    </span>
+    <template x-if="selected==value">
+        <input type="hidden" name="setting_radio" value="subscription">
+    </template>
+    Subscription
+</li>
+</ul>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::dropdown-menu&gt;
+    &lt;x-portal::dropdown-menu.trigger variant="outline"&gt;Open&lt;/x-portal::dropdown-menu.trigger&gt;
+    &lt;x-portal::dropdown-menu.content class="w-56" x-init="setSelected('team')"&gt;
+        &lt;x-portal::dropdown-menu.label&gt;My Account&lt;/x-portal::dropdown-menu.label&gt;
+        &lt;x-portal::dropdown-menu.separator /&gt;
+        &lt;x-portal::dropdown-menu.radioitem name="setting_radio" value="profile"&gt;
+            Profile
+        &lt;/x-portal::dropdown-menu.radioitem&gt;
+        &lt;x-portal::dropdown-menu.radioitem name="setting_radio" value="billing" disabled&gt;
+            Billing
+        &lt;/x-portal::dropdown-menu.radioitem&gt;
+        &lt;x-portal::dropdown-menu.radioitem name="setting_radio" value="team"&gt;
+            Team
+        &lt;/x-portal::dropdown-menu.radioitem&gt;
+        &lt;x-portal::dropdown-menu.radioitem name="setting_radio" value="subscription"&gt;
+            Subscription
+        &lt;/x-portal::dropdown-menu.radioitem&gt;
+    &lt;/x-portal::dropdown-menu.content&gt;
+&lt;/x-portal::dropdown-menu&gt;</code></pre>
+</div>
+</div>
+</div>
+
+      
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Submenus
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div x-data="{
+    menuOpen: false,
+    checked: [],
+    selected: '',
+    setChecked(value) {
+        this.checked = value
+    },
+    setSelected(value) {
+        this.selected = value
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" x-ref="dropdownTrigger" x-on:click="menuOpen=!menuOpen"
+    >
+        Open
+    </button>
+                    <ul  x-transition:enter.origin.top.right x-cloak x-show="menuOpen"
+    x-anchor.bottom-start.offset.6="$refs.dropdownTrigger" x-on:click.away="menuOpen=false"
+    class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md absolute w-56">
+    <li class="px-2 py-1.5 text-sm font-semibold" >
+    My Account
+</li>                        <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                        <li
+    role="none"
+    x-data="{
+        open : false,
+    }"
+    class="focus-within:bg-accent focus-within:text-accent-foreground"
+    x-on:mouseenter="open=true"
+    x-on:mouseleave="open=false"
+>
+    <div role="menuitem" aria-haspopup="true" aria-disabled="false" 
+    tabindex="-1"
+    class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+     x-ref="dropdownSubTrigger"
+    >
+    <span>
+        Invite
+    </span>
+    <svg class="ml-auto size-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 6l6 6l-6 6" />
+</svg></div>
+                            <ul x-dropdown-menu:subitems x-transition:enter.origin.top.right
+    x-anchor.right-start="$refs.dropdownSubTrigger" x-cloak x-show="open" 
+    class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md">
+    <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Profile
+    </div>
+</li>
+<span class="space-x-2"></span>                                <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Team
+    </div>
+</li>
+<span class="space-x-2"></span>
+</ul>
+</li>
+                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center hover:text-red-600 hover:bg-red-50 focus:text-red-600 focus:bg-red-50 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Subscription
+    </div>
+</li>
+<span class="space-x-2"></span>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Profile
+    </div>
+</li>
+<span class="space-x-2"></span>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Team
+    </div>
+</li>
+<span class="space-x-2"></span>                        <li
+    role="none"
+    x-data="{
+        open : false,
+    }"
+    class="focus-within:bg-accent focus-within:text-accent-foreground"
+    x-on:mouseenter="open=true"
+    x-on:mouseleave="open=false"
+>
+    <div role="menuitem" aria-haspopup="true" aria-disabled="false" 
+    tabindex="-1"
+    class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+     x-ref="dropdownSubTrigger"
+    >
+    <span>
+        Invite User
+    </span>
+    <svg class="ml-auto size-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 6l6 6l-6 6" />
+</svg></div>
+                            <ul x-dropdown-menu:subitems x-transition:enter.origin.top.right
+    x-anchor.right-start="$refs.dropdownSubTrigger" x-cloak x-show="open" 
+    class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md">
+    <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Profile
+    </div>
+</li>
+<span class="space-x-2"></span>                                <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Team
+    </div>
+</li>
+<span class="space-x-2"></span>                                <li
+    role="none"
+    x-data="{
+        open : false,
+    }"
+    class="focus-within:bg-accent focus-within:text-accent-foreground"
+    x-on:mouseenter="open=true"
+    x-on:mouseleave="open=false"
+>
+    <div role="menuitem" aria-haspopup="true" aria-disabled="false" 
+    tabindex="-1"
+    class="hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+     x-ref="dropdownSubTrigger"
+    >
+    <span>
+        User
+    </span>
+    <svg class="ml-auto size-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 6l6 6l-6 6" />
+</svg></div>
+                                    <ul x-dropdown-menu:subitems x-transition:enter.origin.top.right
+    x-anchor.right-start="$refs.dropdownSubTrigger" x-cloak x-show="open" 
+    class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md">
+    <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Profile
+    </div>
+</li>
+<span class="space-x-2"></span>                                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <div class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors"
+        >
+        Team
+    </div>
+</li>
+<span class="space-x-2"></span>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::dropdown-menu&gt;
+    &lt;x-portal::dropdown-menu.trigger variant="outline"&gt;Open&lt;/x-portal::dropdown-menu.trigger&gt;
+    &lt;x-portal::dropdown-menu.content class="w-56"&gt;
+        &lt;x-portal::dropdown-menu.label&gt;My Account&lt;/x-portal::dropdown-menu.label&gt;
+        &lt;x-portal::dropdown-menu.separator /&gt;
+        &lt;x-portal::dropdown-menu.sub&gt;
+            &lt;x-portal::dropdown-menu.sub.trigger&gt;
+                Invite
+            &lt;/x-portal::dropdown-menu.sub.trigger&gt;
+            &lt;x-portal::dropdown-menu.sub.content&gt;
+                &lt;x-portal::dropdown-menu.item&gt;Profile&lt;/x-portal::dropdown-menu.item&gt;
+                &lt;x-portal::dropdown-menu.item&gt;Team&lt;/x-portal::dropdown-menu.item&gt;
+            &lt;/x-portal::dropdown-menu.sub.content&gt;
+        &lt;/x-portal::dropdown-menu.sub&gt;
+        &lt;x-portal::dropdown-menu.item variant="danger"&gt;Subscription&lt;/x-portal::dropdown-menu.item&gt;
+        &lt;x-portal::dropdown-menu.item&gt;Profile&lt;/x-portal::dropdown-menu.item&gt;
+        &lt;x-portal::dropdown-menu.item&gt;Team&lt;/x-portal::dropdown-menu.item&gt;
+        &lt;x-portal::dropdown-menu.sub&gt;
+            &lt;x-portal::dropdown-menu.sub.trigger&gt;
+                Invite User
+            &lt;/x-portal::dropdown-menu.sub.trigger&gt;
+            &lt;x-portal::dropdown-menu.sub.content&gt;
+                &lt;x-portal::dropdown-menu.item&gt;Profile&lt;/x-portal::dropdown-menu.item&gt;
+                &lt;x-portal::dropdown-menu.item&gt;Team&lt;/x-portal::dropdown-menu.item&gt;
+                &lt;x-portal::dropdown-menu.sub&gt;
+                    &lt;x-portal::dropdown-menu.sub.trigger&gt;
+                        User
+                    &lt;/x-portal::dropdown-menu.sub.trigger&gt;
+                    &lt;x-portal::dropdown-menu.sub.content&gt;
+                        &lt;x-portal::dropdown-menu.item&gt;Profile&lt;/x-portal::dropdown-menu.item&gt;
+                        &lt;x-portal::dropdown-menu.item&gt;Team&lt;/x-portal::dropdown-menu.item&gt;
+                    &lt;/x-portal::dropdown-menu.sub.content&gt;
+                &lt;/x-portal::dropdown-menu.sub&gt;
+            &lt;/x-portal::dropdown-menu.sub.content&gt;
+        &lt;/x-portal::dropdown-menu.sub&gt;
+    &lt;/x-portal::dropdown-menu.content&gt;
+&lt;/x-portal::dropdown-menu&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        
+    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

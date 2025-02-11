@@ -1,0 +1,2890 @@
+
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal UI : Form</title>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"/>
+     <link href="assets/portal-ui.css" rel="stylesheet"/>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/anchor@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs-okaidia-theme@0.0.1/prism-okaidia.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css">
+    <script src="assets/ckeditor/ckeditor.js"></script>
+     <style>
+          pre *,
+          code * {
+              font-family: 'Fira Code' !important;
+              font-size: 14px !important;
+          }
+     
+          .language-markup .namespace {
+               opacity: 1;
+          }
+     </style>
+     <link rel="stylesheet" href="assets/flatpickr.css">
+     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+     <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+     <script src="assets/datepicker.js"></script>
+     <script>
+         window.addEventListener("load",(function(){window["wysiwyg_quill_editor"],window["quill_quill_editor"]=new Quill("#quill_editor_quill_editor",{modules:{toolbar:[[{font:[]}],[{header:[1,2,3,4,5,6,!1]}],["bold","italic","underline","strike"],["blockquote"],[{list:"ordered"},{list:"bullet"}],[{indent:"-1"},{indent:"+1"}],[{direction:"rtl"}],[{color:[]},{background:[]}],[{align:[]}],["clean","image"]]},placeholder:"",theme:"snow"}),window["quill_quill_editor"].on("text-change",(function(e,n,l){document.getElementById("quill_editor_quill_editor_value").value=window["quill_quill_editor"].container.firstChild.innerHTML}))}));
+     </script>
+     <script>
+         window.addEventListener("load",(function(){CKEDITOR.disableAutoInline=!0,CKEDITOR.config.height="150",window["ckeditor_ck_editor"]=CKEDITOR.replace("ckeditor_ck_editor",{filebrowserUploadUrl:"ckeditor/upload",removeButtons:"",editorplaceholder:"",on:{instanceReady:function(e){e.editor.container.$.classList.add("rounded-md","overflow-hidden","!border-input")},fileUploadRequest:function(e){e.data.fileLoader.xhr.setRequestHeader("X-CSRF-TOKEN",document.querySelector('meta[name="csrf-token"]').content)}}})}));
+     </script>
+     <script>
+          document.documentElement.classList.toggle(
+               "dark",
+               localStorage.theme === "dark" ||
+               (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+          );
+     </script>
+</head>
+
+
+
+<body class="px-6" x-data="{
+    showTooltip(){
+         
+    }
+}">
+    <div class="container flex flex-col h-screen">
+        <header
+    class="flex h-16 shrink-0 items-center gap-2 transition-[height,padding] ease-linear group-has-[[data-state=collapsed]]/sidebar-wrapper:h-12 sticky top-0 bg-background z-10">
+    <div class="flex items-center gap-2 px-4 w-full">
+        <h3 class="font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight mb-5">
+                Portal UI
+            </h3>
+
+            <div class="ml-auto flex items-center space-x-4">
+                <div x-data="{
+    theme: localStorage.theme,
+    toggleTheme() {
+        var val = this.theme == 'dark' ? 'light' : 'dark'
+        this.theme = val
+        localStorage.theme = val;
+        document.documentElement.classList.toggle('dark');
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 !rounded-full w-10 !px-2" type="button" x-on:click="toggleTheme"
+    >
+        <svg x-show="theme!='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-sun"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+  <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+</svg>        <svg x-show="theme=='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-moon"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+</svg>
+    </button>
+</div>
+            </div>
+    </div>
+</header>
+        <div class="flex py-7 flex-1 h-full overflow-hidden">
+            <nav class="border-r w-[250px] px-3 overflow-auto">
+                <ul>
+                    <li>
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Getting Started
+                        </span>
+                        <ol>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="index.html">
+        Introduction
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="installation.html">
+        Installation
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="theming.html">
+        Theming
+    </a>
+</li>
+                        </ol>
+                    </li>
+                    <li class="mt-4">
+                        <span class="px-2 py-1.5 font-semibold text-md -ml-1 inline-block">
+                            Components
+                        </span>
+                        <ol>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="accordion.html">
+        Accordion
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert.html">
+        Alert
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert-dialog.html">
+        Alert Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="avatar.html">
+        Avatar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="badge.html">
+        Badge
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="breadcrumb.html">
+        Breadcrumb
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="button.html">
+        Button
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="ckeditor.html">
+        CK Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="card.html">
+        Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="checkbox.html">
+        Checkbox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="combobox.html">
+        Combobox
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="command.html">
+        Command
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="datepicker.html">
+        Date Picker
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dialog.html">
+        Dialog
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dropdown.html">
+        Dropdown
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="fileupload.html">
+        File Upload
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="form.html" active="active">
+        Form
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="heading.html">
+        Heading
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="hovercard.html">
+        Hover Card
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="input.html">
+        Input
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="label.html">
+        Label
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="link.html">
+        Link
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="otp.html">
+        OTP / PIN
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="pagination.html">
+        Pagination
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="popover.html">
+        Popover
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="progress.html">
+        Progress
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="quilleditor.html">
+        Quill Editor
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="radio.html">
+        Radio
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="select.html">
+        Select
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="separator.html">
+        Separator
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sheet.html">
+        Sheet
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sidebar.html">
+        Sidebar
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="switch.html">
+        Switch
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="table.html">
+        Table
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tabs.html">
+        Tabs
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="textarea.html">
+        Textarea
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="toast.html">
+        Toast
+    </a>
+</li>
+                                                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tooltip.html">
+        Tooltip
+    </a>
+</li>
+                                                    </ol>
+                    </li>
+                </ul>
+            </nav>
+            <div class="px-8 flex-1 overflow-auto">
+                <div>
+        <h3 class="font-heading text-2xl font-semibold">
+            Form
+        </h3>
+        <p class="text-md text-zinc-500">
+            Building forms.
+        </p>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <form x-data="{ submited: false }" x-on:submit="submited=true" class="space-y-5 w-[400px]" action="{{ route('form.action') }}" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="_token" value="UcgWbCM1jCGopvVgAiS9JOn8z6W9QbIqe7T6AlFu" autocomplete="off">                    <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    Username
+</label>
+
+        <div x-data="{ inputValue: '', inputType: 'text', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" name="username" placeholder="shadcn"
+        name="username" placeholder="shadcn"         x-model="inputValue" />
+    
+</div>
+    </div>
+                    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 px-4 py-2" x-bind:loading="submited" type="submit"
+     x-data="{ loading: '' ? true : false }" x-on:click="setTimeout(()=>{loading = Boolean($el.getAttribute('loading'))},1)" x-bind:disabled="loading" >
+            <svg x-cloak="1" x-show="loading" class="h-4 w-4 animate-spin"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-loader-2"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 3a9 9 0 1 0 9 9" />
+</svg>        Submit
+    </button>
+</form>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form action="{{ route('form.action') }}" method="POST" enctype="multipart/form-data"&gt;
+    @csrf
+    &lt;x-portal::form.input name="username" label="Username" placeholder="shadcn" type="text" /&gt;
+    &lt;x-portal::button x-bind:loading="submited" type="submit"&gt;Submit&lt;/x-portal::button&gt;
+&lt;/x-portal::form&gt;</code></pre>
+</div>
+</div>
+</div>
+
+<h3 class="font-heading text-xl font-semibold mt-5">
+    Publishing Component
+</h3>
+<p class="text-sm text-zinc-500">
+    If you want to customize the components, you can publish them by running the following command :
+</p>
+<pre class=" rounded-lg whitespace-nowrap"><code class="language-sh">php artisan vendor:publish --tag=portal-ui:form --force</code></pre>
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            With Description
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[400px]">
+                    <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    Email
+</label>
+
+            <p class="text-[0.8rem] text-muted-foreground">
+    Your active company email address
+</p>
+        <div x-data="{ inputValue: '', inputType: 'email', copied: false,viewed:false }" class="relative w-full block group-input">
+            
+            <input x-bind:type="inputType"
+        class="flex w-full rounded-md bg-transparent text-sm transition-colors  file:mr-4 file:border-r file:border-input file:bg-background file:px-3 file:py-2.5 file:text-xs file:font-semibold hover:file:bg-accent file:mt-[-9px] file:ml-[-16px] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input text-primary h-10 px-4 py-2" name="email" placeholder="Input your email address"
+        name="email" placeholder="Input your email address"         x-model="inputValue" />
+    
+</div>
+
+
+            <p class="text-[0.8rem] text-muted-foreground">
+    This email must be a valid email address
+</p>
+    </div>
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form.input 
+    name="email" 
+    type="email"
+    label="Email" 
+    placeholder="Input your email address"
+    description="Your active company email address"
+    description-trailing="This email must be a valid email address" 
+/&gt;</code></pre>
+</div>
+</div>
+</div>
+
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Select
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[400px]">
+                    <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    City
+</label>
+
+        <div x-data class="relative w-full">
+     <div
+         class="absolute hover:bg-accent pointer-events-none select-none m-1 h-[85%] text-zinc-400 flex items-center justify-center rounded-sm w-10 p-[12px] right-0">
+         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"  class="lucide lucide-chevrons-up-down ml-auto">
+    <path d="m7 15 5 5 5-5"></path>
+    <path d="m7 9 5-5 5 5"></path>
+</svg>
+     </div>
+    <select
+        class="flex w-full rounded-md text-sm transition-colors bg-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input h-10 px-4 py-2" name="city" placeholder="shadcn"
+        name="city" placeholder="shadcn">
+        <option value="Select a fruit" selected disabled>
+                            Select a fruit
+                        </option>
+                        <option value="apple">Apple</option>
+                        <option value="banana">Banana</option>
+                        <option value="blueberry">Blueberry</option>
+                        <option value="grapes">Grapes</option>
+                        <option value="pineapple">Pineapple</option>
+    </select>
+</div>
+    </div>
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form.select 
+    name="city" 
+    label="City" 
+    placeholder="shadcn" 
+    description=""  
+    description-trailing=""    
+&gt;
+    &lt;option value="Select a fruit" selected disabled&gt;
+        Select a fruit
+    &lt;/option&gt;
+    &lt;option value="apple"&gt;Apple&lt;/option&gt;
+    &lt;option value="banana"&gt;Banana&lt;/option&gt;
+    &lt;option value="blueberry"&gt;Blueberry&lt;/option&gt;
+    &lt;option value="grapes"&gt;Grapes&lt;/option&gt;
+    &lt;option value="pineapple"&gt;Pineapple&lt;/option&gt;
+&lt;/x-portal::form.select&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Combobox
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[400px]">
+                    <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    User
+</label>
+
+        <div x-data="{
+    open: false,
+    search: '',
+    value: '',
+    label: '',
+    items: [],
+    filtered: [],
+    addItem(el) {
+        const selected = el.getAttribute('selected')
+        this.items.push(this.getElementContent(el))
+        this.filtered = this.items
+        if (selected) {
+            this.value = el.getAttribute('data-value')
+            this.label = el.innerHTML
+        }
+    },
+    filter() {
+        this.filtered = this.items.filter((row) => row.toLowerCase().includes(this.search.toLowerCase()))
+    },
+    getElementContent(el) {
+        return el.innerText.replace(/(^\s*)|(\s*$)/gi, '').replace(/[ ]{2,}/gi, ' ').replace(/\n +/, '\n')
+    },
+    selectItem(el) {
+        const value = el.getAttribute('data-value')
+        const content = el.innerHTML
+        this.open = false
+        this.value = value
+        this.label = content
+        this.search = ''
+        this.filtered = this.items
+    }
+}" class="relative">
+    <input type="hidden" name="user" x-model="value">
+    <button type="button" class="w-full border rounded-md border-input flex items-center file:bg-transparent file:text-sm file:font-medium cursor-pointer h-10 px-4 text-sm" x-on:click="open=!open"
+        x-ref="combobox">
+        <div class="flex items-center justify-between w-full">
+            <span class="text-muted-foreground select-none" x-show="label==''">
+                Select User
+            </span>
+            <span x-html="label" x-show="label!=''" class="flex gap-2"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"  class="lucide lucide-chevrons-up-down ml-auto opacity-50 h-4 mr-[-5px]">
+    <path d="m7 15 5 5 5-5"></path>
+    <path d="m7 9 5-5 5 5"></path>
+</svg>
+        </div>
+    </button>
+    <div class="sm:hidden fixed inset-0 bg-black/80 transition-opacity" aria-hidden="true" x-cloak x-show="open"
+        x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-300"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+    <div class="sm:relative fixed inset-0 z-10 sm:w-full w-screen flex items-end" x-show="open" x-cloak >
+        <div x-show="open" x-cloak x-anchor.bottom-start="$refs.combobox" x-on:click.away="open=false"
+            x-transition:enter-end="translate-y-0"
+            class="absolute bg-background border rounded-md text-left right-0 w-full z-10 mt-2 mb-2 shadow-md max-h-[50vh] overflow-auto combobox-content">
+            <div class="max-h-[300px] overflow-auto py-1 px-1">
+    <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mr. Brody Hartmann">
+        Mr. Brody Hartmann
+    </button>
+    <svg x-cloak="1" x-show="value=='Mr. Brody Hartmann'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Linwood Torphy II">
+        Linwood Torphy II
+    </button>
+    <svg x-cloak="1" x-show="value=='Linwood Torphy II'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Reyna Brekke">
+        Reyna Brekke
+    </button>
+    <svg x-cloak="1" x-show="value=='Reyna Brekke'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Christa Turner V">
+        Dr. Christa Turner V
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Christa Turner V'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Marques Rosenbaum">
+        Marques Rosenbaum
+    </button>
+    <svg x-cloak="1" x-show="value=='Marques Rosenbaum'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Walter Quitzon">
+        Walter Quitzon
+    </button>
+    <svg x-cloak="1" x-show="value=='Walter Quitzon'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Raymundo Koch DDS">
+        Raymundo Koch DDS
+    </button>
+    <svg x-cloak="1" x-show="value=='Raymundo Koch DDS'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Itzel Witting">
+        Itzel Witting
+    </button>
+    <svg x-cloak="1" x-show="value=='Itzel Witting'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Darren Heathcote">
+        Darren Heathcote
+    </button>
+    <svg x-cloak="1" x-show="value=='Darren Heathcote'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Domenic Hackett">
+        Domenic Hackett
+    </button>
+    <svg x-cloak="1" x-show="value=='Domenic Hackett'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Tyrique Hoeger V">
+        Dr. Tyrique Hoeger V
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Tyrique Hoeger V'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Uriah Dietrich">
+        Dr. Uriah Dietrich
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Uriah Dietrich'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Christian Torphy">
+        Christian Torphy
+    </button>
+    <svg x-cloak="1" x-show="value=='Christian Torphy'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mckenzie Satterfield">
+        Mckenzie Satterfield
+    </button>
+    <svg x-cloak="1" x-show="value=='Mckenzie Satterfield'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mateo Zulauf">
+        Mateo Zulauf
+    </button>
+    <svg x-cloak="1" x-show="value=='Mateo Zulauf'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Devon Runte">
+        Devon Runte
+    </button>
+    <svg x-cloak="1" x-show="value=='Devon Runte'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Irwin Haley">
+        Irwin Haley
+    </button>
+    <svg x-cloak="1" x-show="value=='Irwin Haley'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Edwin Schaden">
+        Prof. Edwin Schaden
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Edwin Schaden'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Alexandro Wiegand II">
+        Alexandro Wiegand II
+    </button>
+    <svg x-cloak="1" x-show="value=='Alexandro Wiegand II'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mrs. Estrella Shanahan I">
+        Mrs. Estrella Shanahan I
+    </button>
+    <svg x-cloak="1" x-show="value=='Mrs. Estrella Shanahan I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Miss Catharine Lebsack IV">
+        Miss Catharine Lebsack IV
+    </button>
+    <svg x-cloak="1" x-show="value=='Miss Catharine Lebsack IV'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Ansel O&amp;#039;Hara II">
+        Prof. Ansel O&#039;Hara II
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Ansel O&amp;#039;Hara II'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Kattie Goldner">
+        Kattie Goldner
+    </button>
+    <svg x-cloak="1" x-show="value=='Kattie Goldner'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Aliyah Huel">
+        Aliyah Huel
+    </button>
+    <svg x-cloak="1" x-show="value=='Aliyah Huel'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mr. Cyril Feeney I">
+        Mr. Cyril Feeney I
+    </button>
+    <svg x-cloak="1" x-show="value=='Mr. Cyril Feeney I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Ward Kub">
+        Prof. Ward Kub
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Ward Kub'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Elna Hand">
+        Elna Hand
+    </button>
+    <svg x-cloak="1" x-show="value=='Elna Hand'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Daron Schimmel Jr.">
+        Daron Schimmel Jr.
+    </button>
+    <svg x-cloak="1" x-show="value=='Daron Schimmel Jr.'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Alysa Donnelly">
+        Alysa Donnelly
+    </button>
+    <svg x-cloak="1" x-show="value=='Alysa Donnelly'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Elroy Emard">
+        Elroy Emard
+    </button>
+    <svg x-cloak="1" x-show="value=='Elroy Emard'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Alfredo Ernser">
+        Alfredo Ernser
+    </button>
+    <svg x-cloak="1" x-show="value=='Alfredo Ernser'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Paris McGlynn">
+        Paris McGlynn
+    </button>
+    <svg x-cloak="1" x-show="value=='Paris McGlynn'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Yessenia Koepp">
+        Yessenia Koepp
+    </button>
+    <svg x-cloak="1" x-show="value=='Yessenia Koepp'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Luther Waelchi">
+        Luther Waelchi
+    </button>
+    <svg x-cloak="1" x-show="value=='Luther Waelchi'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Chelsea Collier PhD">
+        Prof. Chelsea Collier PhD
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Chelsea Collier PhD'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Zita Kozey">
+        Zita Kozey
+    </button>
+    <svg x-cloak="1" x-show="value=='Zita Kozey'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mrs. Marina Sporer IV">
+        Mrs. Marina Sporer IV
+    </button>
+    <svg x-cloak="1" x-show="value=='Mrs. Marina Sporer IV'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Miss Lea Bartell">
+        Miss Lea Bartell
+    </button>
+    <svg x-cloak="1" x-show="value=='Miss Lea Bartell'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Eddie Parisian">
+        Eddie Parisian
+    </button>
+    <svg x-cloak="1" x-show="value=='Eddie Parisian'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Hannah Parisian">
+        Hannah Parisian
+    </button>
+    <svg x-cloak="1" x-show="value=='Hannah Parisian'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Lennie Schimmel">
+        Lennie Schimmel
+    </button>
+    <svg x-cloak="1" x-show="value=='Lennie Schimmel'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mr. Johnny Olson">
+        Mr. Johnny Olson
+    </button>
+    <svg x-cloak="1" x-show="value=='Mr. Johnny Olson'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mr. Tatum Eichmann">
+        Mr. Tatum Eichmann
+    </button>
+    <svg x-cloak="1" x-show="value=='Mr. Tatum Eichmann'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Tanya Stracke">
+        Tanya Stracke
+    </button>
+    <svg x-cloak="1" x-show="value=='Tanya Stracke'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Arianna Cole">
+        Arianna Cole
+    </button>
+    <svg x-cloak="1" x-show="value=='Arianna Cole'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Destin Rodriguez DVM">
+        Prof. Destin Rodriguez DVM
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Destin Rodriguez DVM'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Miguel Mitchell">
+        Miguel Mitchell
+    </button>
+    <svg x-cloak="1" x-show="value=='Miguel Mitchell'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Rashawn Batz">
+        Prof. Rashawn Batz
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Rashawn Batz'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Simone Cronin">
+        Simone Cronin
+    </button>
+    <svg x-cloak="1" x-show="value=='Simone Cronin'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Tremaine Bogisich">
+        Dr. Tremaine Bogisich
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Tremaine Bogisich'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Mr. Carol Huels I">
+        Mr. Carol Huels I
+    </button>
+    <svg x-cloak="1" x-show="value=='Mr. Carol Huels I'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Brittany Monahan">
+        Brittany Monahan
+    </button>
+    <svg x-cloak="1" x-show="value=='Brittany Monahan'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Oleta Waelchi">
+        Oleta Waelchi
+    </button>
+    <svg x-cloak="1" x-show="value=='Oleta Waelchi'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Katelynn Durgan">
+        Katelynn Durgan
+    </button>
+    <svg x-cloak="1" x-show="value=='Katelynn Durgan'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Dr. Esperanza Miller IV">
+        Dr. Esperanza Miller IV
+    </button>
+    <svg x-cloak="1" x-show="value=='Dr. Esperanza Miller IV'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Rita Mosciski">
+        Rita Mosciski
+    </button>
+    <svg x-cloak="1" x-show="value=='Rita Mosciski'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Jamey Roberts">
+        Jamey Roberts
+    </button>
+    <svg x-cloak="1" x-show="value=='Jamey Roberts'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Devan Conn">
+        Devan Conn
+    </button>
+    <svg x-cloak="1" x-show="value=='Devan Conn'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Vivien Becker">
+        Prof. Vivien Becker
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Vivien Becker'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+                                                                                <div class="relative">
+    <button type="button" aria-label="option"
+        class="flex gap-2 w-full text-start hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground px-2 py-1.5 text-sm rounded-md"
+        x-on:click="selectItem($el)" x-init="addItem($el)" x-show="filtered.includes(getElementContent($el))"
+        data-value="Prof. Jayden Heidenreich">
+        Prof. Jayden Heidenreich
+    </button>
+    <svg x-cloak="1" x-show="value=='Prof. Jayden Heidenreich'" class="h-4 w-4 absolute right-3 top-2"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 12l5 5l10 -10" />
+</svg></div>
+</div>
+            <div class="py-6 text-center text-sm" cmdk-empty="" role="presentation" x-show="!filtered.length" x-cloak>
+                No  items found.
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form.combobox 
+    name="user" 
+    label="User"
+    placeholder="Select User" 
+    description=""  
+    description-trailing="" 
+    :search="false"
+&gt;
+    @for($i = 0; $i &lt; 60; $i++)
+        @php
+            @$name = fake()-&gt;name;
+        @endphp
+        &lt;x-portal::combobox.option value="{{ $name }}"&gt;
+            {{ $name }}
+        &lt;/x-portal::combobox.option&gt;
+    @endfor
+&lt;/x-portal::form.combobox&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Textarea
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[400px]">
+                    <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    Address
+</label>
+
+        <textarea rows="3"
+    class="flex w-full rounded-md bg-transparent text-sm transition-colors  placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-input px-4 py-2 resize-y" name="address" placeholder="Enter your location address"
+    name="address" placeholder="Enter your location address"></textarea>
+    </div>
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form.textarea 
+    name="address" 
+    label="Address" 
+    placeholder="Enter your location address" 
+    description=""  
+    description-trailing=""
+/&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Date Picker
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[400px]">
+                    <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    Published Date
+</label>
+
+        <div class="relative">
+    <input class="w-full border rounded-md border-input flex items-center shadow-smx file:bg-transparent file:text-sm file:font-medium  h-10 px-4 text-sm" placeholder="yyyy-mm-dd" type="date" name="published_date" />
+            <svg class="opacity-50 h-5 absolute right-4 top-2.5 pointer-events-none"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="currentColor"
+  class="icon icon-tabler icons-tabler-filled icon-tabler-calendar-week"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M16 2c.183 0 .355 .05 .502 .135l.033 .02c.28 .177 .465 .49 .465 .845v1h1a3 3 0 0 1 2.995 2.824l.005 .176v12a3 3 0 0 1 -2.824 2.995l-.176 .005h-12a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-12a3 3 0 0 1 2.824 -2.995l.176 -.005h1v-1a1 1 0 0 1 .514 -.874l.093 -.046l.066 -.025l.1 -.029l.107 -.019l.12 -.007q .083 0 .161 .013l.122 .029l.04 .012l.06 .023c.328 .135 .568 .44 .61 .806l.007 .117v1h6v-1a1 1 0 0 1 1 -1m3 7h-14v9.625c0 .705 .386 1.286 .883 1.366l.117 .009h12c.513 0 .936 -.53 .993 -1.215l.007 -.16z" />
+  <path d="M9.015 13a1 1 0 0 1 -1 1a1.001 1.001 0 1 1 -.005 -2c.557 0 1.005 .448 1.005 1" />
+  <path d="M13.015 13a1 1 0 0 1 -1 1a1.001 1.001 0 1 1 -.005 -2c.557 0 1.005 .448 1.005 1" />
+  <path d="M17.02 13a1 1 0 0 1 -1 1a1.001 1.001 0 1 1 -.005 -2c.557 0 1.005 .448 1.005 1" />
+  <path d="M12.02 15a1 1 0 0 1 0 2a1.001 1.001 0 1 1 -.005 -2z" />
+  <path d="M9.015 16a1 1 0 0 1 -1 1a1.001 1.001 0 1 1 -.005 -2c.557 0 1.005 .448 1.005 1" />
+</svg>    </div>
+    </div>
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form.group 
+    label="Published Date" 
+    name="published_date" 
+    description=""
+    description-trailing=""
+&gt;
+    &lt;x-portal::datepicker placeholder="yyyy-mm-dd" type="date" name="published_date"/&gt;
+&lt;/x-portal::form.group&gt;</code></pre>
+</div>
+</div>
+</div>
+
+        
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Checkbox
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[400px]">
+                    <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    Notification
+</label>
+
+        <div class="flex gap-3 flex-col">
+                            <label for="newsletter"
+    class="space-x-2 checkbox-item peer-disabled:cursor-not-allowed peer-disabled:opacity-3 group has-[:checked]:border-zinc-800 cursor-pointer bg-background">
+    <input type="checkbox"
+        class="peer rounded-[.3rem] h-4.5 w-4.5 shrink-0 checked:text-primary dark:bg-background dark:checked:bg-white disabled:cursor-not-allowed disabled:opacity-50" id="newsletter" value="newsletter" name="checkbox[]" />
+
+            <span
+            class="text-sm font-medium select-none text-zinc-800 dark:text-white peer-disabled:cursor-not-allowed peer-disabled:opacity-30">
+            Newsletter
+        </span>
+            
+</label>
+                            <label for="updates"
+    class="space-x-2 checkbox-item peer-disabled:cursor-not-allowed peer-disabled:opacity-3 group has-[:checked]:border-zinc-800 cursor-pointer bg-background">
+    <input type="checkbox"
+        class="peer rounded-[.3rem] h-4.5 w-4.5 shrink-0 checked:text-primary dark:bg-background dark:checked:bg-white disabled:cursor-not-allowed disabled:opacity-50" id="updates" value="updates" name="checkbox[]" />
+
+            <span
+            class="text-sm font-medium select-none text-zinc-800 dark:text-white peer-disabled:cursor-not-allowed peer-disabled:opacity-30">
+            Product updates
+        </span>
+            
+</label>
+                            <label for="invitations"
+    class="space-x-2 checkbox-item peer-disabled:cursor-not-allowed peer-disabled:opacity-3 group has-[:checked]:border-zinc-800 cursor-pointer bg-background">
+    <input type="checkbox"
+        class="peer rounded-[.3rem] h-4.5 w-4.5 shrink-0 checked:text-primary dark:bg-background dark:checked:bg-white disabled:cursor-not-allowed disabled:opacity-50" id="invitations" value="invitations" name="checkbox[]" />
+
+            <span
+            class="text-sm font-medium select-none text-zinc-800 dark:text-white peer-disabled:cursor-not-allowed peer-disabled:opacity-30">
+            Event invitations
+        </span>
+            
+</label>
+                        </div>
+    </div>
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form.group 
+    label="Notification" 
+    name="notification" 
+    description=""
+    description-trailing=""
+&gt;
+    &lt;div class="flex gap-3 flex-col"&gt;
+        &lt;x-portal::checkbox 
+            id="newsletter" 
+            value="newsletter" 
+            name="checkbox[]" 
+            label="Newsletter" 
+        /&gt;
+        &lt;x-portal::checkbox 
+            id="updates"
+            value="updates" 
+            name="checkbox[]" 
+            label="Product updates"
+        /&gt;
+        &lt;x-portal::checkbox 
+            id="invitations" 
+            value="invitations" 
+            name="checkbox[]"
+            label="Event invitations" 
+        /&gt;
+    &lt;/div&gt;
+&lt;/x-portal::form.group&gt;</code></pre>
+</div>
+</div>
+</div>
+
+        
+
+        
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Radio
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div class="w-[400px]">
+                    <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    Radio
+</label>
+
+        <div class="flex gap-3 flex-col">
+                            <label for="newsletter_radio"
+    class="space-x-2 checkbox-item peer-disabled:cursor-not-allowed peer-disabled:opacity-3 group has-[:checked]:border-zinc-800 cursor-pointer bg-background">
+    <input type="radio"
+        class="peer rounded-full h-4.5 w-4.5 shrink-0 checked:text-primary dark:bg-background dark:checked:bg-white disabled:cursor-not-allowed disabled:opacity-50" id="newsletter_radio" value="newsletter" name="radio" />
+
+            <span
+            class="text-sm font-medium select-none text-zinc-800 dark:text-white peer-disabled:cursor-not-allowed peer-disabled:opacity-30">
+            Newsletter
+        </span>
+            
+</label>
+                            <label for="updates_radio"
+    class="space-x-2 checkbox-item peer-disabled:cursor-not-allowed peer-disabled:opacity-3 group has-[:checked]:border-zinc-800 cursor-pointer bg-background">
+    <input type="radio"
+        class="peer rounded-full h-4.5 w-4.5 shrink-0 checked:text-primary dark:bg-background dark:checked:bg-white disabled:cursor-not-allowed disabled:opacity-50" id="updates_radio" value="updates" name="radio" />
+
+            <span
+            class="text-sm font-medium select-none text-zinc-800 dark:text-white peer-disabled:cursor-not-allowed peer-disabled:opacity-30">
+            Product updates
+        </span>
+            
+</label>
+                            <label for="invitations_radio"
+    class="space-x-2 checkbox-item peer-disabled:cursor-not-allowed peer-disabled:opacity-3 group has-[:checked]:border-zinc-800 cursor-pointer bg-background">
+    <input type="radio"
+        class="peer rounded-full h-4.5 w-4.5 shrink-0 checked:text-primary dark:bg-background dark:checked:bg-white disabled:cursor-not-allowed disabled:opacity-50" id="invitations_radio" value="invitations" name="radio" />
+
+            <span
+            class="text-sm font-medium select-none text-zinc-800 dark:text-white peer-disabled:cursor-not-allowed peer-disabled:opacity-30">
+            Event invitations
+        </span>
+            
+</label>
+                        </div>
+    </div>
+                </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form.group 
+    label="Radio" 
+    name="radio" 
+    description=""
+    description-trailing=""
+&gt;
+    &lt;div class="flex gap-3 flex-col"&gt;
+        &lt;x-portal::radio 
+            id="newsletter_radio" 
+            value="newsletter" 
+            name="radio" 
+            label="Newsletter" 
+        /&gt;
+        &lt;x-portal::radio 
+            id="updates_radio" 
+            value="updates" 
+            name="radio" 
+            label="Product updates" 
+        /&gt;
+        &lt;x-portal::radio 
+            id="invitations_radio" 
+            value="invitations"
+            name="radio"
+            label="Event invitations" 
+        /&gt;
+    &lt;/div&gt;
+&lt;/x-portal::form.group&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+
+         
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Quill Editor
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    Quill Editor
+</label>
+
+        <div>
+    <div id="quill_editor_quill_editor" style="height: 150px"
+        class="!border-input rounded-b-md">
+        
+    </div>
+    <textarea name="quill_editor" id="quill_editor_quill_editor_value" class="hidden"></textarea>
+</div>
+    </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form.group 
+    label="Quill Editor" 
+    name="quill_editor" 
+    description=""
+    description-trailing=""
+&gt;
+    &lt;x-portal::editor name="quill_editor" height="150"&gt;Default Value&lt;/x-portal::editor&gt;
+&lt;/x-portal::form.group&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            CKEditor
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    CKEditor
+</label>
+
+        <textarea name="ck_editor" id="ckeditor_ck_editor"
+    class="hidden editor-ckeditor">VALUE</textarea>
+    </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form.group 
+    label="CKEditor" 
+    name="ck_editor" 
+    description=""
+    description-trailing=""
+&gt;
+    &lt;x-portal::editor.ckeditor name="ck_editor" height="150"&gt;Default Value&lt;/x-portal::editor.ckeditor&gt;
+&lt;/x-portal::form.group&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            File Upload
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    File upload in form
+</label>
+
+        <div x-data="{
+    filename: '',
+    filesize: '',
+    maxFileSize: Number('2'),
+    listenerFileChange($el, $event) {
+        const files = $el.files
+        const file = files[0]
+        if (file) {
+            const fileType = file.type
+            if (this.maxFileSize > 0 && file.size / 1000000 > Number(this.maxFileSize)) {
+                alert(`File size cannot be more than ${this.maxFileSize}MB`)
+                $el.value = '';
+                this.filename = ''
+                this.filesize = ''
+                return
+            }
+            const acceptedTypes = $el.getAttribute('accept').split(',');
+            const fileTypeValid = acceptedTypes.some(type => {
+                if (type.includes('*')) {
+                    return file.type.startsWith(type.split('/')[0]);
+                }
+                return file.type === type;
+            });
+            if (!fileTypeValid) {
+                alert('File format is invalid')
+                $el.value = '';
+                this.filename = ''
+                this.filesize = ''
+                return
+            }
+
+            this.filename = file.name
+            this.filesize = this.formatFileSize(file.size);
+        } else {
+            this.filename = ''
+            this.filesize = ''
+        }
+    },
+    dropListener($el, $event) {
+        $el.classList.remove('border-primary', 'border-solid')
+    },
+    formatFileSize(size) {
+        const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+        let i = 0;
+        while (size >= 1024 && i < units.length - 1) {
+            size /= 1024;
+            i++;
+        }
+        return size.toFixed(2) + ' ' + units[i];
+    }
+}">
+    <div class="relative w-[400px] h-[100px] border-2 border-dashed rounded-md border-input flex cursor-pointer" required="required"
+        x-on:dragover="$el.classList.add('border-primary','border-solid')"
+        x-on:dragleave="$el.classList.remove('border-primary','border-solid')" x-on:drop="dropListener($el,$event)">
+        <div class="w-[25%] h-full border-r-2 border-dashed flex items-center justify-center shrink-0">
+            <svg class="h-12 w-12 text-primary"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-file-type-pdf"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+  <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" />
+  <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6" />
+  <path d="M17 18h2" />
+  <path d="M20 15h-3v6" />
+  <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z" />
+</svg>        </div>
+        <div class="grid items-center  p-3">
+            <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-500 truncate pb-[3px]">
+    <span x-show="!filename" x-cloak>
+                    Drag and drop a file or click to browse
+                </span>
+                <span x-show="filename" x-cloak x-html="filename"></span>
+</label>
+            <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-xs text-gray-500">
+    <span x-show="!filesize" x-cloak>
+                    Only PDF file are accepted
+                </span>
+                <span x-show="filesize" x-cloak x-html="filesize"></span>
+</label>
+        </div>
+
+        <input type="file" x-ref="inputFile" name="file_upload" accept="application/pdf"
+            class="absolute h-full w-full opacity-0 cursor-pointer" x-on:change="listenerFileChange($el,$event)"
+            required />
+    </div>
+</div>
+    </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form.group 
+    label="File upload in form" 
+    name="file_upload" 
+    description=""
+    description-trailing=""
+&gt;
+    &lt;x-portal::file-upload 
+        icon="file-type-pdf" 
+        required 
+        maxsize="2" 
+        name="file_upload" 
+        accept="application/pdf" 
+        description="Only PDF file are accepted"
+    /&gt;
+&lt;/x-portal::form.group&gt;</code></pre>
+</div>
+</div>
+</div>
+
+
+        <br><br>
+        <h3 class="font-heading text-xl font-semibold mt-5">
+            Image Upload
+        </h3>
+        <div x-data="{ active: 'preview' }" class="mt-5">
+    <div class="flex gap-1 h-10 border-zinc-800/10 dark:border-white/20 border-b">
+    <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='preview'" x-bind:active="active=='preview'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'preview',
+        'text-zinc-400': active!='preview'
+    }">
+    Preview
+</button>
+        <button type="button" aria-label="tabs" class="w-full text-sm hover:text-primary !w-[100px] !font-semibold"
+    x-on:click="active='code'" x-bind:active="active=='code'"
+    x-bind:class="{
+        'border-b border-primary text-primary mb-[-1px]': active == 'code',
+        'text-zinc-400': active!='code'
+    }">
+    Code
+</button>
+</div>
+
+    <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
+
+          <div  class="space-y-2">
+    <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 block">
+    Image upload in form
+</label>
+
+        <div x-data="{
+    preview: '',
+    maxFileSize: Number('2'),
+    listenerFileChange($el, $event) {
+        const files = $el.files
+        const file = files[0]
+        if (file) {
+            const fileType = file.type
+            if (this.maxFileSize >0 && file.size / 1000000 > Number(this.maxFileSize)) {
+                alert(`File size cannot be more than ${this.maxFileSize}MB`)
+                $el.value = '';
+                this.preview = ''
+                return
+            }
+            if (!fileType.includes('image/')) {
+                alert('File is not falid image file')
+                $el.value = '';
+                this.preview = ''
+                return
+            }
+            let output = 'jpeg'
+            if (fileType.includes('/png')) {
+                output = fileType
+            }
+            this.preview = URL.createObjectURL(file)
+        } else {
+            this.preview = ''
+        }
+    },
+    dropListener($el, $event) {
+        $el.classList.remove('border-primary', 'border-solid')
+    }
+}">
+    <div class="border-2 border-dashed bg-center bg-contain bg-no-repeat border-gray-200 relative rounded-lg flex flex-col gap-1 p-6 items-center text-center justify-center cursor-pointer w-[400px] h-[150px]" required="required"
+       x-on:dragover="$el.classList.add('border-primary','border-solid')"
+        x-on:dragleave="$el.classList.remove('border-primary','border-solid')" x-on:drop="dropListener($el,$event)"
+        x-bind:style="{ backgroundImage: `url(${preview})` }">
+        <svg x-bind:class="{ 'opacity-50': preview }" class="mb-2 h-8 w-8"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-photo"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M15 8h.01" />
+  <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z" />
+  <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
+  <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
+</svg>        <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-gray-500" x-bind:class="{ 'opacity-50': preview }">
+    Drag and drop a file or click to browse
+</label>
+        <label     class="text-sm font-medium text-primary leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-xs text-gray-500" x-bind:class="{ 'opacity-50': preview }">
+    Only image format are accepted, up to 2MB
+</label>
+        <input type="file" x-ref="inputFile" name="image_upload" accept="image/*"
+            class="absolute h-full w-full opacity-0 cursor-pointer" x-on:change="listenerFileChange($el,$event)"
+            required />
+    </div>
+</div>
+    </div>
+
+        </div>
+</div>
+
+    <div x-cloak x-show="active=='code'" class="py-2">
+    <div class="code">
+<pre><code class="language-markup">&lt;x-portal::form.group 
+    label="Image upload in form" 
+    name="image_upload" 
+    description=""
+    description-trailing=""
+&gt;
+    &lt;x-portal::file-upload.image
+        required 
+        maxsize="2" 
+        name="image_upload"
+    /&gt;
+&lt;/x-portal::form.group&gt;</code></pre>
+</div>
+</div>
+</div>
+
+    </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

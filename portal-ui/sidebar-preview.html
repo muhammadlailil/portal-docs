@@ -1,0 +1,1099 @@
+
+<!doctype html>
+<html class="dark">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Portal UI : Sidebr</title>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"/>
+     <link href="assets/portal-ui.css" rel="stylesheet"/>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/anchor@3.x.x/dist/cdn.min.js"></script>
+     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+     <script>
+          document.documentElement.classList.toggle(
+               "dark",
+               localStorage.theme === "dark" ||
+               (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches),
+          );
+     </script>
+ </head>
+
+<body>
+    <div x-data="{
+    state: 'expanded',
+    sidebarMobile : 'close',
+    tooltip: false,
+    dropdownOpen: false,
+    tooltipLabel: '',
+    tooltipPosition: {
+        top: 0,
+        left: 0,
+    },
+    toggleSidebar() {
+        const screen = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+        if(screen>=768){
+            this.state = this.state == 'expanded' ? 'collapsed' : 'expanded'
+        }else{
+            this.state = 'expanded';
+            this.sidebarMobile = this.sidebarMobile=='close' ? 'open' : 'close'
+        }
+    },
+    openDropdown() {
+        if (this.state == 'collapsed') {
+            setTimeout(()=>{
+                this.dropdownOpen = true
+            },1)
+        }
+    },
+    showTooltip(label, $el) {
+        var rect = $el.getBoundingClientRect();
+        this.tooltipPosition = {
+            left: rect.left + 40,
+            top: rect.top + 7
+        }
+        this.tooltip = true
+        this.tooltipLabel = label
+    },
+}" class="relative flex min-h-svh flex-col bg-background">
+    <div class="themes-wrapper bg-background">
+        <div class="group/sidebar-wrapper flex min-h-svh w-full has-[[data-variant=inset]]:bg-sidebar">
+            <div class="group peer text-sidebar-foreground fixed md:relative transition-[left,right,width] duration-500 z-1"
+    x-bind:data-state="state" x-bind:data-mobile="sidebarMobile">
+    <div
+        class="w-[var(--sidebar-width)] group-data-[state=collapsed]:w-[var(--sidebar-width-icon)] bg-transparent transition-[left,right,width] duration-200 ease-linear">
+    </div>
+    <div class="bg-black/80 md:!hidden w-screen h-screen fixed hidden group-data-[mobile=open]:block transition-[left,display] duration-200 ease-linear" x-on:click="sidebarMobile='close'"></div>
+    <div
+        class="md:left-0 left-[-100%] group-data-[mobile=open]:left-0 fixed w-[var(--sidebar-width)] transition-[left,right,width] duration-200 ease-linear border-r h-full group-data-[state=collapsed]:w-[var(--sidebar-width-icon)]">
+        <div class="bg-sidebar flex h-full w-full flex-col">
+            <div
+    class="flex flex-col gap-2 p-2 group-data-[state=collapsed]:!p-0 transition-[padding] duration-200">
+    <div class="flex w-full min-w-0 flex-col gap-1">
+        <a href=""
+            class="flex gap-2 p-2 focus:ring-2 rounded-md hover:bg-sidebar-accent  transition-[left,right,width] duration-200">
+            <img src="assets/logo.jpg" alt="Portal UI" class="rounded-lg size-8 shrink-0">
+            <div class="grid flex-1 text-left text-sm leading-tight">
+                <span class="truncate font-semibold">
+                    Portal UI
+                </span>
+                <span class="truncate text-xs">
+                    Administrator
+                </span>
+            </div>
+        </a>
+    </div>
+</div>
+            <div class="flex min-h-0 flex-1 flex-col gap-2"
+    x-bind:class="{
+        'overflow-hidden group-data-[state=expanded]:!overflow-auto': !dropdownOpen
+    }">
+    <div class="relative flex w-full min-w-0 flex-col p-2">
+    <div
+    class="px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring py-2 group-data-[state=collapsed]:-mt-8 group-data-[state=collapsed]:opacity-0 transition-[opacity,margin] duration-200">
+    General
+</div>
+                    <ul class="flex w-full min-w-0 flex-col">
+    <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('Dashboard',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        <svg class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-layout-dashboard"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 4h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1" />
+  <path d="M5 16h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" />
+  <path d="M15 12h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1" />
+  <path d="M15 4h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" />
+</svg>                            Dashboard
+    </a>
+</li>
+                        <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('Task',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        <svg class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-checklist"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
+  <path d="M14 19l2 2l4 -4" />
+  <path d="M9 8h4" />
+  <path d="M9 12h2" />
+</svg>                            Task
+    </a>
+</li>
+                        <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('Apps',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        <svg class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-packages"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M7 16.5l-5 -3l5 -3l5 3v5.5l-5 3z" />
+  <path d="M2 13.5v5.5l5 3" />
+  <path d="M7 16.545l5 -3.03" />
+  <path d="M17 16.5l-5 -3l5 -3l5 3v5.5l-5 3z" />
+  <path d="M12 19l5 3" />
+  <path d="M17 16.5l5 -3" />
+  <path d="M12 13.5v-5.5l-5 -3l5 -3l5 3v5.5" />
+  <path d="M7 5.03v5.455" />
+  <path d="M12 8l5 -3" />
+</svg>                            Apps
+    </a>
+</li>
+                        <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('Chats',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        <svg class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-messages"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" />
+  <path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" />
+</svg>                            Chats
+                            <div
+    class="inline-flex items-center border font-semibold bg-primary text-primary-foreground shadow rounded-full px-1 py-0 text-xs">
+    3
+</div>
+    </a>
+</li>
+                        <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('Users',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        <svg class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-users"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  <path d="M21 21v-2a4 4 0 0 0 -3 -3.85" />
+</svg>                            Users
+    </a>
+</li>
+</ul>
+</div>
+
+                <div class="relative flex w-full min-w-0 flex-col p-2">
+    <div
+    class="px-2 text-xs font-medium text-sidebar-foreground/70 outline-none ring-sidebar-ring py-2 group-data-[state=collapsed]:-mt-8 group-data-[state=collapsed]:opacity-0 transition-[opacity,margin] duration-200">
+    Pages
+</div>
+                    <ul class="flex w-full min-w-0 flex-col">
+    <li class="group/menu-item relative" x-data="{ collapse: Boolean('1'), menuOpen: false }">
+    <button type="button" x-on:click="collapse=!collapse;menuOpen=!menuOpen;openDropdown()"
+        x-on:mouseover="showTooltip('Auth',$el)" x-on:mouseleave="tooltip=false;" x-ref="dropdownTrigger"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 relative">
+        <svg class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-lock-access"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 8v-2a2 2 0 0 1 2 -2h2" />
+  <path d="M4 16v2a2 2 0 0 0 2 2h2" />
+  <path d="M16 4h2a2 2 0 0 1 2 2v2" />
+  <path d="M16 20h2a2 2 0 0 0 2 -2v-2" />
+  <path d="M8 11m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" />
+  <path d="M10 11v-2a2 2 0 1 1 4 0v2" />
+</svg>        Auth
+        <svg x-bind:class="{ 'rotate-90': collapse }" class="absolute right-2 top-2 h-4.5 w-4.5 transition-all dura group-data-[state=collapsed]:opacity-0"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 6l6 6l-6 6" />
+</svg>    </button>
+    <template x-if="state=='expanded'">
+        <ul class="mx-3.5 flex min-w-0 translate-x-px flex-col  border-l border-sidebar-border px-2.5 py-0.5" x-cloak
+            x-show="collapse" x-collapse>
+            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="" active="active">
+        Sign In
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Sign In (2 Col)
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Sign Up
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Forgot Password
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        OTP
+    </a>
+</li>
+        </ul>
+    </template>
+    <template x-if="state=='collapsed' ">
+        <ul x-transition:enter.origin.top.right x-cloak x-show="menuOpen"
+            x-anchor.right-start.offset.6="$refs.dropdownTrigger" x-on:click.away="menuOpen=false;dropdownOpen=false"
+            class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md absolute w-fit">
+            <li class="px-2 py-1.5 text-sm font-semibold" >
+    Auth
+</li>            <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="" active="active">
+        Sign In
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Sign In (2 Col)
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Sign Up
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Forgot Password
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        OTP
+    </a>
+</li>
+        </ul>
+    </template>
+</li>
+                        <li class="group/menu-item relative" x-data="{ collapse: Boolean(''), menuOpen: false }">
+    <button type="button" x-on:click="collapse=!collapse;menuOpen=!menuOpen;openDropdown()"
+        x-on:mouseover="showTooltip('Documentation',$el)" x-on:mouseleave="tooltip=false;" x-ref="dropdownTrigger"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 relative">
+        <svg class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-book"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+  <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+  <path d="M3 6l0 13" />
+  <path d="M12 6l0 13" />
+  <path d="M21 6l0 13" />
+</svg>        Documentation
+        <svg x-bind:class="{ 'rotate-90': collapse }" class="absolute right-2 top-2 h-4.5 w-4.5 transition-all dura group-data-[state=collapsed]:opacity-0"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 6l6 6l-6 6" />
+</svg>    </button>
+    <template x-if="state=='expanded'">
+        <ul class="mx-3.5 flex min-w-0 translate-x-px flex-col  border-l border-sidebar-border px-2.5 py-0.5" x-cloak
+            x-show="collapse" x-collapse>
+            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Introducing
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Get Started
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Instalation
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Tutorials
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Changelog
+    </a>
+</li>
+        </ul>
+    </template>
+    <template x-if="state=='collapsed' ">
+        <ul x-transition:enter.origin.top.right x-cloak x-show="menuOpen"
+            x-anchor.right-start.offset.6="$refs.dropdownTrigger" x-on:click.away="menuOpen=false;dropdownOpen=false"
+            class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md absolute w-fit">
+            <li class="px-2 py-1.5 text-sm font-semibold" >
+    Documentation
+</li>            <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Introducing
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Get Started
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Instalation
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Tutorials
+    </a>
+</li>
+                            <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        Changelog
+    </a>
+</li>
+        </ul>
+    </template>
+</li>
+</ul>
+</div>
+</div>
+
+            <div class="flex flex-col p-2">
+    <ul class="flex w-full min-w-0 flex-col">
+    <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('Integragion',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        <svg class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-layout-dashboard"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 4h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1" />
+  <path d="M5 16h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" />
+  <path d="M15 12h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1" />
+  <path d="M15 4h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" />
+</svg>                        Integragion
+    </a>
+</li>
+                    <li class="group/menu-item relative" >
+    <a
+        x-on:mouseover="showTooltip('Task',$el)"
+        x-on:mouseleave="tooltip=false"
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="">
+        <svg class="icon"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-checklist"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9.615 20h-2.615a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8" />
+  <path d="M14 19l2 2l4 -4" />
+  <path d="M9 8h4" />
+  <path d="M9 12h2" />
+</svg>                        Task
+    </a>
+</li>
+</ul>
+
+                <div class="flex w-full min-w-0 flex-col gap-1">
+    <div x-data="{
+    menuOpen: false,
+    checked: [],
+    selected: '',
+    setChecked(value) {
+        this.checked = value
+    },
+    setSelected(value) {
+        this.selected = value
+    }
+}" >
+    <button type="button"
+            class="flex gap-2 p-2 group-data-[state=collapsed]:!p-0 transition-[padding] duration-200 rounded-md hover:bg-sidebar-accent items-center justify-between w-full"
+            x-ref="dropdownTrigger" x-on:click="menuOpen=!menuOpen">
+            <span x-data="{
+    showFallback: false,
+    showImage: false,
+    applyState() {
+        if (!$refs.image) {
+            this.showFallback = true;
+            return
+        }
+        if (!$refs.image.complete) return
+
+        this.showFallback = $refs.image.naturalWidth === 0 || $refs.image.naturalHeight === 0
+        this.showImage = !this.showFallback
+    },
+}" x-init="$nextTick(() => applyState())"
+    class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full !rounded-lg !h-8 !w-8">
+    <img
+    x-show="showImage"
+    x-ref="image"
+    x-cloak
+    x-init="$el.addEventListener('error', () => applyState());
+    $el.addEventListener('load', () => applyState());"
+    class="aspect-square h-full w-full !rounded-lg !border" src="https://ui.shadcn.com/avatars/shadcn.jpg" alt="shadcn"
+/>                <span x-cloak x-show="showFallback"
+    class="flex h-full w-full items-center justify-center rounded-full bg-muted !rounded-lg !border">
+    CN
+</span>
+</span>
+            <div class="grid flex-1 text-left text-sm leading-tight">
+                <span class="truncate font-semibold">
+                    shadcn
+                </span>
+                <span class="truncate text-xs">
+                    m@example.com
+                </span>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"  class="lucide lucide-chevrons-up-down ml-auto h-4">
+    <path d="m7 15 5 5 5-5"></path>
+    <path d="m7 9 5-5 5 5"></path>
+</svg>
+        </button>
+        <ul  x-transition:enter.origin.top.right x-cloak x-show="menuOpen"
+    x-anchor.right-end.offset.6="$refs.dropdownTrigger" x-on:click.away="menuOpen=false"
+    class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md absolute w-56">
+    <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                <span x-data="{
+    showFallback: false,
+    showImage: false,
+    applyState() {
+        if (!$refs.image) {
+            this.showFallback = true;
+            return
+        }
+        if (!$refs.image.complete) return
+
+        this.showFallback = $refs.image.naturalWidth === 0 || $refs.image.naturalHeight === 0
+        this.showImage = !this.showFallback
+    },
+}" x-init="$nextTick(() => applyState())"
+    class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full !rounded-lg !h-8 !w-8">
+    <img
+    x-show="showImage"
+    x-ref="image"
+    x-cloak
+    x-init="$el.addEventListener('error', () => applyState());
+    $el.addEventListener('load', () => applyState());"
+    class="aspect-square h-full w-full !rounded-lg !border" src="https://ui.shadcn.com/avatars/shadcn.jpg" alt="shadcn"
+/>                    <span x-cloak x-show="showFallback"
+    class="flex h-full w-full items-center justify-center rounded-full bg-muted !rounded-lg !border">
+    CN
+</span>
+</span>
+                <div class="grid flex-1 text-left text-sm leading-tight">
+                    <span class="truncate font-semibold">
+                        shadcn
+                    </span>
+                    <span class="truncate text-xs">
+                        m@example.com
+                    </span>
+                </div>
+            </div>
+            <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                    <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-sparkles"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z" />
+</svg>                        Upgrade to Pro
+    </a>
+</li>
+<span class="space-x-2"></span>                    <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                    <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-rosette-discount-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 7.2a2.2 2.2 0 0 1 2.2 -2.2h1a2.2 2.2 0 0 0 1.55 -.64l.7 -.7a2.2 2.2 0 0 1 3.12 0l.7 .7c.412 .41 .97 .64 1.55 .64h1a2.2 2.2 0 0 1 2.2 2.2v1c0 .58 .23 1.138 .64 1.55l.7 .7a2.2 2.2 0 0 1 0 3.12l-.7 .7a2.2 2.2 0 0 0 -.64 1.55v1a2.2 2.2 0 0 1 -2.2 2.2h-1a2.2 2.2 0 0 0 -1.55 .64l-.7 .7a2.2 2.2 0 0 1 -3.12 0l-.7 -.7a2.2 2.2 0 0 0 -1.55 -.64h-1a2.2 2.2 0 0 1 -2.2 -2.2v-1a2.2 2.2 0 0 0 -.64 -1.55l-.7 -.7a2.2 2.2 0 0 1 0 -3.12l.7 -.7a2.2 2.2 0 0 0 .64 -1.55v-1" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>                        Account
+    </a>
+</li>
+<span class="space-x-2"></span>                    <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" />
+  <path d="M3 10l18 0" />
+  <path d="M7 15l.01 0" />
+  <path d="M11 15l2 0" />
+</svg>                        Billing
+    </a>
+</li>
+<span class="space-x-2"></span>                    <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-bell"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
+  <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+</svg>                        Notification
+    </a>
+</li>
+<span class="space-x-2"></span>                    <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                    <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <button class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center hover:text-red-600 hover:bg-red-50 focus:text-red-600 focus:bg-red-50 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" type="button"
+        type="button">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-logout"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+  <path d="M9 12h12l-3 -3" />
+  <path d="M18 15l3 -3" />
+</svg>                        Logout
+    </button>
+</li>
+<span class="space-x-2"></span>
+</ul>
+</div>
+</div>
+</div>
+        </div>
+    </div>
+</div>
+
+        <div class="w-full flex flex-col">
+            <header
+    class="flex h-16 shrink-0 items-center gap-2 transition-[height,padding] ease-linear group-has-[[data-state=collapsed]]/sidebar-wrapper:h-12 sticky top-0 bg-background">
+    <div class="flex items-center gap-2 px-4 w-full">
+        <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 !py-1.5 !px-1.5 h-fit w-7 -ml-1" type="button" x-on:click="toggleSidebar()"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="lucide lucide-panel-left">
+        <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+        <path d="M9 3v18"></path>
+    </svg>
+    </button>
+                <div aria-orientation="vertical"
+        class="border-0 [print-color-adjust:exact] bg-border shrink-0 w-px h-full !h-4 me-2"
+        >
+    </div>
+                <div class="md:block hidden">
+                    <nav aria-label="breadcrumb"class="flex">
+    <div class="flex items-center text-sm group/breadcrumb">
+            <a href="/" class="text-gray-500 dark:text-white hover:underline decoration-zinc-800/20 underline-offset-4">
+            Building Your Application
+        </a>
+                    <svg class="shrink-0 [:where(&)]:size-3.5 mx-2 text-zinc-600 dark:text-white/80 group-last/breadcrumb:hidden"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 6l6 6l-6 6" />
+</svg>    </div>
+                        <div class="flex items-center text-sm group/breadcrumb">
+            <div class=" dark:text-white/80 text-zinc-800 font-medium">
+            Data Fetching
+        </div>
+                    <svg class="shrink-0 [:where(&)]:size-3.5 mx-2 text-zinc-600 dark:text-white/80 group-last/breadcrumb:hidden"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 6l6 6l-6 6" />
+</svg>    </div>
+</nav>
+                </div>
+
+                <div class="ml-auto flex items-center space-x-4">
+                    <div x-data="{
+    theme: localStorage.theme,
+    toggleTheme() {
+        var val = this.theme == 'dark' ? 'light' : 'dark'
+        this.theme = val
+        localStorage.theme = val;
+        document.documentElement.classList.toggle('dark');
+    }
+}" >
+    <button class="inline-flex items-center gap-1 justify-center whitespace-nowrap rounded-md cursor-pointer text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 !rounded-full w-10 !px-2" type="button" x-on:click="toggleTheme"
+    >
+        <svg x-show="theme!='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-sun"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 12m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+  <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
+</svg>        <svg x-show="theme=='dark'" x-cloak="1" class="h-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-moon"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+</svg>
+    </button>
+</div>
+                    <div class="flex w-full min-w-0 flex-col gap-1">
+    <div x-data="{
+    menuOpen: false,
+    checked: [],
+    selected: '',
+    setChecked(value) {
+        this.checked = value
+    },
+    setSelected(value) {
+        this.selected = value
+    }
+}" class="flex items-center">
+    <button type="button" class="rounded-full" x-ref="dropdownTrigger" x-on:click="menuOpen=!menuOpen">
+            <span x-data="{
+    showFallback: false,
+    showImage: false,
+    applyState() {
+        if (!$refs.image) {
+            this.showFallback = true;
+            return
+        }
+        if (!$refs.image.complete) return
+
+        this.showFallback = $refs.image.naturalWidth === 0 || $refs.image.naturalHeight === 0
+        this.showImage = !this.showFallback
+    },
+}" x-init="$nextTick(() => applyState())"
+    class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full !h-8 !w-8">
+    <img
+    x-show="showImage"
+    x-ref="image"
+    x-cloak
+    x-init="$el.addEventListener('error', () => applyState());
+    $el.addEventListener('load', () => applyState());"
+    class="aspect-square h-full w-full !rounded-lg !border" src="https://ui.shadcn.com/avatars/shadcn.jpg" alt="shadcn"
+/>                <span x-cloak x-show="showFallback"
+    class="flex h-full w-full items-center justify-center rounded-full bg-muted !rounded-lg !border">
+    CN
+</span>
+</span>
+        </button>
+        <ul  x-transition:enter.origin.top.right x-cloak x-show="menuOpen"
+    x-anchor.bottom-end.offset.6="$refs.dropdownTrigger" x-on:click.away="menuOpen=false"
+    class="z-50 min-w-[8rem] rounded-md border bg-popover p-1 text-popover-foreground shadow-md absolute w-56">
+    <div class="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                <span x-data="{
+    showFallback: false,
+    showImage: false,
+    applyState() {
+        if (!$refs.image) {
+            this.showFallback = true;
+            return
+        }
+        if (!$refs.image.complete) return
+
+        this.showFallback = $refs.image.naturalWidth === 0 || $refs.image.naturalHeight === 0
+        this.showImage = !this.showFallback
+    },
+}" x-init="$nextTick(() => applyState())"
+    class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full !rounded-lg !h-8 !w-8">
+    <img
+    x-show="showImage"
+    x-ref="image"
+    x-cloak
+    x-init="$el.addEventListener('error', () => applyState());
+    $el.addEventListener('load', () => applyState());"
+    class="aspect-square h-full w-full !rounded-lg !border" src="https://ui.shadcn.com/avatars/shadcn.jpg" alt="shadcn"
+/>                    <span x-cloak x-show="showFallback"
+    class="flex h-full w-full items-center justify-center rounded-full bg-muted !rounded-lg !border">
+    CN
+</span>
+</span>
+                <div class="grid flex-1 text-left text-sm leading-tight">
+                    <span class="truncate font-semibold">
+                        shadcn
+                    </span>
+                    <span class="truncate text-xs">
+                        m@example.com
+                    </span>
+                </div>
+            </div>
+            <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-sparkles"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z" />
+</svg>                            Upgrade to Pro
+    </a>
+</li>
+<span class="space-x-2"></span>                        <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-rosette-discount-check"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M5 7.2a2.2 2.2 0 0 1 2.2 -2.2h1a2.2 2.2 0 0 0 1.55 -.64l.7 -.7a2.2 2.2 0 0 1 3.12 0l.7 .7c.412 .41 .97 .64 1.55 .64h1a2.2 2.2 0 0 1 2.2 2.2v1c0 .58 .23 1.138 .64 1.55l.7 .7a2.2 2.2 0 0 1 0 3.12l-.7 .7a2.2 2.2 0 0 0 -.64 1.55v1a2.2 2.2 0 0 1 -2.2 2.2h-1a2.2 2.2 0 0 0 -1.55 .64l-.7 .7a2.2 2.2 0 0 1 -3.12 0l-.7 -.7a2.2 2.2 0 0 0 -1.55 -.64h-1a2.2 2.2 0 0 1 -2.2 -2.2v-1a2.2 2.2 0 0 0 -.64 -1.55l-.7 -.7a2.2 2.2 0 0 1 0 -3.12l.7 -.7a2.2 2.2 0 0 0 .64 -1.55v-1" />
+  <path d="M9 12l2 2l4 -4" />
+</svg>                            Account
+    </a>
+</li>
+<span class="space-x-2"></span>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M3 5m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" />
+  <path d="M3 10l18 0" />
+  <path d="M7 15l.01 0" />
+  <path d="M11 15l2 0" />
+</svg>                            Billing
+    </a>
+</li>
+<span class="space-x-2"></span>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <a class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center  rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" href="/"
+        href="/">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-bell"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M10 5a2 2 0 1 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
+  <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+</svg>                            Notification
+    </a>
+</li>
+<span class="space-x-2"></span>                        <li class="-mx-1 my-1 h-px bg-muted" role="separator" orientation="horizontal"></li>                        <li role="menuitem" aria-disabled="false" tabindex="-1">
+    <button class="hover:bg-accent hover:text-accent-foreground focus:bg-accent cursor-pointer focus:text-accent-foreground dropdown-item flex gap-2 relative flex w-full cursor-default items-center hover:text-red-600 hover:bg-red-50 focus:text-red-600 focus:bg-red-50 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors" type="button"
+        type="button">
+        <svg class="h-4 w-4"
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="icon icon-tabler icons-tabler-outline icon-tabler-logout"
+>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+  <path d="M9 12h12l-3 -3" />
+  <path d="M18 15l3 -3" />
+</svg>                            Logout
+    </button>
+</li>
+<span class="space-x-2"></span>
+</ul>
+</div>
+</div>
+                </div>
+    </div>
+</header>
+
+            <main class="px-4 py-3 flex-1 overflow-auto">
+    <div class="font-medium text-zinc-800 dark:text-white text-2xl !font-bold">
+        Tasks
+    </div>
+                <div class="text-sm text-zinc-500 dark:text-white/70">
+    Here's a list of your tasks for this month!
+</div>
+</main>
+        </div>
+        </div>
+    </div>
+    <template x-if="state=='collapsed'">
+        <div x-cloak x-show="tooltip && tooltipLabel && !dropdownOpen"
+            class="z-2 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground w-fit absolute"
+            x-bind:class="{'hidden' : dropdownOpen}"
+            x-html="tooltipLabel"
+            x-bind:style="{
+                top: `${tooltipPosition.top}px`,
+                left: `${tooltipPosition.left}px`,
+            }">
+        </div>
+    </template>
+</div>
+</body>
+
+</html>
