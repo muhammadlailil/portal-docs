@@ -39,6 +39,7 @@
 </head>
 
 
+
 <body class="px-6" x-data="{
     showTooltip(){
          
@@ -46,7 +47,7 @@
 }">
     <div class="container flex flex-col h-screen">
         <header
-    class="flex h-16 shrink-0 items-center gap-2 transition-[height,padding] ease-linear group-has-[[data-state=collapsed]]/sidebar-wrapper:h-12 sticky top-0 bg-background z-10">
+    class="flex h-16 shrink-0 items-center z-[9] gap-2 transition-[height,padding] ease-linear group-has-[[data-state=collapsed]]/sidebar-wrapper:h-12 sticky top-0 bg-background z-10">
     <div class="flex items-center gap-2 px-4 w-full">
         <h3 class="font-heading mt-8 scroll-m-20 text-xl font-semibold tracking-tight mb-5">
                 Portal UI
@@ -107,27 +108,27 @@
                             Getting Started
                         </span>
                         <ol>
-                            <li class="group/menu-item relative" >
+                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="index.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="index.html">
         Introduction
     </a>
 </li>
-                            <li class="group/menu-item relative" >
+                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="installation.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="installation.html">
         Installation
     </a>
 </li>
-                            <li class="group/menu-item relative" >
+                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="theming.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="theming.html">
         Theming
     </a>
 </li>
@@ -138,307 +139,307 @@
                             Components
                         </span>
                         <ol>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="accordion.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="accordion.html">
         Accordion
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="alert.html">
         Alert
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="alert-dialog.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="alert-dialog.html">
         Alert Dialog
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="avatar.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="avatar.html">
         Avatar
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="badge.html" active="active">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="badge.html" active="active">
         Badge
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="breadcrumb.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="breadcrumb.html">
         Breadcrumb
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="button.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="button.html">
         Button
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="ckeditor.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="ckeditor.html">
         CK Editor
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="card.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="card.html">
         Card
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="checkbox.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="checkbox.html">
         Checkbox
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="combobox.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="combobox.html">
         Combobox
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="command.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="command.html">
         Command
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="datepicker.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="datepicker.html">
         Date Picker
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dialog.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="dialog.html">
         Dialog
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="dropdown.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="dropdown.html">
         Dropdown
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="fileupload.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="fileupload.html">
         File Upload
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="form.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="form.html">
         Form
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="heading.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="heading.html">
         Heading
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="hovercard.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="hovercard.html">
         Hover Card
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="input.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="input.html">
         Input
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="label.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="label.html">
         Label
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="link.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="link.html">
         Link
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="otp.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="otp.html">
         OTP / PIN
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="pagination.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="pagination.html">
         Pagination
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="popover.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="popover.html">
         Popover
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="progress.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="progress.html">
         Progress
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="quilleditor.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="quilleditor.html">
         Quill Editor
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="radio.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="radio.html">
         Radio
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="select.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="select.html">
         Select
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="separator.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="separator.html">
         Separator
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sheet.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="sheet.html">
         Sheet
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="sidebar.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="sidebar.html">
         Sidebar
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="switch.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="switch.html">
         Switch
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="table.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="table.html">
         Table
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tabs.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="tabs.html">
         Tabs
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="textarea.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="textarea.html">
         Textarea
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="toast.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="toast.html">
         Toast
     </a>
 </li>
-                                                            <li class="group/menu-item relative" >
+                                                            <li class="group/menu-item relative">
     <a
         x-on:mouseover="showTooltip('',$el)"
         x-on:mouseleave="tooltip=false"
-        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-sidebar-accent" href="tooltip.html">
+        class="[&amp;&gt;svg]:shrink-0 cursor-pointer text-sm flex w-full items-center gap-2 overflow-hidden rounded-md p-2 border border-transparent text-left outline-none ring-sidebar-ring hover:bg-sidebar-accent [&amp;&gt;.icon]:h-4.5 [&amp;&gt;.icon]:w-4.5 [&amp;[active]]:bg-background [&amp;[active]]:!border-input" href="tooltip.html">
         Tooltip
     </a>
 </li>
@@ -476,10 +477,10 @@
 </div>
 
     <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
-    <div class="border rounded-md py-[70px] px-11 gap-2 overflow-auto flex-wrap flex items-center justify-center">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
 
           <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-zinc-700 bg-zinc-200 border-zinc-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-zinc-700 bg-zinc-100 border-zinc-200">
     Badge
 </span>
 
@@ -526,78 +527,78 @@
 </div>
 
     <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
-    <div class="border rounded-md py-[70px] px-11 gap-2 overflow-auto flex-wrap flex items-center justify-center">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
 
           <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-zinc-700 bg-zinc-200 border-zinc-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-zinc-700 bg-zinc-100 border-zinc-200">
     default
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-red-700 bg-red-200 border-red-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-red-400 bg-red-100 border-red-200">
     red
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-orange-700 bg-orange-200 border-orange-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-orange-400 bg-orange-100 border-orange-200">
     orange
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-amber-700 bg-amber-200 border-amber-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-amber-400 bg-amber-100 border-amber-200">
     amber
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-yellow-700 bg-yellow-200 border-yellow-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-yellow-400 bg-yellow-100 border-yellow-200">
     yellow
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-lime-700 bg-lime-200 border-lime-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-lime-400 bg-lime-100 border-lime-200">
     lime
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-green-700 bg-green-200 border-green-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-green-400 bg-green-100 border-green-200">
     green
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-emerald-700 bg-emerald-200 border-emerald-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-emerald-400 bg-emerald-100 border-emerald-200">
     emerald
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-teal-700 bg-teal-200 border-teal-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-teal-400 bg-teal-100 border-teal-420">
     teal
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-cyan-700 bg-cyan-200 border-cyan-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-cyan-400 bg-cyan-100 border-cyan-420">
     cyan
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-sky-700 bg-sky-200 border-sky-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-sky-400 bg-sky-100 border-sky-420">
     sky
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-blue-700 bg-blue-200 border-blue-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-blue-400 bg-blue-100 border-blue-420">
     blue
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-indigo-700 bg-indigo-200 border-indigo-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-indigo-400 bg-indigo-100 border-indigo-420">
     indigo
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-violet-700 bg-violet-200 border-violet-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-violet-400 bg-violet-100 border-violet-420">
     violet
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-purple-700 bg-purple-200 border-purple-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-purple-400 bg-purple-100 border-purple-420">
     purple
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-fuchsia-700 bg-fuchsia-200 border-fuchsia-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-fuchsia-400 bg-fuchsia-100 border-fuchsia-420">
     fuchsia
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-pink-700 bg-pink-200 border-pink-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-pink-400 bg-pink-100 border-pink-420">
     pink
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent px-2.5 py-0.5 text-rose-700 bg-rose-200 border-rose-400">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 px-2.5 py-0.5 text-rose-400 bg-rose-100 border-rose-420">
     rose
 </span>
 
@@ -654,78 +655,78 @@
 </div>
 
     <div x-cloak x-show="active=='preview'" class="py-2 mt-3">
-    <div class="border rounded-md py-[70px] px-11 gap-2 overflow-auto flex-wrap flex items-center justify-center">
+    <div class="border rounded-md py-[70px] px-11 gap-2 flex-wrap flex items-center justify-center">
 
           <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-primary !text-primary-foreground">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-primary !text-primary-foreground">
     default
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-red-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-red-500">
     red
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-orange-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-orange-500">
     orange
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-amber-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-amber-500">
     amber
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-yellow-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-yellow-500">
     yellow
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-lime-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-lime-500">
     lime
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-green-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-green-500">
     green
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-emerald-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-emerald-500">
     emerald
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-teal-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-teal-500">
     teal
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-cyan-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-cyan-500">
     cyan
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-sky-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-sky-500">
     sky
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-blue-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-blue-500">
     blue
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-indigo-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-indigo-500">
     indigo
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-violet-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-violet-500">
     violet
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-purple-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-purple-500">
     purple
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-fuchsia-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-fuchsia-500">
     fuchsia
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-pink-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-pink-500">
     pink
 </span>
                 <span
-    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-rose-500">
+    class="inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-[600] transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 !border-transparent text-white px-2.5 py-0.5 bg-rose-500">
     rose
 </span>
 
@@ -761,7 +762,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>
